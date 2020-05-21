@@ -1,0 +1,112 @@
+* {
+    margin    : 0;
+    padding   : 0;
+    box-sizing: border-box;
+}
+
+body {
+    background        : url("../imgs/bg.png") no-repeat center 0 fixed;
+    // background     : pink;
+    background-size   : auto;
+    position          : relative;
+}
+
+// 搜索框
+.searsh {
+    position     : absolute;
+    width        : 664px;
+    left         : 50%;
+    margin-left  : -332px;
+    top          : 220px;
+    display      : flex;
+    background   : #00000000;
+    border-radius: .0875rem;
+    box-shadow   : 5px 5px 10px 5px rgba(0, 0, 0, .2);
+    animation    : myshadow1 .3s;
+
+    &:hover {
+        animation : myshadow2 .3s;
+        box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
+    }
+
+    // 切换搜索引擎按钮
+    .cgEngine {
+        width                    : 54px;
+        height                   : 54px;
+        align-items              : center;
+        display                  : flex;
+        justify-content          : center;
+        background               : rgba(255, 255, 255, .9);
+        border-top-left-radius   : .0875rem;
+        border-bottom-left-radius: .0875rem;
+        cursor                   : pointer;
+
+        img {
+            width      : 35px;
+            height     : 35px;
+            line-height: 35px;
+        }
+
+        &:hover {
+            background: #eeeeee;
+        }
+    }
+
+    // 输入框
+    .inputBar {
+        width        : 530px;
+        height       : 54px;
+        border       : 0px solid #fff;
+        outline      : 0px solid #fff;
+        font-size    : .245rem;
+        padding-left : 7px;
+        padding-right: 7px;
+        background   : rgba(255, 255, 255, .9);
+    }
+
+    // 搜索按钮
+    .searshBtn {
+        width                     : 80px;
+        border                    : 0px solid #fff;
+        background                : rgba(255, 255, 255, .9);
+        border-top-right-radius   : .0875rem;
+        border-bottom-right-radius: .0875rem;
+        font-size                 : .2rem;
+        cursor                    : pointer;
+
+        &:hover {
+            background: #eeeeee;
+        }
+
+        &:focus {
+            outline: 0px solid #00000000;
+        }
+
+        &:active {
+            background: #aaa3a3;
+        }
+    }
+
+    // 盒子阴影动画1
+    @keyframes myshadow1 {
+        0% {
+            box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
+        }
+
+        100% {
+            box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .2);
+
+        }
+    }
+
+    // 盒子阴影动画2
+    @keyframes myshadow2 {
+        0% {
+            box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .2);
+        }
+
+        100% {
+            box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
+        }
+    }
+}
