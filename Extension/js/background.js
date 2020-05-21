@@ -17,7 +17,7 @@ function init() {
     chrome.storage.sync.set({ first: 'first' });
 
     // 搜索框按钮
-    chrome.storage.sync.set({ searsh_bar_background: 'rgba(255, 255, 255, .9)' });
+    chrome.storage.sync.set({ searsh_bar_background: 'rgba(255,255,255,.9)' });
     // 搜索框距离上面高度
     chrome.storage.sync.set({ searsh_bar_margin_top: '220px' });
 
