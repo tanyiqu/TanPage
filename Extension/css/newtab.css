@@ -41,7 +41,7 @@ body {
   line-height: 35px;
 }
 .searsh .cgEngine:hover {
-  background: #eeeeee;
+  background: #eeeeee !important;
 }
 .searsh .inputBar {
   width: 530px;
@@ -63,13 +63,13 @@ body {
   cursor: pointer;
 }
 .searsh .searshBtn:hover {
-  background: #eeeeee;
+  background: #eeeeee !important;
 }
 .searsh .searshBtn:focus {
-  outline: 0px solid #00000000;
+  outline: 0px solid #00000000 !important;
 }
 .searsh .searshBtn:active {
-  background: #aaa3a3;
+  background: #aaa3a3 !important;
 }
 @keyframes myshadow1 {
   0% {
