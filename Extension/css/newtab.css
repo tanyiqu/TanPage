@@ -70,7 +70,7 @@ body {
   outline: 0px solid #00000000 !important;
 }
 .searsh .searshBtn:active {
-  background: #aaa3a3 !important;
+  background: #d9d9d9 !important;
 }
 @keyframes myshadow1 {
   0% {
@@ -109,9 +109,21 @@ body {
   height: 54px;
   line-height: 54px;
   font-size: 0.22rem;
-  padding-left: 0.1875rem;
   text-align: left;
   user-select: none;
+  display: flex;
+}
+.sugList li div {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 7px;
+}
+.sugList li img {
+  width: 24px;
+  height: 24px;
 }
 .sugList li:hover {
   background: #ededed !important;

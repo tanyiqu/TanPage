@@ -35,8 +35,7 @@ const engines = [{
     title: "Bilibili",
     url: "https://search.bilibili.com/all",
     name: "keyword"
-}
-];
+}];
 
 var searsh_bar_background;
 var searsh_bar_margin_top;
@@ -101,7 +100,7 @@ function initLinstener() {
 
 // 提交表单,动态切换搜索引擎等
 function onSearsh() {
-    // engine = 6;
+    // engine = 2;
     // chrome.storage.sync.set({ engine: 2 });
     document.querySelector(".searsh").action = engines[engine].url;
     document.querySelector(".inputBar").name = engines[engine].name;
@@ -112,14 +111,13 @@ function onInput(event) {
     var txt = event.target.value;
     var httpRequest = new XMLHttpRequest();
     refreshState();
+    // 使用百度的搜索建议
     httpRequest.open('GET', 'http://suggestion.baidu.com/su?wd=' + txt, true);
     httpRequest.send();
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
             var json = httpRequest.responseText;
-            var reg = "\\[.*?\\]";
-            var res = json.match(reg);
-            arr = JSON.parse(res);
+            arr = JSON.parse(json.match("\\[.*?\\]"));
             refreshTips();
         }
     };
@@ -146,7 +144,8 @@ function refreshTips() {
     // 添加li
     for (var i = 0; i < len; i++) {
         var id = 'sug' + (i + 1);
-        html += '<li class="sug" id="' + id + '">' + arr[i] + '</li>'
+        var src = "../imgs/{0}.png".format(i + 1);
+        html += '<li class="sug" id="{0}"><div><img src="{1}" /></div>{2}</li>'.format(id, src, arr[i]);
     }
     sugList.innerHTML = html;
 
@@ -155,11 +154,11 @@ function refreshTips() {
         var id = '#sug' + (i + 1);
         const n = i;
         document.querySelector(id).addEventListener("click", () => {
-            chrome.storage.sync.get("engine", (res) => {
-                // 获取默认搜索引擎
-                var engine = res.engine;
-                window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
-            });
+            // chrome.storage.sync.get("engine", (res) => {
+            //     // 获取默认搜索引擎
+            //     var engine = res.engine;
+            window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
+            // });
         });
     }
 
