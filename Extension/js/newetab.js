@@ -1,3 +1,12 @@
+// 搜索引擎
+// 0 百度
+// 1 多吉
+// 2 必应
+// 3 搜狗
+// 4 360
+// 5 谷歌
+// 6 BiliBili
+
 const engines = [{
     title: "百度",
     url: "http://www.baidu.com/s",
