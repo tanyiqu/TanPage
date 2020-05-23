@@ -12,7 +12,7 @@ const engines = [{
     name: "q"
 }, {
     title: "搜狗",
-    url: "https://www.sogou.com/web",
+    url: "https://www.sogou.com/sogou",
     name: "query"
 }, {
     title: "360",
@@ -23,8 +23,16 @@ const engines = [{
     url: "",
     name: ""
 }, {
-    title: "Bilibili",
+    title: "BiliBili",
     url: "https://search.bilibili.com/all",
+    name: "keyword"
+}, {
+    title: "淘宝",
+    url: "https://s.taobao.com/search",
+    name: "q"
+}, {
+    title: "京东",
+    url: "https://search.jd.com/Search",
     name: "keyword"
 }
 ];

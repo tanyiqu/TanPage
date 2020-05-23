@@ -6,6 +6,8 @@
 // 4 360
 // 5 谷歌
 // 6 BiliBili
+// 7 淘宝
+// 8 京东
 
 const engines = [{
     title: "百度",
@@ -32,10 +34,19 @@ const engines = [{
     url: "",
     name: ""
 }, {
-    title: "Bilibili",
+    title: "BiliBili",
     url: "https://search.bilibili.com/all",
     name: "keyword"
-}];
+}, {
+    title: "淘宝",
+    url: "https://s.taobao.com/search",
+    name: "q"
+}, {
+    title: "京东",
+    url: "https://search.jd.com/Search",
+    name: "keyword"
+}
+];
 
 var searsh_bar_background;
 var searsh_bar_margin_top;
@@ -101,14 +112,14 @@ function initApperance() {
     var html = "";
     var len = engines.length;
     for (var i = 0; i < len; i++) {
-        html += '<div class="engineItem"><img src="../imgs/engines/{0}.png"><p>{1}</p></div>'.format(i, engines[i].title);
+        html += '<div class="engineItem" id="engineItem{0}"><img src="../imgs/engines/{1}.png"><p>{2}</p></div>'.format(i + 1, i, engines[i].title);
     }
-
-    html += '<div class="engineItem"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
-
+    html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
     engineList.innerHTML = html;
 
+
 }
+
 
 // 添加事件
 function initLinstener() {
@@ -117,7 +128,22 @@ function initLinstener() {
 
     // 输入框文本改变
     document.querySelector(".inputBar").addEventListener("input", onInput);
+
+    // 切换搜索引擎按钮
+    var len = engines.length;
+    for (var i = 0; i < len; i++) {
+        const n = i;
+        id = "engineItem" + (n + 1);
+        var engineItem = document.getElementById(id);
+        engineItem.addEventListener("click", () => {
+            // 切换搜索引擎
+            chrome.storage.sync.set({ engine: n });
+            engine = n;
+            cgEngineImg.src = "../imgs/engines/" + engine + ".png";
+        });
+    }
 }
+
 
 // 提交表单,动态切换搜索引擎等
 function onSearsh() {
@@ -126,6 +152,7 @@ function onSearsh() {
     document.querySelector(".searsh").action = engines[engine].url;
     document.querySelector(".inputBar").name = engines[engine].name;
 }
+
 
 // 输入框文本改变
 function onInput(event) {
@@ -144,6 +171,7 @@ function onInput(event) {
         }
     };
 }
+
 
 // 刷新建议列表
 function refreshTips() {
@@ -176,11 +204,7 @@ function refreshTips() {
         var id = '#sug' + (i + 1);
         const n = i;
         document.querySelector(id).addEventListener("click", () => {
-            // chrome.storage.sync.get("engine", (res) => {
-            //     // 获取默认搜索引擎
-            //     var engine = res.engine;
             window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
-            // });
         });
     }
 
@@ -191,10 +215,10 @@ function refreshTips() {
 
 function refreshState() {
     arr = [];
-    // isSelected = false;
     currSelectLiNum = 0;
     currSelectLi = null;
 }
+
 
 // 键盘事件
 document.onkeydown = chang_page;
@@ -240,6 +264,7 @@ function chang_page(event) {
         currSelectLi.style.background = "#ededed";
     }
 }
+
 
 // 监听点击事件
 document.addEventListener("click", function (e) {

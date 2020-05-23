@@ -8,6 +8,12 @@ body {
   background-size: auto;
   position: relative;
 }
+.ck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 10px;
+}
 .searsh {
   position: absolute;
   width: 664px;
