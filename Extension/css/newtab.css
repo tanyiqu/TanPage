@@ -130,3 +130,45 @@ body {
   border-radius: 0.0875rem;
   cursor: pointer;
 }
+.engineList {
+  position: absolute;
+  width: 664px;
+  left: 50%;
+  margin-left: -332px;
+  border-radius: 0.0875rem;
+  top: 282px;
+  background: #fff;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.2);
+  animation: myshow 0.5s;
+}
+@keyframes myshow {
+  0% {
+    opacity: 0;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+.engineList .engineItem {
+  width: 13.88%;
+  height: 100px;
+  margin: 0 0.2%;
+  border-radius: 0.0875rem;
+  background: #fff;
+  float: left;
+  cursor: pointer;
+  text-align: center;
+}
+.engineList .engineItem:hover {
+  background: #eeeeee;
+}
+.engineList .engineItem img {
+  width: 60px;
+  height: 60px;
+  margin-top: 10px;
+}
+.engineList .engineItem p {
+  font-size: 14px;
+}

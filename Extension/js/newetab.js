@@ -51,7 +51,14 @@ var currSelectLi = null;
 
 var input = document.querySelector('.inputBar');
 var sugList = document.getElementById('sugList');
+
+var cgEngineBtn = document.querySelector(".cgEngine");
+var cgEngineImg = document.querySelector("#cgEngineImg");
+
+var engineList = document.getElementById('engineList');
+
 sugList.style.display = 'none';
+engineList.style.display = 'none';
 
 // 加载配置信息
 (function () {
@@ -87,6 +94,20 @@ function initApperance() {
     // 设置搜索框位置
     document.querySelector(".searsh").style.top = searsh_bar_margin_top;
 
+    // 默认搜索引擎图标
+    cgEngineImg.src = "../imgs/engines/" + engine + ".png";
+    // 加载搜索引擎列表
+    // <div class="engineItem"><img src="../imgs/engines/0.png"><p>百度</p></div>
+    var html = "";
+    var len = engines.length;
+    for (var i = 0; i < len; i++) {
+        html += '<div class="engineItem"><img src="../imgs/engines/{0}.png"><p>{1}</p></div>'.format(i, engines[i].title);
+    }
+
+    html += '<div class="engineItem"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
+
+    engineList.innerHTML = html;
+
 }
 
 // 添加事件
@@ -109,8 +130,9 @@ function onSearsh() {
 // 输入框文本改变
 function onInput(event) {
     var txt = event.target.value;
-    var httpRequest = new XMLHttpRequest();
+    engineList.style.display = 'none';
     refreshState();
+    var httpRequest = new XMLHttpRequest();
     // 使用百度的搜索建议
     httpRequest.open('GET', 'http://suggestion.baidu.com/su?wd=' + txt, true);
     httpRequest.send();
@@ -223,9 +245,24 @@ function chang_page(event) {
 document.addEventListener("click", function (e) {
     // 如果点击的是input，直接返回，否则点击其他就提示框他消失
     if (e.target == input) {
+        engineList.style.display = 'none';
         return;
     }
-    if (e.target !== sugList) {
+    if (e.target != sugList) {
         sugList.style.display = "none";
+
+    }
+
+    // 点击切换搜索引擎，这里再监听是为了点击外部消失
+    if (e.target == cgEngineBtn || e.target == cgEngineImg) {
+        if (engineList.style.display == 'block') {
+            engineList.style.display = 'none';
+        }
+        else {
+            engineList.style.display = 'block';
+        }
+    } else {
+        engineList.style.display = 'none';
     }
 });
+
