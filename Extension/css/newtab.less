@@ -23,6 +23,7 @@ body {
     border-radius: .0875rem;
     box-shadow   : 5px 5px 10px 5px rgba(0, 0, 0, .2);
     animation    : myshadow1 .3s;
+    user-select  : none;
 
     &:hover {
         animation : myshadow2 .3s;
@@ -109,4 +110,42 @@ body {
             box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
         }
     }
+}
+
+// 提示列表
+.sugList {
+    position   : absolute;
+    width      : 664px;
+    left       : 50%;
+    margin-left: -332px;
+
+    // + 8px
+    top: 282px;
+
+    ul {
+        background     : #fff;
+        width          : 664px;
+        box-shadow     : 5px 5px 10px 5px rgba(0, 0, 0, .2);
+        border-radius  : .0875rem;
+        margin         : 0 auto;
+        list-style-type: none;
+    }
+
+    li {
+        background   : fff;
+        border-radius: .0875rem;
+        height       : 54px;
+        line-height  : 54px;
+        font-size    : .22rem;
+        padding-left : .1875rem;
+        text-align   : left;
+        user-select  : none;
+    }
+
+    li:hover {
+        background   : #ededed !important;
+        border-radius: .0875rem;
+        cursor       : pointer;
+    }
+
 }

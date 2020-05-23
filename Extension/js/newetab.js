@@ -33,6 +33,18 @@ var searsh_bar_background;
 var searsh_bar_margin_top;
 var engine;
 
+// 出现的提示的li集合
+var arr = [];
+// 当前被选中的li的序号 没有选中就为0
+var currSelectLiNum = 0;
+// 当前被选中的li
+var currSelectLi = null;
+
+
+var input = document.getElementById('input');
+var sugList = document.getElementById('sugList');
+sugList.style.display = 'none';
+
 // 加载配置信息
 (function () {
     chrome.storage.sync.get(null, (res) => {
@@ -66,12 +78,16 @@ function initApperance() {
 
     // 设置搜索框位置
     document.querySelector(".searsh").style.top = searsh_bar_margin_top;
+
 }
 
 // 添加事件
 function initLinstener() {
     // 提交表单
     document.querySelector(".searsh").addEventListener("submit", onSearsh);
+
+    // 输入框文本改变
+    document.querySelector(".inputBar").addEventListener("input", onInput);
 }
 
 // 提交表单,动态切换搜索引擎等
@@ -79,4 +95,57 @@ function onSearsh() {
     // engine = 6;
     document.querySelector(".searsh").action = engines[engine].url;
     document.querySelector(".inputBar").name = engines[engine].name;
+}
+
+// 输入框文本改变
+function onInput(event) {
+    var txt = event.target.value;
+    var httpRequest = new XMLHttpRequest();
+    refreshState();
+    httpRequest.open('GET', 'http://suggestion.baidu.com/su?wd=' + txt, true);
+    httpRequest.send();
+
+    httpRequest.onreadystatechange = function () {
+        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            var json = httpRequest.responseText;
+            var reg = "\\[.*?\\]";
+            var res = json.match(reg);
+            arr = JSON.parse(res);
+            refreshTips();
+        }
+    };
+}
+
+// 刷新建议列表
+function refreshTips() {
+    // 如果没有数据
+    if (!arr || !arr.length) {
+        sugList.style.display = 'none';
+        return;
+    }
+    var len = arr.length;
+    //最多显示7条
+    if (len > 7) {
+        len = 7;
+        var arr2 = [];
+        for (var i = 0; i < 7; i++) {
+            arr2.push(arr[i]);
+        }
+        arr = arr2;
+    }
+    var html = '';
+    for (var i = 0; i < len; i++) {
+        html += '<li class="sug" id="sug' + (i + 1) + '" onclick="onLblClicked(event)">' + arr[i] + '</li>'
+    }
+
+    sugList.innerHTML = html;
+    console.log(arr);
+    sugList.style.display = 'block';
+}
+
+function refreshState() {
+    arr = [];
+    // isSelected = false;
+    currSelectLiNum = 0;
+    currSelectLi = null;
 }

@@ -19,6 +19,7 @@ body {
   border-radius: 0.0875rem;
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
   animation: myshadow1 0.3s;
+  user-select: none;
 }
 .searsh:hover {
   animation: myshadow2 0.3s;
@@ -86,4 +87,34 @@ body {
   100% {
     box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.2);
   }
+}
+.sugList {
+  position: absolute;
+  width: 664px;
+  left: 50%;
+  margin-left: -332px;
+  top: 282px;
+}
+.sugList ul {
+  background: #fff;
+  width: 664px;
+  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0.0875rem;
+  margin: 0 auto;
+  list-style-type: none;
+}
+.sugList li {
+  background: fff;
+  border-radius: 0.0875rem;
+  height: 54px;
+  line-height: 54px;
+  font-size: 0.22rem;
+  padding-left: 0.1875rem;
+  text-align: left;
+  user-select: none;
+}
+.sugList li:hover {
+  background: #ededed !important;
+  border-radius: 0.0875rem;
+  cursor: pointer;
 }
