@@ -93,6 +93,7 @@ function initLinstener() {
 // 提交表单,动态切换搜索引擎等
 function onSearsh() {
     // engine = 6;
+    // chrome.storage.sync.set({ engine: 2 });
     document.querySelector(".searsh").action = engines[engine].url;
     document.querySelector(".inputBar").name = engines[engine].name;
 }
@@ -104,7 +105,6 @@ function onInput(event) {
     refreshState();
     httpRequest.open('GET', 'http://suggestion.baidu.com/su?wd=' + txt, true);
     httpRequest.send();
-
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
             var json = httpRequest.responseText;
@@ -134,14 +134,30 @@ function refreshTips() {
         arr = arr2;
     }
     var html = '';
+    // 添加li
     for (var i = 0; i < len; i++) {
-        html += '<li class="sug" id="sug' + (i + 1) + '" onclick="onLblClicked(event)">' + arr[i] + '</li>'
+        var id = 'sug' + (i + 1);
+        html += '<li class="sug" id="' + id + '">' + arr[i] + '</li>'
+    }
+    sugList.innerHTML = html;
+
+    // 添加点击事件
+    for (var i = 0; i < len; i++) {
+        var id = '#sug' + (i + 1);
+        const n = i;
+        document.querySelector(id).addEventListener("click", () => {
+            chrome.storage.sync.get("engine", (res) => {
+                // 获取默认搜索引擎
+                var engine = res.engine;
+                window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
+            });
+        });
     }
 
-    sugList.innerHTML = html;
-    console.log(arr);
     sugList.style.display = 'block';
+
 }
+
 
 function refreshState() {
     arr = [];
