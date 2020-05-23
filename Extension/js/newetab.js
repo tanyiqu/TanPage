@@ -50,7 +50,7 @@ var currSelectLiNum = 0;
 var currSelectLi = null;
 
 
-var input = document.getElementById('input');
+var input = document.querySelector('.inputBar');
 var sugList = document.getElementById('sugList');
 sugList.style.display = 'none';
 
@@ -174,3 +174,59 @@ function refreshState() {
     currSelectLiNum = 0;
     currSelectLi = null;
 }
+
+// 键盘事件
+document.onkeydown = chang_page;
+function chang_page(event) {
+    // 37 左
+    // 38 上
+    // 39 右
+    // 40 下
+    var len = arr.length;
+    var code = event.keyCode;
+    // 判断提示框是否在显示
+    var show = sugList.style.display;
+    if (show == 'none') {
+        return;
+    }
+
+    // 按下了上/下
+    if (code == 38 || code == 40) {
+        //如果没有被选中
+        code = code - 39;
+        //上 -1
+        //下 1
+        // 找到当前被选择的li的编号
+        currSelectLiNum += code;
+        if (currSelectLiNum == 0 || currSelectLiNum == -1) {
+            currSelectLiNum = len;
+        }
+        if (currSelectLiNum == len + 1) {
+            currSelectLiNum = 1;
+        }
+        // 根据编号，找到这个li
+        var id = "sug" + currSelectLiNum;
+        currSelectLi = document.getElementById(id);
+        // 改变input中显示的内容
+        var sugtxt = currSelectLi.innerText;
+        input.value = sugtxt;
+
+        // 改变它的背景色
+        var list = document.querySelectorAll(".sug")
+        for (var i = 0; i < list.length; i++) {
+            list[i].style.background = "#fff";
+        }
+        currSelectLi.style.background = "#ededed";
+    }
+}
+
+// 监听点击事件
+document.addEventListener("click", function (e) {
+    // 如果点击的是input，直接返回，否则点击其他就提示框他消失
+    if (e.target == input) {
+        return;
+    }
+    if (e.target !== sugList) {
+        sugList.style.display = "none";
+    }
+});
