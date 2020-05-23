@@ -1,3 +1,34 @@
+const engines = [{
+    title: "百度",
+    url: "http://www.baidu.com/s",
+    name: "wd"
+}, {
+    title: "多吉搜索",
+    url: "https://www.dogedoge.com/results",
+    name: "q"
+}, {
+    title: "必应",
+    url: "https://cn.bing.com/search",
+    name: "q"
+}, {
+    title: "搜狗",
+    url: "https://www.sogou.com/web",
+    name: "query"
+}, {
+    title: "360",
+    url: "https://www.so.com/s",
+    name: "q"
+}, {
+    title: "谷歌",
+    url: "",
+    name: ""
+}, {
+    title: "Bilibili",
+    url: "https://search.bilibili.com/all",
+    name: "keyword"
+}
+];
+
 // 做初始化，先存入初始数据
 // 检查有没有存入过
 chrome.storage.sync.get('first', (res) => {
@@ -16,6 +47,9 @@ function init() {
     // 写入初始信息
     chrome.storage.sync.set({ first: 'first' });
 
+    //默认搜索引擎
+    chrome.storage.sync.set({ engine: 0 });
+
     // 搜索框按钮
     chrome.storage.sync.set({ searsh_bar_background: 'rgba(255,255,255,.9)' });
     // 搜索框距离上面高度
@@ -25,21 +59,17 @@ function init() {
 
 // 添加使用默认搜索引擎搜索
 chrome.contextMenus.create({
+
     title: '默认引擎搜索：%s', // %s表示选中的文字
     contexts: ['selection'], // 只有当选中文字时才会出现此右键菜单
     onclick: function (params) {
 
-        chrome.storage.sync.get('first', (res) => {
-            console.log('res：' + res.first);
-        });
-
-        // chrome.storage.sync.get('key', (res) => {
-        //     console.log(res);
-        // });
-
-        console.log('搜索：' + params.selectionText);
-        chrome.tabs.create({
-            url: 'https://www.baidu.com/s?ie=utf-8&wd=' + encodeURI(params.selectionText)
+        chrome.storage.sync.get("engine", (res) => {
+            // 获取默认搜索引擎
+            var engine = res.engine;
+            chrome.tabs.create({
+                url: engines[engine].url + "?" + engines[engine].name + "=" + encodeURI(params.selectionText)
+            });
         });
     }
 });

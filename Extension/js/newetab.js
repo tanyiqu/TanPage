@@ -1,5 +1,37 @@
+const engines = [{
+    title: "百度",
+    url: "http://www.baidu.com/s",
+    name: "wd"
+}, {
+    title: "多吉搜索",
+    url: "https://www.dogedoge.com/results",
+    name: "q"
+}, {
+    title: "必应",
+    url: "https://cn.bing.com/search",
+    name: "q"
+}, {
+    title: "搜狗",
+    url: "https://www.sogou.com/sogou",
+    name: "query"
+}, {
+    title: "360",
+    url: "https://www.so.com/s",
+    name: "q"
+}, {
+    title: "谷歌",
+    url: "",
+    name: ""
+}, {
+    title: "Bilibili",
+    url: "https://search.bilibili.com/all",
+    name: "keyword"
+}
+];
+
 var searsh_bar_background;
 var searsh_bar_margin_top;
+var engine;
 
 // 加载配置信息
 (function () {
@@ -7,7 +39,7 @@ var searsh_bar_margin_top;
         // 获取配置
         searsh_bar_background = res.searsh_bar_background;
         searsh_bar_margin_top = res.searsh_bar_margin_top;
-
+        engine = res.engine;
         // 加载配置
         initPage();
 
@@ -38,14 +70,13 @@ function initApperance() {
 
 // 添加事件
 function initLinstener() {
-    // console.log("加载事件");
-    var searsh = document.querySelector(".searsh");
-
-    searsh.addEventListener("submit", subb);
-    // console.log(searsh)
+    // 提交表单
+    document.querySelector(".searsh").addEventListener("submit", onSearsh);
 }
 
-
-function subb() {
-    document.querySelector(".searsh").action = "http://www.baidu.com/s";
+// 提交表单,动态切换搜索引擎等
+function onSearsh() {
+    // engine = 6;
+    document.querySelector(".searsh").action = engines[engine].url;
+    document.querySelector(".inputBar").name = engines[engine].name;
 }
