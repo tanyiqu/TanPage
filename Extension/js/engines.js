@@ -11,6 +11,7 @@
 // 9 腾讯视频
 // 10 AcFun
 // 11 Iconfont
+// 12 Yandex
 
 const engines = [{
     title: "百度",
@@ -60,5 +61,9 @@ const engines = [{
     title: "Iconfont",
     url: "https://www.iconfont.cn/search/index",
     name: "q"
+}, {
+    title: "Yandex",
+    url: "https://yandex.com/search/",
+    name: "text"
 }
 ];

@@ -92,6 +92,25 @@ function initLinstener() {
             chrome.storage.sync.set({ default_engine_name: engines[n].name });
             engine = n;
             cgEngineImg.src = "../imgs/engines/" + engine + ".png";
+            console.log('已切换：' + n);
+        });
+    }
+
+    // 临时搜索
+    for (var i = 0; i < len; i++) {
+        const n = i;
+        id = "tmp" + (n + 1);
+        var tmpItem = document.getElementById(id);
+        tmpItem.addEventListener("click", (event) => {
+            console.log(n);
+
+            // 暂时改变图标和搜索引擎，页面刷新回复正常
+            engine = n;
+            cgEngineImg.src = "../imgs/engines/" + n + ".png";
+
+            engineList.style.display = 'none';
+            // 阻止事件向下传递
+            event.stopPropagation();
         });
     }
 }
