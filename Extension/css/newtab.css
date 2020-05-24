@@ -191,3 +191,82 @@ body {
   background: url(../imgs/temp.png);
   background-size: 95% 95%;
 }
+.showSetting {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 25px;
+  height: 25px;
+  background: url(../imgs/setting.png);
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.showSetting:hover {
+  background: url(../imgs/setting_hover.png);
+  background-size: 100% 100%;
+}
+.setting {
+  animation: mymove 0.5s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 800px;
+  padding: 0 0 8px 8px;
+  background: pink;
+  overflow: auto;
+}
+@keyframes mymove {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.setting .head {
+  position: relative;
+  display: flex;
+  height: 40px;
+}
+.setting .head h3 {
+  width: fit-content;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  margin-top: 5px;
+  margin: 0 auto;
+}
+.setting .head i {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 25px;
+  height: 25px;
+  background: url(../imgs/close.png);
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.setting .head i:hover {
+  background: url(../imgs/close_hover.png);
+  background-size: 100% 100%;
+}
+.setting p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+.setting input {
+  height: 35px;
+  width: 80%;
+  font-size: 16px;
+  padding-left: 5px;
+}
+.setting .btns {
+  display: flex;
+}
+.setting .btns .apply {
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
+  margin-right: 5px;
+}

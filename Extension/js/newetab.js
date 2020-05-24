@@ -19,8 +19,11 @@ var cgEngineImg = document.querySelector("#cgEngineImg");
 
 var engineList = document.getElementById('engineList');
 
+var setting = document.querySelector('.setting');
+
 sugList.style.display = 'none';
 engineList.style.display = 'none';
+setting.style.display = "none";
 
 // 加载配置信息
 (function () {
@@ -42,6 +45,8 @@ function initPage() {
     initApperance();
     // 添加事件
     initLinstener();
+    // 加载设置信息
+    initSetting();
 }
 
 
@@ -68,6 +73,10 @@ function initApperance() {
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
     engineList.innerHTML = html;
 
+    // 将设置窗口高度设置为当前高度
+    // var height = window.screen.availHeight;
+    var height = window.innerHeight;
+    setting.style.height = height + "px";
 }
 
 
@@ -123,6 +132,15 @@ function initLinstener() {
             event.stopPropagation();
         });
     }
+
+    // 打开设置
+    document.querySelector(".showSetting").addEventListener("click", () => {
+        setting.style.display = "block";
+    });
+    // 关闭设置
+    document.getElementById("closeSetting").addEventListener("click", () => {
+        setting.style.display = "none";
+    });
 }
 
 
@@ -186,9 +204,7 @@ function refreshTips() {
             window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
         });
     }
-
     sugList.style.display = 'block';
-
 }
 
 
@@ -270,3 +286,15 @@ document.addEventListener("click", function (e) {
     }
 });
 
+
+
+
+
+
+// 加载设置信息
+function initSetting() {
+    document.querySelector("#searsh_bar_margin_top").value = searsh_bar_margin_top;
+    document.querySelector("#searsh_bar_background").value = searsh_bar_background;
+
+
+}

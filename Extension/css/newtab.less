@@ -239,5 +239,105 @@ body {
 
 
     }
+}
+
+
+.showSetting {
+    position       : absolute;
+    top            : 10px;
+    right          : 12px;
+    width          : 25px;
+    height         : 25px;
+    background     : url(../imgs/setting.png);
+    background-size: 100% 100%;
+    cursor         : pointer;
+
+    &:hover {
+        background     : url(../imgs/setting_hover.png);
+        background-size: 100% 100%;
+    }
+}
+
+.setting {
+
+    @keyframes mymove {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    animation : mymove .5s;
+    position  : absolute;
+    top       : 0;
+    right     : 0;
+    width     : 400px;
+    height    : 800px;
+    padding   : 0 0 8px 8px;
+    background: pink;
+    overflow  : auto;
+
+    .head {
+        position          : relative;
+        display           : flex;
+        height            : 40px;
+        // justify-content: center;
+        // align-items    : center;
+
+        h3 {
+            width      : fit-content;
+            height     : 40px;
+            line-height: 40px;
+            font-size  : 20px;
+            margin-top : 5px;
+            margin     : 0 auto;
+        }
+
+        i {
+            position       : absolute;
+            top            : 10px;
+            right          : 12px;
+            width          : 25px;
+            height         : 25px;
+            background     : url(../imgs/close.png);
+            background-size: 100% 100%;
+            cursor         : pointer;
+
+
+            &:hover {
+                background     : url(../imgs/close_hover.png);
+                background-size: 100% 100%;
+            }
+        }
+    }
+
+
+
+    p {
+        font-size: 16px;
+        margin   : 5px 0;
+    }
+
+    input {
+        height      : 35px;
+        width       : 80%;
+        font-size   : 16px;
+        padding-left: 5px;
+    }
+
+
+    .btns {
+        display: flex;
+
+        .apply {
+            width       : 80px;
+            height      : 30px;
+            margin-top  : 10px;
+            margin-right: 5px;
+        }
+    }
 
 }
