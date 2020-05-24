@@ -65,5 +65,9 @@ const engines = [{
     title: "Yandex",
     url: "https://yandex.com/search/",
     name: "text"
+}, {
+    title: "CSDN",
+    url: "https://so.csdn.net/so/search/s.do",
+    name: "q"
 }
 ];

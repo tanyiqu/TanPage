@@ -92,7 +92,11 @@ function initLinstener() {
             chrome.storage.sync.set({ default_engine_name: engines[n].name });
             engine = n;
             cgEngineImg.src = "../imgs/engines/" + engine + ".png";
-            console.log('已切换：' + n);
+
+            // 弹出提示
+            toastr.options.positionClass = 'toast-top-center';
+            toastr.options.timeOut = "1500";
+            toastr.success('已切换为：' + engines[n].title);
         });
     }
 
@@ -109,6 +113,12 @@ function initLinstener() {
             cgEngineImg.src = "../imgs/engines/" + n + ".png";
 
             engineList.style.display = 'none';
+
+            // 弹出提示
+            toastr.options.positionClass = 'toast-top-center';
+            toastr.options.timeOut = "1500";
+            toastr.success('临时切换为：' + engines[n].title + "<br/>刷新后失效");
+
             // 阻止事件向下传递
             event.stopPropagation();
         });
