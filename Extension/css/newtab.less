@@ -207,6 +207,7 @@ body {
         float        : left;
         cursor       : pointer;
         text-align   : center;
+        position     : relative;
 
         &:hover {
             background: #eeeeee;
@@ -221,6 +222,22 @@ body {
         p {
             font-size: 14px;
         }
+
+        .tmp {
+            position     : absolute;
+            width        : 28px;
+            height       : 28px;
+            right        : 3px;
+            top          : 3px;
+            border-radius: 3px;
+
+            &:hover {
+                background     : url(../imgs/temp.png);
+                background-size: 95% 95%;
+            }
+        }
+
+
     }
 
 }

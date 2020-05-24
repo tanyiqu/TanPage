@@ -166,6 +166,7 @@ body {
   float: left;
   cursor: pointer;
   text-align: center;
+  position: relative;
 }
 .engineList .engineItem:hover {
   background: #eeeeee;
@@ -177,4 +178,16 @@ body {
 }
 .engineList .engineItem p {
   font-size: 14px;
+}
+.engineList .engineItem .tmp {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  right: 3px;
+  top: 3px;
+  border-radius: 3px;
+}
+.engineList .engineItem .tmp:hover {
+  background: url(../imgs/temp.png);
+  background-size: 95% 95%;
 }

@@ -58,12 +58,12 @@ function initApperance() {
 
     // 默认搜索引擎图标
     cgEngineImg.src = "../imgs/engines/" + engine + ".png";
+
     // 加载搜索引擎列表
-    // <div class="engineItem"><img src="../imgs/engines/0.png"><p>百度</p></div>
     var html = "";
     var len = engines.length;
     for (var i = 0; i < len; i++) {
-        html += '<div class="engineItem" id="engineItem{0}"><img src="../imgs/engines/{1}.png"><p>{2}</p></div>'.format(i + 1, i, engines[i].title);
+        html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="../imgs/engines/{2}.png"><p>{3}</p></div>'.format(i + 1, i + 1, i, engines[i].title);
     }
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
     engineList.innerHTML = html;
