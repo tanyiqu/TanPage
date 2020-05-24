@@ -12,6 +12,8 @@
 // 10 AcFun
 // 11 Iconfont
 // 12 Yandex
+// 13 CSDN
+// 14 GitHub
 
 const engines = [{
     title: "百度",
@@ -68,6 +70,10 @@ const engines = [{
 }, {
     title: "CSDN",
     url: "https://so.csdn.net/so/search/s.do",
+    name: "q"
+}, {
+    title: "GitHub",
+    url: "https://github.com/search",
     name: "q"
 }
 ];

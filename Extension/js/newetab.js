@@ -287,14 +287,8 @@ document.addEventListener("click", function (e) {
 });
 
 
-
-
-
-
 // 加载设置信息
 function initSetting() {
     document.querySelector("#searsh_bar_margin_top").value = searsh_bar_margin_top;
     document.querySelector("#searsh_bar_background").value = searsh_bar_background;
-
-
 }
