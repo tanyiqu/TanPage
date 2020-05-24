@@ -1,52 +1,3 @@
-// 搜索引擎
-// 0 百度
-// 1 多吉
-// 2 必应
-// 3 搜狗
-// 4 360
-// 5 谷歌
-// 6 BiliBili
-// 7 淘宝
-// 8 京东
-
-const engines = [{
-    title: "百度",
-    url: "http://www.baidu.com/s",
-    name: "wd"
-}, {
-    title: "多吉搜索",
-    url: "https://www.dogedoge.com/results",
-    name: "q"
-}, {
-    title: "必应",
-    url: "https://cn.bing.com/search",
-    name: "q"
-}, {
-    title: "搜狗",
-    url: "https://www.sogou.com/sogou",
-    name: "query"
-}, {
-    title: "360",
-    url: "https://www.so.com/s",
-    name: "q"
-}, {
-    title: "谷歌",
-    url: "",
-    name: ""
-}, {
-    title: "BiliBili",
-    url: "https://search.bilibili.com/all",
-    name: "keyword"
-}, {
-    title: "淘宝",
-    url: "https://s.taobao.com/search",
-    name: "q"
-}, {
-    title: "京东",
-    url: "https://search.jd.com/Search",
-    name: "keyword"
-}
-];
 
 var searsh_bar_background;
 var searsh_bar_margin_top;
@@ -117,7 +68,6 @@ function initApperance() {
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
     engineList.innerHTML = html;
 
-
 }
 
 
@@ -138,6 +88,8 @@ function initLinstener() {
         engineItem.addEventListener("click", () => {
             // 切换搜索引擎
             chrome.storage.sync.set({ engine: n });
+            chrome.storage.sync.set({ default_engine_url: engines[n].url });
+            chrome.storage.sync.set({ default_engine_name: engines[n].name });
             engine = n;
             cgEngineImg.src = "../imgs/engines/" + engine + ".png";
         });
@@ -147,8 +99,6 @@ function initLinstener() {
 
 // 提交表单,动态切换搜索引擎等
 function onSearsh() {
-    // engine = 2;
-    // chrome.storage.sync.set({ engine: 2 });
     document.querySelector(".searsh").action = engines[engine].url;
     document.querySelector(".inputBar").name = engines[engine].name;
 }
