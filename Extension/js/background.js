@@ -25,6 +25,9 @@ function init() {
     // 搜索框距离上面高度
     chrome.storage.sync.set({ searsh_bar_margin_top: '220px' });
 
+    // 默认书签
+    chrome.storage.sync.set({ bookmarks: [["https://www.baidu.com", "百度", "百度搜索"], ["https://www.bilibili.com/", "Bili", "哔哩哔哩"]] });
+
 }
 
 

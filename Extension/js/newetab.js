@@ -2,6 +2,7 @@
 var searsh_bar_background;
 var searsh_bar_margin_top;
 var engine;
+var bookmarks;
 
 // 出现的提示的li集合
 var arr = [];
@@ -21,6 +22,8 @@ var engineList = document.getElementById('engineList');
 
 var setting = document.querySelector('.setting');
 
+var bookmark = document.querySelector('.bookmark');
+
 sugList.style.display = 'none';
 engineList.style.display = 'none';
 setting.style.display = "none";
@@ -32,6 +35,7 @@ setting.style.display = "none";
         searsh_bar_background = res.searsh_bar_background;
         searsh_bar_margin_top = res.searsh_bar_margin_top;
         engine = res.engine;
+        bookmarks = res.bookmarks;
         // 加载配置
         initPage();
 
@@ -74,9 +78,21 @@ function initApperance() {
     engineList.innerHTML = html;
 
     // 将设置窗口高度设置为当前高度
-    // var height = window.screen.availHeight;
     var height = window.innerHeight;
     setting.style.height = height + "px";
+
+
+    // 加载书签内容
+    html = '';
+    len = bookmarks.length;
+    for (var i = 0; i < len; i++) {
+        html += '<a href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i][0], bookmarks[i][1], bookmarks[i][2]);
+    }
+    // 如果内容没有超过16个
+    if (len < 16) {
+        html += '<a><p class="addBookMark" id="addBookMark"></p><span>添加</span></a>';
+    }
+    bookmark.innerHTML = html;
 }
 
 
