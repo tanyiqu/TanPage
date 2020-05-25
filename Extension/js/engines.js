@@ -14,6 +14,7 @@
 // 12 Yandex
 // 13 CSDN
 // 14 GitHub
+// 15 百度百科
 
 const engines = [{
     title: "百度",
@@ -75,5 +76,9 @@ const engines = [{
     title: "GitHub",
     url: "https://github.com/search",
     name: "q"
+}, {
+    title: "百度百科",
+    url: "https://baike.baidu.com/search",
+    name: "word"
 }
 ];
