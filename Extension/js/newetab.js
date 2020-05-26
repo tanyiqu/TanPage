@@ -1,4 +1,3 @@
-
 var searsh_bar_background;
 var searsh_bar_margin_top;
 var engine;
@@ -12,34 +11,26 @@ var currSelectLiNum = 0;
 var currSelectLi = null;
 
 // 输入框
-// var input = document.querySelector('.inputBar');
-var input = $('.inputBar')[0];
+var input = $('.inputBar');
 
 // 搜索建议ul
-// var sugList = document.getElementById('sugList');
-var sugList = $('#sugList')[0];
+var sugList = $('#sugList');
 
 // 切换引擎按钮
-// var cgEngineBtn = document.querySelector(".cgEngine");
-var cgEngineBtn = $(".cgEngine")[0];
-
-// 切换引擎按钮上面的图片
-// var cgEngineImg = document.querySelector("#cgEngineImg");
-var cgEngineImg = $("#cgEngineImg")[0];
+var cgEngineBtn = $(".cgEngine");
+var cgEngineImg = $("#cgEngineImg");
 
 // 切换搜索引擎时的所有所搜引擎列表
-// var engineList = document.getElementById('engineList');
 var engineList = $('#engineList')[0];
 
 // 设置框
-// var setting = document.querySelector('.setting');
 var setting = $('.setting')[0];
 
 // 书签列表
-// var bookmark = document.querySelector('.bookmark');
 var bookmark = $('.bookmark')[0];
 
-sugList.style.display = 'none';
+// 结果默认显示为隐藏的dom
+sugList.css('display', 'none');
 engineList.style.display = 'none';
 setting.style.display = "none";
 
@@ -74,14 +65,14 @@ function initApperance() {
     console.log("加载样式");
     // 设置背景色
     document.querySelector(".cgEngine").style.background = searsh_bar_background;
-    document.querySelector(".inputBar").style.background = searsh_bar_background;
+    input.css("background", searsh_bar_background);
     document.querySelector(".searshBtn").style.background = searsh_bar_background;
 
     // 设置搜索框位置
     document.querySelector(".searsh").style.top = searsh_bar_margin_top;
 
     // 默认搜索引擎图标
-    cgEngineImg.src = "../imgs/engines/" + engine + ".png";
+    cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
 
     // 加载搜索引擎列表
     var html = "";
@@ -114,10 +105,10 @@ function initApperance() {
 // 添加事件
 function initLinstener() {
     // 提交表单
-    document.querySelector(".searsh").addEventListener("submit", onSearsh);
+    $(".searsh").submit(onSearsh);
 
     // 输入框文本改变
-    document.querySelector(".inputBar").addEventListener("input", onInput);
+    input.on('input', onInput);
 
     // 切换搜索引擎按钮
     var len = engines.length;
@@ -131,7 +122,7 @@ function initLinstener() {
             chrome.storage.sync.set({ default_engine_url: engines[n].url });
             chrome.storage.sync.set({ default_engine_name: engines[n].name });
             engine = n;
-            cgEngineImg.src = "../imgs/engines/" + engine + ".png";
+            cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png")
 
             // 弹出提示
             toastr.options.positionClass = 'toast-top-center';
@@ -150,7 +141,7 @@ function initLinstener() {
 
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
-            cgEngineImg.src = "../imgs/engines/" + n + ".png";
+            cgEngineImg.attr('src', "../imgs/engines/" + n + ".png");
 
             engineList.style.display = 'none';
 
@@ -177,8 +168,8 @@ function initLinstener() {
 
 // 提交表单,动态切换搜索引擎等
 function onSearsh() {
-    document.querySelector(".searsh").action = engines[engine].url;
-    document.querySelector(".inputBar").name = engines[engine].name;
+    $('.searsh').attr('action', engines[engine].url);
+    input.attr('name', engines[engine].name);
 }
 
 
@@ -205,7 +196,7 @@ function onInput(event) {
 function refreshTips() {
     // 如果没有数据
     if (!arr || !arr.length) {
-        sugList.style.display = 'none';
+        sugList.css('display', 'none');
         return;
     }
     var len = arr.length;
@@ -225,7 +216,7 @@ function refreshTips() {
         var src = "../imgs/{0}.png".format(i + 1);
         html += '<li class="sug" id="{0}"><div><img src="{1}" /></div>{2}</li>'.format(id, src, arr[i]);
     }
-    sugList.innerHTML = html;
+    sugList.html(html);
 
     // 添加点击事件
     for (var i = 0; i < len; i++) {
@@ -235,7 +226,7 @@ function refreshTips() {
             window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
         });
     }
-    sugList.style.display = 'block';
+    sugList.css('display', 'block');
 }
 
 
@@ -256,7 +247,7 @@ function chang_page(event) {
     var len = arr.length;
     var code = event.keyCode;
     // 判断提示框是否在显示
-    var show = sugList.style.display;
+    var show = sugList.css('display');
     if (show == 'none') {
         return;
     }
@@ -280,7 +271,7 @@ function chang_page(event) {
         currSelectLi = document.getElementById(id);
         // 改变input中显示的内容
         var sugtxt = currSelectLi.innerText;
-        input.value = sugtxt;
+        input.val(sugtxt);
 
         // 改变它的背景色
         var list = document.querySelectorAll(".sug")
@@ -295,17 +286,17 @@ function chang_page(event) {
 // 监听点击事件
 document.addEventListener("click", function (e) {
     // 如果点击的是input，直接返回，否则点击其他就提示框他消失
-    if (e.target == input) {
+    if (e.target == input[0]) {
         engineList.style.display = 'none';
         return;
     }
-    if (e.target != sugList) {
-        sugList.style.display = "none";
+    if (e.target != sugList[0]) {
+        sugList.css('display', 'none');
 
     }
 
     // 点击切换搜索引擎，这里再监听是为了点击外部消失
-    if (e.target == cgEngineBtn || e.target == cgEngineImg) {
+    if (e.target == cgEngineBtn[0] || e.target == cgEngineImg[0]) {
         if (engineList.style.display == 'block') {
             engineList.style.display = 'none';
         }
