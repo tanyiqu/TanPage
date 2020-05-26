@@ -11,18 +11,33 @@ var currSelectLiNum = 0;
 // 当前被选中的li
 var currSelectLi = null;
 
+// 输入框
+// var input = document.querySelector('.inputBar');
+var input = $('.inputBar')[0];
 
-var input = document.querySelector('.inputBar');
-var sugList = document.getElementById('sugList');
+// 搜索建议ul
+// var sugList = document.getElementById('sugList');
+var sugList = $('#sugList')[0];
 
-var cgEngineBtn = document.querySelector(".cgEngine");
-var cgEngineImg = document.querySelector("#cgEngineImg");
+// 切换引擎按钮
+// var cgEngineBtn = document.querySelector(".cgEngine");
+var cgEngineBtn = $(".cgEngine")[0];
 
-var engineList = document.getElementById('engineList');
+// 切换引擎按钮上面的图片
+// var cgEngineImg = document.querySelector("#cgEngineImg");
+var cgEngineImg = $("#cgEngineImg")[0];
 
-var setting = document.querySelector('.setting');
+// 切换搜索引擎时的所有所搜引擎列表
+// var engineList = document.getElementById('engineList');
+var engineList = $('#engineList')[0];
 
-var bookmark = document.querySelector('.bookmark');
+// 设置框
+// var setting = document.querySelector('.setting');
+var setting = $('.setting')[0];
+
+// 书签列表
+// var bookmark = document.querySelector('.bookmark');
+var bookmark = $('.bookmark')[0];
 
 sugList.style.display = 'none';
 engineList.style.display = 'none';
