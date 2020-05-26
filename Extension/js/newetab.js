@@ -64,12 +64,12 @@ function initPage() {
 function initApperance() {
     console.log("加载样式");
     // 设置背景色
-    document.querySelector(".cgEngine").style.background = searsh_bar_background;
+    $(".cgEngine").css('background', searsh_bar_background);
     input.css("background", searsh_bar_background);
-    document.querySelector(".searshBtn").style.background = searsh_bar_background;
+    $('.searshBtn').css('background', searsh_bar_background);
 
     // 设置搜索框位置
-    document.querySelector(".searsh").style.top = searsh_bar_margin_top;
+    $(".searsh").css('top', searsh_bar_margin_top);
 
     // 默认搜索引擎图标
     cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
@@ -115,10 +115,9 @@ function initLinstener() {
     var len = engines.length;
     for (var i = 0; i < len; i++) {
         const n = i;
-        id = "engineItem" + (n + 1);
-        var engineItem = document.getElementById(id);
-        engineItem.addEventListener("click", () => {
-            // 切换搜索引擎
+        id = "#engineItem" + (n + 1);
+        // 查询到标签后添加点击事件
+        $(id).click(() => {
             chrome.storage.sync.set({ engine: n });
             chrome.storage.sync.set({ default_engine_url: engines[n].url });
             chrome.storage.sync.set({ default_engine_name: engines[n].name });
@@ -130,15 +129,14 @@ function initLinstener() {
             toastr.options.timeOut = "1500";
             toastr.success('已切换为：' + engines[n].title);
         });
+
     }
 
     // 临时搜索
     for (var i = 0; i < len; i++) {
         const n = i;
-        id = "tmp" + (n + 1);
-        var tmpItem = document.getElementById(id);
-        tmpItem.addEventListener("click", (event) => {
-            console.log(n);
+        $("#tmp" + (n + 1)).click(() => {
+            console.log('临时切换', n);
 
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
@@ -157,13 +155,12 @@ function initLinstener() {
     }
 
     // 打开设置
-    document.querySelector(".showSetting").addEventListener("click", () => {
+    $(".showSetting").click(() => {
         setting.css('display', 'block');
     });
     // 关闭设置
-    document.getElementById("closeSetting").addEventListener("click", () => {
+    $("#closeSetting").click(() => {
         setting.css('display', 'none');
-
     });
 }
 
@@ -224,7 +221,7 @@ function refreshTips() {
     for (var i = 0; i < len; i++) {
         var id = '#sug' + (i + 1);
         const n = i;
-        document.querySelector(id).addEventListener("click", () => {
+        $(id).click(() => {
             window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + self.arr[n];
         });
     }
@@ -269,18 +266,15 @@ function chang_page(event) {
             currSelectLiNum = 1;
         }
         // 根据编号，找到这个li
-        var id = "sug" + currSelectLiNum;
-        currSelectLi = document.getElementById(id);
+        var id = "#sug" + currSelectLiNum;
+        currSelectLi = $(id);
+
         // 改变input中显示的内容
-        var sugtxt = currSelectLi.innerText;
-        input.val(sugtxt);
+        input.val(currSelectLi.text());
 
         // 改变它的背景色
-        var list = document.querySelectorAll(".sug")
-        for (var i = 0; i < list.length; i++) {
-            list[i].style.background = "#fff";
-        }
-        currSelectLi.style.background = "#ededed";
+        $(".sug").css('background', "#fff")
+        currSelectLi.css('background', "#ededed");
     }
 }
 
@@ -314,6 +308,6 @@ document.addEventListener("click", function (e) {
 
 // 加载设置信息
 function initSetting() {
-    document.querySelector("#searsh_bar_margin_top").value = searsh_bar_margin_top;
-    document.querySelector("#searsh_bar_background").value = searsh_bar_background;
+    $("#searsh_bar_margin_top").val(searsh_bar_margin_top);
+    $("#searsh_bar_background").val(searsh_bar_background);
 }
