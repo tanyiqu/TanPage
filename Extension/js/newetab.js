@@ -21,18 +21,18 @@ var cgEngineBtn = $(".cgEngine");
 var cgEngineImg = $("#cgEngineImg");
 
 // 切换搜索引擎时的所有所搜引擎列表
-var engineList = $('#engineList')[0];
+var engineList = $('#engineList');
 
 // 设置框
-var setting = $('.setting')[0];
+var setting = $('.setting');
 
 // 书签列表
-var bookmark = $('.bookmark')[0];
+var bookmark = $('.bookmark');
 
-// 结果默认显示为隐藏的dom
+// 默认显示为隐藏的dom
 sugList.css('display', 'none');
-engineList.style.display = 'none';
-setting.style.display = "none";
+engineList.css('display', 'none');
+setting.css('display', 'none');
 
 // 加载配置信息
 (function () {
@@ -81,11 +81,12 @@ function initApperance() {
         html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="../imgs/engines/{2}.png"><p>{3}</p></div>'.format(i + 1, i + 1, i, engines[i].title);
     }
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
-    engineList.innerHTML = html;
+    engineList.html(html);
 
     // 将设置窗口高度设置为当前高度
     var height = window.innerHeight;
-    setting.style.height = height + "px";
+    setting.css('height', height + "px");
+
 
 
     // 加载书签内容
@@ -98,7 +99,7 @@ function initApperance() {
     if (len < 16) {
         html += '<a><p class="addBookMark" id="addBookMark"></p><span>添加</span></a>';
     }
-    bookmark.innerHTML = html;
+    bookmark.html(html);
 }
 
 
@@ -143,7 +144,7 @@ function initLinstener() {
             engine = n;
             cgEngineImg.attr('src', "../imgs/engines/" + n + ".png");
 
-            engineList.style.display = 'none';
+            engineList.css('display', 'none');
 
             // 弹出提示
             toastr.options.positionClass = 'toast-top-center';
@@ -157,11 +158,12 @@ function initLinstener() {
 
     // 打开设置
     document.querySelector(".showSetting").addEventListener("click", () => {
-        setting.style.display = "block";
+        setting.css('display', 'block');
     });
     // 关闭设置
     document.getElementById("closeSetting").addEventListener("click", () => {
-        setting.style.display = "none";
+        setting.css('display', 'none');
+
     });
 }
 
@@ -176,7 +178,7 @@ function onSearsh() {
 // 输入框文本改变
 function onInput(event) {
     var txt = event.target.value;
-    engineList.style.display = 'none';
+    engineList.css('display', 'none');
     refreshState();
     var httpRequest = new XMLHttpRequest();
     // 使用百度的搜索建议
@@ -287,7 +289,7 @@ function chang_page(event) {
 document.addEventListener("click", function (e) {
     // 如果点击的是input，直接返回，否则点击其他就提示框他消失
     if (e.target == input[0]) {
-        engineList.style.display = 'none';
+        engineList.css('display', 'none');
         return;
     }
     if (e.target != sugList[0]) {
@@ -297,14 +299,15 @@ document.addEventListener("click", function (e) {
 
     // 点击切换搜索引擎，这里再监听是为了点击外部消失
     if (e.target == cgEngineBtn[0] || e.target == cgEngineImg[0]) {
-        if (engineList.style.display == 'block') {
-            engineList.style.display = 'none';
+        var c = engineList.css('display');
+        if (c == 'block') {
+            engineList.css('display', 'none');
         }
         else {
-            engineList.style.display = 'block';
+            engineList.css('display', 'block');
         }
     } else {
-        engineList.style.display = 'none';
+        engineList.css('display', 'none');
     }
 });
 
