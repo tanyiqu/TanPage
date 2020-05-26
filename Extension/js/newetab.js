@@ -33,6 +33,7 @@ var bookmark = $('.bookmark');
 sugList.css('display', 'none');
 engineList.css('display', 'none');
 setting.css('display', 'none');
+$('#addBookmark').css('display', 'none');
 
 // 加载配置信息
 (function () {
@@ -161,6 +162,25 @@ function initLinstener() {
     // 关闭设置
     $("#closeSetting").click(() => {
         setting.css('display', 'none');
+    });
+
+    // 点击添加书签
+    $("#addBookMark").click(() => {
+        // 设置笼罩层
+        $('.shade').css({
+            "width": window.innerWidth + "px",
+            "height": window.innerHeight + "px",
+            "display": "block"
+        });
+        // 让添加的窗口弹出
+        $('#addBookmark').css('display', 'block');
+
+    });
+
+    // 取消添加书签
+    $('.cancelAddBookmark').click(() => {
+        $('.shade').css('display', 'none');
+        $('#addBookmark').css('display', 'none');
     });
 }
 

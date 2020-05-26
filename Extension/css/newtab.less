@@ -405,3 +405,121 @@ body {
     }
 
 }
+
+.shade {
+    position  : absolute;
+    background: rgba(0, 0, 0, 0.4);
+    z-index   : 99;
+    left      : 0px;
+    top       : 0px;
+    opacity   : 0.6;
+    display   : none;
+
+    @keyframes myshade {
+        0% {
+            background: rgba(0, 0, 0, 0);
+        }
+
+        100% {
+            background: rgba(0, 0, 0, 0.4);
+        }
+    }
+
+    animation: myshade .3s;
+}
+
+.addBookmark {
+    position        : absolute;
+    width           : 440px;
+    height          : 280px;
+    background-image: linear-gradient(to right, #f4f8fa, rgba(255, 255, 255), #f4f8fa);
+    border-radius   : 4px;
+    z-index         : 100;
+    margin-top      : 480px;
+    left            : 50%;
+    transform       : translate(-50%, -50%);
+
+    @keyframes myaddBookmark {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    animation: myaddBookmark .3s;
+
+    p {
+        font-size  : 20px;
+        margin-top : 25px;
+        margin-left: 25px;
+    }
+
+    .lines {
+        margin-top : 15px;
+        margin-left: 20px;
+        height     : 32px;
+        line-height: 32px;
+
+        .line {
+            display: flex;
+            padding: 8px;
+
+            span {
+                font-size  : 16px;
+                margin-left: 10px;
+                width      : 85px;
+            }
+
+            input {
+                font-size   : 14px;
+                width       : 62%;
+                height      : 32px;
+                padding-left: 5px;
+                // border: none;
+                outline     : none;
+            }
+        }
+    }
+
+    .btns {
+        position: absolute;
+        right   : 8px;
+        bottom  : 8px;
+
+        button {
+            width          : 75px;
+            height         : 38px;
+            border         : 1px solid rgba(0, 0, 0, .2);
+            color          : white;
+            text-align     : center;
+            text-decoration: none;
+            display        : inline-block;
+            font-size      : 16px;
+            outline        : none;
+            border-radius  : 5px;
+            margin         : 4px;
+            cursor         : pointer;
+        }
+
+        .ensureAddBookmark {
+            background: #419eff;
+            border    : none;
+
+            &:hover {
+                background: #227ddf;
+            }
+        }
+
+        .cancelAddBookmark {
+            background: #f4f8fa;
+            color     : rgba(0, 0, 0, .9);
+
+            &:hover {
+                background: rgba(255, 255, 255, .6);
+            }
+        }
+    }
+}
