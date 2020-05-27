@@ -10,6 +10,9 @@ var currSelectLiNum = 0;
 // 当前被选中的li
 var currSelectLi = null;
 
+// 当前正在编辑书签
+var editingBookmarks = false;
+
 // 输入框
 var input = $('.inputBar');
 
@@ -33,7 +36,7 @@ var bookmark = $('.bookmark');
 sugList.css('display', 'none');
 engineList.css('display', 'none');
 setting.css('display', 'none');
-$('#addBookmark').css('display', 'none');
+$('#addBookmarkWd').css('display', 'none');
 
 // 加载配置信息
 (function () {
@@ -147,23 +150,10 @@ function initLinstener() {
         setting.css('display', 'none');
     });
 
-    // 点击添加书签
-    $("#addBookMark").click(() => {
-        // 设置笼罩层
-        $('.shade').css({
-            "width": window.innerWidth + "px",
-            "height": window.innerHeight + "px",
-            "display": "block"
-        });
-        // 让添加的窗口弹出
-        $('#addBookmark').css('display', 'block');
-
-    });
-
     // 取消添加书签
     $('.cancelAddBookmark').click(() => {
         $('.shade').css('display', 'none');
-        $('#addBookmark').css('display', 'none');
+        $('#addBookmarkWd').css('display', 'none');
     });
 
     // 确定添加书签
@@ -180,11 +170,18 @@ function initLinstener() {
         bookmarks.push(bm);
         chrome.storage.sync.set({ bookmarks: bookmarks });
         $('.shade').css('display', 'none');
-        $('#addBookmark').css('display', 'none');
+        $('#addBookmarkWd').css('display', 'none');
 
         // 刷新书签的显示
         Toast.success('添加成功！');
         refreshBookmarks();
+    });
+
+    // 编辑书签
+    $('.bookmark').on('contextmenu', (e) => {
+        e.preventDefault();
+        // alert('0');
+        editBookmarks();
     });
 }
 
@@ -327,6 +324,13 @@ document.addEventListener("click", function (e) {
     } else {
         engineList.css('display', 'none');
     }
+
+    // 正在编辑书签时，点击空白退出编辑
+    if (e.target != bookmark[0] && editingBookmarks) {
+        editingBookmarks = false;
+        refreshBookmarks();
+        Toast.info('已退出书签编辑模式！', 'toast-bottom-left');
+    }
 });
 
 
@@ -349,4 +353,45 @@ function refreshBookmarks() {
         html += '<a><p class="addBookMark" id="addBookMark"></p><span>添加</span></a>';
     }
     bookmark.html(html);
+
+    // 点击添加书签事件
+    $("#addBookMark").click(() => {
+        // 设置笼罩层
+        $('.shade').css({
+            "width": window.innerWidth + "px",
+            "height": window.innerHeight + "px",
+            "display": "block"
+        });
+        // 让添加的窗口弹出
+        $('#addBookmarkWd').css('display', 'block');
+
+    });
+}
+
+// 编辑书签
+function editBookmarks() {
+    Toast.info('书签编辑模式<br>点击空白处退出', 'toast-bottom-left');
+    editingBookmarks = true;
+    html = '';
+    len = bookmarks.length;
+    for (var i = 0; i < len; i++) {
+        html += '<a style="animation: move .8s infinite;"><i class="delete" id="deletebm{0}"></i><p>{1}</p><span>{2}</span></a>'.format(i, bookmarks[i][1], bookmarks[i][2]);
+    }
+    bookmark.html(html);
+    // 依次给按钮添加监听
+    var items = $('.delete');
+    console.log(items);
+    len = items.length;
+    for (var i = 0; i < len; i++) {
+        const n = i;
+        $(items[i]).click((e) => {
+            // 删除第n个bookmark
+            bookmarks.splice(n, 1);
+            // 刷新本地存储
+            chrome.storage.sync.set({ bookmarks: bookmarks });
+            editBookmarks();
+            Toast.success('删除成功！', 'toast-bottom-left')
+            e.stopPropagation();
+        });
+    }
 }
