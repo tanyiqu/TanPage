@@ -115,9 +115,7 @@ function initLinstener() {
             cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png")
 
             // 弹出提示
-            toastr.options.positionClass = 'toast-top-center';
-            toastr.options.timeOut = "1500";
-            toastr.success('已切换为：' + engines[n].title);
+            Toast.success('已切换为：' + engines[n].title, 'toast-top-center');
         });
 
     }
@@ -131,14 +129,10 @@ function initLinstener() {
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
             cgEngineImg.attr('src', "../imgs/engines/" + n + ".png");
-
             engineList.css('display', 'none');
 
             // 弹出提示
-            toastr.options.positionClass = 'toast-top-center';
-            toastr.options.timeOut = "1500";
-            toastr.success('临时切换为：' + engines[n].title + "<br/>刷新后失效");
-
+            Toast.success(engines[n].title + "<br/>刷新后失效", 'toast-top-center');
             // 阻止事件向下传递
             event.stopPropagation();
         });
@@ -179,9 +173,7 @@ function initLinstener() {
         var label = $('#abmLabel').val();
         var URL = $('#abmURL').val();
         if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
-            toastr.options.positionClass = 'toast-top-right';
-            toastr.options.timeOut = "1500";
-            toastr.error('内容不能为空！');
+            Toast.error('内容不能为空！');
             return;
         }
         var bm = [URL, label, name];
@@ -189,10 +181,9 @@ function initLinstener() {
         chrome.storage.sync.set({ bookmarks: bookmarks });
         $('.shade').css('display', 'none');
         $('#addBookmark').css('display', 'none');
-        toastr.options.positionClass = 'toast-top-right';
-        toastr.options.timeOut = "1500";
-        toastr.success('添加成功！');
+
         // 刷新书签的显示
+        Toast.success('添加成功！');
         refreshBookmarks();
     });
 }
