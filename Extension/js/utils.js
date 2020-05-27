@@ -21,3 +21,8 @@ String.prototype.format = function (args) {
     }
     return result;
 }
+
+// 判断字符串是否为空
+String.prototype.isEmpty = function () {
+    return (this.trim() == "");
+}

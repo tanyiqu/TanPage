@@ -88,19 +88,8 @@ function initApperance() {
     var height = window.innerHeight;
     setting.css('height', height + "px");
 
-
-
     // 加载书签内容
-    html = '';
-    len = bookmarks.length;
-    for (var i = 0; i < len; i++) {
-        html += '<a href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i][0], bookmarks[i][1], bookmarks[i][2]);
-    }
-    // 如果内容没有超过16个
-    if (len < 16) {
-        html += '<a><p class="addBookMark" id="addBookMark"></p><span>添加</span></a>';
-    }
-    bookmark.html(html);
+    refreshBookmarks();
 }
 
 
@@ -181,6 +170,30 @@ function initLinstener() {
     $('.cancelAddBookmark').click(() => {
         $('.shade').css('display', 'none');
         $('#addBookmark').css('display', 'none');
+    });
+
+    // 确定添加书签
+    $('.ensureAddBookmark').click(() => {
+        // 获取三个输入
+        var name = $('#abmName').val();
+        var label = $('#abmLabel').val();
+        var URL = $('#abmURL').val();
+        if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
+            toastr.options.positionClass = 'toast-top-right';
+            toastr.options.timeOut = "1500";
+            toastr.error('内容不能为空！');
+            return;
+        }
+        var bm = [URL, label, name];
+        bookmarks.push(bm);
+        chrome.storage.sync.set({ bookmarks: bookmarks });
+        $('.shade').css('display', 'none');
+        $('#addBookmark').css('display', 'none');
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.timeOut = "1500";
+        toastr.success('添加成功！');
+        // 刷新书签的显示
+        refreshBookmarks();
     });
 }
 
@@ -330,4 +343,19 @@ document.addEventListener("click", function (e) {
 function initSetting() {
     $("#searsh_bar_margin_top").val(searsh_bar_margin_top);
     $("#searsh_bar_background").val(searsh_bar_background);
+}
+
+
+// 刷新书签的显示
+function refreshBookmarks() {
+    html = '';
+    len = bookmarks.length;
+    for (var i = 0; i < len; i++) {
+        html += '<a href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i][0], bookmarks[i][1], bookmarks[i][2]);
+    }
+    // 如果内容没有超过16个
+    if (len < 16) {
+        html += '<a><p class="addBookMark" id="addBookMark"></p><span>添加</span></a>';
+    }
+    bookmark.html(html);
 }
