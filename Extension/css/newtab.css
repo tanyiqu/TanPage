@@ -314,6 +314,19 @@ body {
   color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
+.bookmark a .edit {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url(../imgs/edit.png) no-repeat;
+  background-size: 100% 100%;
+  top: 0;
+  left: 2px;
+}
+.bookmark a .edit:hover {
+  background: url(../imgs/edit_hover.png) no-repeat;
+  background-size: 100% 100%;
+}
 .bookmark a .delete {
   position: absolute;
   width: 30px;

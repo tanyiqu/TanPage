@@ -375,12 +375,22 @@ function editBookmarks() {
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
-        html += '<a style="animation: move .8s infinite;"><i class="delete" id="deletebm{0}"></i><p>{1}</p><span>{2}</span></a>'.format(i, bookmarks[i][1], bookmarks[i][2]);
+        html += '<a style="animation: move .8s infinite;"><i class="edit"></i><i class="delete"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i][1], bookmarks[i][2]);
     }
     bookmark.html(html);
     // 依次给按钮添加监听
-    var items = $('.delete');
-    console.log(items);
+    // 编辑按钮
+    var items = $('.edit');
+    len = items.length;
+    for (var i = 0; i < len; i++) {
+        const n = i;
+        $(items[i]).click((e) => {
+            alert('' + n)
+
+        });
+    }
+    // 删除按钮
+    items = $('.delete');
     len = items.length;
     for (var i = 0; i < len; i++) {
         const n = i;
@@ -394,4 +404,6 @@ function editBookmarks() {
             e.stopPropagation();
         });
     }
+
+
 }
