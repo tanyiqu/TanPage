@@ -157,25 +157,25 @@ function initLinstener() {
     });
 
     // 确定添加书签
-    $('.ensureAddBookmark').click(() => {
-        // 获取三个输入
-        var name = $('#abmName').val();
-        var label = $('#abmLabel').val();
-        var URL = $('#abmURL').val();
-        if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
-            Toast.error('内容不能为空！');
-            return;
-        }
-        var bm = [URL, label, name];
-        bookmarks.push(bm);
-        chrome.storage.sync.set({ bookmarks: bookmarks });
-        $('.shade').css('display', 'none');
-        $('#addBookmarkWd').css('display', 'none');
+    // $('.ensureAddBookmark').click(() => {
+    //     // 获取三个输入
+    //     var name = $('#abmName').val();
+    //     var label = $('#abmLabel').val();
+    //     var URL = $('#abmURL').val();
+    //     if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
+    //         Toast.error('内容不能为空！');
+    //         return;
+    //     }
+    //     var bm = [URL, label, name];
+    //     bookmarks.push(bm);
+    //     chrome.storage.sync.set({ bookmarks: bookmarks });
+    //     $('.shade').css('display', 'none');
+    //     $('#addBookmarkWd').css('display', 'none');
 
-        // 刷新书签的显示
-        Toast.success('添加成功！');
-        refreshBookmarks();
-    });
+    //     // 刷新书签的显示
+    //     Toast.success('添加成功！');
+    //     refreshBookmarks();
+    // });
 
     // 编辑书签
     $('.bookmark').on('contextmenu', (e) => {
@@ -342,7 +342,7 @@ function initSetting() {
 
 
 // 刷新书签的显示
-function refreshBookmarks() {
+function refreshBookmarks(flag) {
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
@@ -363,9 +363,35 @@ function refreshBookmarks() {
             "display": "block"
         });
         // 让添加的窗口弹出
-        $('#addBookmarkWd').css('display', 'block');
+        var addBookmarkWd = $('#addBookmarkWd');
+        addBookmarkWd.css('display', 'block');
+        var s = $('#addBookmarkWdTt');
+        s.html('添加书签');
+        // 点击事件
+        // 如果添加过了，就跳过
+        // 删除监听
+        $('.ensureAddBookmark').off('click');
+        $('.ensureAddBookmark').click(() => {
+            // 获取三个输入
+            var name = $('#abmName').val();
+            var label = $('#abmLabel').val();
+            var URL = $('#abmURL').val();
+            if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
+                Toast.error('内容不能为空！');
+                return;
+            }
+            var bm = [URL, label, name];
+            bookmarks.push(bm);
+            chrome.storage.sync.set({ bookmarks: bookmarks });
+            $('.shade').css('display', 'none');
+            $('#addBookmarkWd').css('display', 'none');
 
+            // 刷新书签的显示
+            Toast.success('添加成功！');
+            refreshBookmarks();
+        });
     });
+
 }
 
 // 编辑书签
@@ -385,8 +411,44 @@ function editBookmarks() {
     for (var i = 0; i < len; i++) {
         const n = i;
         $(items[i]).click((e) => {
-            alert('' + n)
+            // 显示修改框框
+            // 设置笼罩层
+            $('.shade').css({
+                "width": window.innerWidth + "px",
+                "height": window.innerHeight + "px",
+                "display": "block"
+            });
+            // 让添加的窗口弹出
+            var editBookmarkWd = $('#addBookmarkWd');
+            editBookmarkWd.css('display', 'block');
+            var s = $('#addBookmarkWdTt');
+            s.html('修改书签');
+            // 显示原有的
+            $('#abmName').val(bookmarks[n][2]);
+            $('#abmLabel').val(bookmarks[n][1]);
+            $('#abmURL').val(bookmarks[n][0]);
+            // 监听
+            $('.ensureAddBookmark').off('click');
+            $('.ensureAddBookmark').click(() => {
+                alert('011');
+                // 获取三个输入
+                // var name = $('#abmName').val();
+                // var label = $('#abmLabel').val();
+                // var URL = $('#abmURL').val();
+                // if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
+                //     Toast.error('内容不能为空！');
+                //     return;
+                // }
+                // var bm = [URL, label, name];
+                // bookmarks.push(bm);
+                // chrome.storage.sync.set({ bookmarks: bookmarks });
+                // $('.shade').css('display', 'none');
+                // $('#addBookmarkWd').css('display', 'none');
 
+                // // 刷新书签的显示
+                // Toast.success('添加成功！');
+                // refreshBookmarks();
+            });
         });
     }
     // 删除按钮
