@@ -385,7 +385,6 @@ function refreshBookmarks(flag) {
             chrome.storage.sync.set({ bookmarks: bookmarks });
             $('.shade').css('display', 'none');
             $('#addBookmarkWd').css('display', 'none');
-
             // 刷新书签的显示
             Toast.success('添加成功！');
             refreshBookmarks();
@@ -401,7 +400,7 @@ function editBookmarks() {
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
-        html += '<a style="animation: move .8s infinite;"><i class="edit"></i><i class="delete"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i][1], bookmarks[i][2]);
+        html += '<a style="animation: move .8s infinite;"><i class="edit" title="编辑"></i><i class="delete" title="删除"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i][1], bookmarks[i][2]);
     }
     bookmark.html(html);
     // 依次给按钮添加监听
@@ -427,27 +426,19 @@ function editBookmarks() {
             $('#abmName').val(bookmarks[n][2]);
             $('#abmLabel').val(bookmarks[n][1]);
             $('#abmURL').val(bookmarks[n][0]);
-            // 监听
+            // 确定按钮的监听
             $('.ensureAddBookmark').off('click');
             $('.ensureAddBookmark').click(() => {
-                alert('011');
                 // 获取三个输入
-                // var name = $('#abmName').val();
-                // var label = $('#abmLabel').val();
-                // var URL = $('#abmURL').val();
-                // if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
-                //     Toast.error('内容不能为空！');
-                //     return;
-                // }
-                // var bm = [URL, label, name];
-                // bookmarks.push(bm);
-                // chrome.storage.sync.set({ bookmarks: bookmarks });
-                // $('.shade').css('display', 'none');
-                // $('#addBookmarkWd').css('display', 'none');
-
-                // // 刷新书签的显示
-                // Toast.success('添加成功！');
-                // refreshBookmarks();
+                bookmarks[n][0] = $('#abmURL').val();
+                bookmarks[n][1] = $('#abmLabel').val();
+                bookmarks[n][2] = $('#abmName').val();
+                chrome.storage.sync.set({ bookmarks: bookmarks });
+                // 取消笼罩层和窗口显示
+                $('.shade').css('display', 'none');
+                $('#addBookmarkWd').css('display', 'none');
+                refreshBookmarks();
+                Toast.success('修改成功！');
             });
         });
     }
