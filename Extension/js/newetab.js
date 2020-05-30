@@ -38,7 +38,7 @@ engineList.css('display', 'none');
 setting.css('display', 'none');
 $('#addBookmarkWd').css('display', 'none');
 
-// 加载配置信息
+// 加载配置信息，入口函数
 (function () {
     chrome.storage.sync.get(null, (res) => {
         // 获取配置
@@ -48,7 +48,6 @@ $('#addBookmarkWd').css('display', 'none');
         bookmarks = res.bookmarks;
         // 加载配置
         initPage();
-
     });
 })()
 
@@ -156,26 +155,6 @@ function initLinstener() {
         $('#addBookmarkWd').css('display', 'none');
     });
 
-    // 确定添加书签
-    // $('.ensureAddBookmark').click(() => {
-    //     // 获取三个输入
-    //     var name = $('#abmName').val();
-    //     var label = $('#abmLabel').val();
-    //     var URL = $('#abmURL').val();
-    //     if (name.isEmpty() || label.isEmpty() || URL.isEmpty()) {
-    //         Toast.error('内容不能为空！');
-    //         return;
-    //     }
-    //     var bm = [URL, label, name];
-    //     bookmarks.push(bm);
-    //     chrome.storage.sync.set({ bookmarks: bookmarks });
-    //     $('.shade').css('display', 'none');
-    //     $('#addBookmarkWd').css('display', 'none');
-
-    //     // 刷新书签的显示
-    //     Toast.success('添加成功！');
-    //     refreshBookmarks();
-    // });
 
     // 编辑书签
     $('.bookmark').on('contextmenu', (e) => {
@@ -404,7 +383,7 @@ function editBookmarks() {
     }
     bookmark.html(html);
     // 依次给按钮添加监听
-    // 编辑按钮
+    // 1.编辑功能
     var items = $('.edit');
     len = items.length;
     for (var i = 0; i < len; i++) {
@@ -442,7 +421,8 @@ function editBookmarks() {
             });
         });
     }
-    // 删除按钮
+
+    // 2.删除功能
     items = $('.delete');
     len = items.length;
     for (var i = 0; i < len; i++) {
