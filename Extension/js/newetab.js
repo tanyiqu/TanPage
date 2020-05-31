@@ -32,12 +32,6 @@ var setting = $('.setting');
 // 书签列表
 var bookmark = $('.bookmark');
 
-// 默认显示为隐藏的dom
-sugList.css('display', 'none');
-engineList.css('display', 'none');
-setting.css('display', 'none');
-$('#addBookmarkWd').css('display', 'none');
-
 // 加载配置信息，入口函数
 (function () {
     chrome.storage.sync.get(null, (res) => {
@@ -54,17 +48,22 @@ $('#addBookmarkWd').css('display', 'none');
 
 // 加载配置
 function initPage() {
-    // 配置样式
-    initApperance();
-    // 添加事件
-    initLinstener();
-    // 加载设置信息
-    initSetting();
+    initWidget();
+    loadWidget();
 }
 
-
-// 配置样式
-function initApperance() {
+/**
+ * 初始化控件
+ * 包括隐藏初始不显示的控件，
+ * 根据配置加载控件的颜色、位置等
+ */
+function initWidget() {
+    // 默认显示为隐藏的dom
+    sugList.css('display', 'none');
+    engineList.css('display', 'none');
+    setting.css('display', 'none');
+    $('#addBookmarkWd').css('display', 'none');
+    // 根据配置加载样式
     console.log("加载样式");
     // 设置背景色
     $(".cgEngine").css('background', searsh_bar_background);
@@ -73,7 +72,27 @@ function initApperance() {
 
     // 设置搜索框位置
     $(".searsh").css('top', searsh_bar_margin_top);
+}
 
+/**
+ * 加载控件
+ * 包括添加各种控件的行为、监听等
+ */
+function loadWidget() {
+    // 加载搜索引擎
+    loadEngine();
+
+    // 加载书签
+    loadBookmarks();
+
+    // 加载设置窗口
+    loadSetting();
+}
+
+/**
+ * 加载搜索引擎
+ */
+function loadEngine() {
     // 默认搜索引擎图标
     cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
 
@@ -86,22 +105,8 @@ function initApperance() {
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div>';
     engineList.html(html);
 
-    // 将设置窗口高度设置为当前高度
-    var height = window.innerHeight;
-    setting.css('height', height + "px");
-
-    // 加载书签内容
-    refreshBookmarks();
-}
-
-
-// 添加事件
-function initLinstener() {
-    // 提交表单
+    // 提交搜索
     $(".searsh").submit(onSearsh);
-
-    // 输入框文本改变
-    input.on('input', onInput);
 
     // 切换搜索引擎按钮
     var len = engines.length;
@@ -140,28 +145,52 @@ function initLinstener() {
         });
     }
 
+    // 输入框文本改变时添加搜索建议
+    input.on('input', onInput);
+}
+
+/**
+ * 加载书签
+ */
+function loadBookmarks() {
+    // 显示书签
+    refreshBookmarks();
+
+    // 右键进入编辑书签
+    $('.bookmark').on('contextmenu', (e) => {
+        e.preventDefault();
+        editBookmarks();
+    });
+
+    // 取消添加书签按钮
+    $('.cancelAddBookmark').click(() => {
+        $('.shade').css('display', 'none');
+        $('#addBookmarkWd').css('display', 'none');
+    });
+
+}
+
+/**
+ * 加载设置窗口
+ */
+function loadSetting() {
     // 打开设置
     $(".showSetting").click(() => {
-        setting.css('display', 'block');
+        setting.css({
+            // 动态设置高度
+            'height': window.innerHeight + "px",
+            'display': 'block'
+        });
     });
     // 关闭设置
     $("#closeSetting").click(() => {
         setting.css('display', 'none');
     });
 
-    // 取消添加书签
-    $('.cancelAddBookmark').click(() => {
-        $('.shade').css('display', 'none');
-        $('#addBookmarkWd').css('display', 'none');
-    });
+    // 加载设置窗口的内容
+    $("#searsh_bar_margin_top").val(searsh_bar_margin_top);
+    $("#searsh_bar_background").val(searsh_bar_background);
 
-
-    // 编辑书签
-    $('.bookmark').on('contextmenu', (e) => {
-        e.preventDefault();
-        // alert('0');
-        editBookmarks();
-    });
 }
 
 
@@ -190,6 +219,11 @@ function onInput(event) {
     };
 }
 
+function refreshState() {
+    arr = [];
+    currSelectLiNum = 0;
+    currSelectLi = null;
+}
 
 // 刷新建议列表
 function refreshTips() {
@@ -229,16 +263,8 @@ function refreshTips() {
 }
 
 
-function refreshState() {
-    arr = [];
-    currSelectLiNum = 0;
-    currSelectLi = null;
-}
-
-
-// 键盘事件
-document.onkeydown = chang_page;
-function chang_page(event) {
+// 键盘事件，主要是搜索建议时的上下选择
+document.onkeydown = function (event) {
     // 37 左
     // 38 上
     // 39 右
@@ -313,15 +339,8 @@ document.addEventListener("click", function (e) {
 });
 
 
-// 加载设置信息
-function initSetting() {
-    $("#searsh_bar_margin_top").val(searsh_bar_margin_top);
-    $("#searsh_bar_background").val(searsh_bar_background);
-}
-
-
 // 刷新书签的显示
-function refreshBookmarks(flag) {
+function refreshBookmarks() {
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
@@ -369,7 +388,6 @@ function refreshBookmarks(flag) {
             refreshBookmarks();
         });
     });
-
 }
 
 // 编辑书签
@@ -437,6 +455,4 @@ function editBookmarks() {
             e.stopPropagation();
         });
     }
-
-
 }
