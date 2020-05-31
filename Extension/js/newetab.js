@@ -32,6 +32,17 @@ var setting = $('.setting');
 // 书签列表
 var bookmark = $('.bookmark');
 
+// 拖动书签时的残影
+var bmShadow = $('#bmShadow');
+
+// 正在拖拽书签
+var draggingBm = false;
+// 当前正在拖动的书签下标
+var currengDraggingBm = -1;
+// var x, y;
+// 书签的宽高
+var bmW, bmH;
+
 // 加载配置信息，入口函数
 (function () {
     chrome.storage.sync.get(null, (res) => {
@@ -62,6 +73,8 @@ function initWidget() {
     sugList.css('display', 'none');
     engineList.css('display', 'none');
     setting.css('display', 'none');
+    bmShadow.css('display', 'none');
+
     $('#addBookmarkWd').css('display', 'none');
     // 根据配置加载样式
     console.log("加载样式");
@@ -127,6 +140,11 @@ function loadEngine() {
 
     }
 
+    // 添加自定义搜索引擎按钮
+    $('#engineItemAdd').click(() => {
+        Toast.info('暂时不能自定义');
+    });
+
     // 临时搜索
     for (var i = 0; i < len; i++) {
         const n = i;
@@ -159,7 +177,7 @@ function loadBookmarks() {
     // 右键进入编辑书签
     $('.bookmark').on('contextmenu', (e) => {
         e.preventDefault();
-        editBookmarks();
+        editBookmarks(true);
     });
 
     // 取消添加书签按钮
@@ -334,6 +352,8 @@ document.addEventListener("click", function (e) {
     if (e.target != bookmark[0] && editingBookmarks) {
         editingBookmarks = false;
         refreshBookmarks();
+
+        draggingBm = false;
         Toast.info('已退出书签编辑模式！', 'toast-bottom-left');
     }
 });
@@ -341,16 +361,22 @@ document.addEventListener("click", function (e) {
 
 // 刷新书签的显示
 function refreshBookmarks() {
+    console.log('刷新标签');
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
-        html += '<a href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i][0], bookmarks[i][1], bookmarks[i][2]);
+        html += '<a class="bm" id="bm{3}" href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i][0], bookmarks[i][1], bookmarks[i][2], i);
     }
-    // 如果内容没有超过16个
-    if (len < 16) {
-        html += '<a><p class="addBookMark" id="addBookMark"></p><span>添加</span></a>';
-    }
+    html += '<a id="addBookMark"><p class="addBookMark"></p><span>添加</span></a>';
+
     bookmark.html(html);
+    // 如果内容没有超过16个
+    if (len >= 16) {
+        $('#addBookMark').css('display', 'none');
+    }
+    // 计算书签的宽高，方便拖拽时显示
+    bmW = $('.addBookMark').width();
+    bmH = $('.addBookMark').height();
 
     // 点击添加书签事件
     $("#addBookMark").click(() => {
@@ -391,13 +417,15 @@ function refreshBookmarks() {
 }
 
 // 编辑书签
-function editBookmarks() {
-    Toast.info('书签编辑模式<br>点击空白处退出', 'toast-bottom-left');
+function editBookmarks(showToast) {
+    if (showToast) {
+        Toast.info('书签编辑模式<br>点击空白处退出', 'toast-bottom-left');
+    }
     editingBookmarks = true;
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
-        html += '<a style="animation: move .8s infinite;"><i class="edit" title="编辑"></i><i class="delete" title="删除"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i][1], bookmarks[i][2]);
+        html += '<a class="bmitem" style="animation: move .8s infinite;cursor:move;"><i class="edit" title="编辑"></i><i class="delete" title="删除"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i][1], bookmarks[i][2]);
     }
     bookmark.html(html);
     // 依次给按钮添加监听
@@ -455,4 +483,106 @@ function editBookmarks() {
             e.stopPropagation();
         });
     }
+
+    // 3.拖拽
+    items = $('.bmitem');
+    len = items.length;
+    for (var i = 0; i < len; i++) {
+        const n = i;
+        // 鼠标按下
+        items[n].addEventListener('mousedown', (e) => {
+            if (e.target == $('.edit')[n] || e.target == $('.delete')[n]) {
+                return;
+            }
+            draggingBm = true;
+            currengDraggingBm = n;
+            // // 记录坐标
+            // x = e.clientX;
+            // y = e.clientY;
+            // 标签文字
+            $('#bmShadow > p').html(bookmarks[n][1]);
+        });
+    }
+}
+
+// 鼠标移动事件
+document.addEventListener('mousemove', (e) => {
+    if (draggingBm == false) {
+        return;
+    }
+    // 当前位置
+    var cX = e.clientX;
+    var cY = e.clientY;
+    var offx = parseInt(cX - (bmW / 2));
+    var offy = parseInt(cY - (bmH / 2));
+    // 显示残影
+    bmShadow.css({
+        'display': 'block',
+        'width': bmW + 'px',
+        'height': bmH + 'px',
+        'left': offx + 'px',
+        'top': offy + 'px',
+        'cursor': 'move'
+    });
+});
+
+// 鼠标释放事件
+document.addEventListener('mouseup', (e) => {
+    if (draggingBm == false) {
+        return;
+    }
+    draggingBm = false;
+
+    // 松开时的坐标
+    var reX = e.clientX;
+    var reY = e.clientY;
+    // 如果这个地方下面有其他书签，就和它交换位置
+    // 判断当前位置是否有其他书签
+    var pos = aboveBookmark(reX, reY);
+
+    // 交换书签并刷新
+    if (pos != -1) {
+        console.log(reX, reY, '下标', pos);
+        console.log(pos + '与' + currengDraggingBm + '交换');
+        // 交换操作
+        let temp = bookmarks[pos];
+        bookmarks[pos] = bookmarks[currengDraggingBm];
+        bookmarks[currengDraggingBm] = temp;
+        // 刷新本地存储
+        chrome.storage.sync.set({ bookmarks: bookmarks });
+    }
+
+    bmShadow.css('display', 'none');
+    refreshBookmarks();
+    editBookmarks();
+    currengDraggingBm = -1;
+});
+
+/**
+ * 判断当前位置是否有其他书签
+ * @param {*} currX x
+ * @param {*} currY y
+ * 返回下标，没有则返回-1
+ */
+function aboveBookmark(currX, currY) {
+    // 依次获取当前显示的书签的坐标
+    var axis = [];
+    var bms = $('.bmitem');
+    var len = bms.length;
+    // 依次记录所有书签的左上角坐标
+    for (var i = 0; i < len; i++) {
+        var X = parseInt($(bms[i]).offset().left);
+        var Y = parseInt($(bms[i]).offset().top);
+        axis.push({ x: X, y: Y });
+    }
+    // 遍历axis，检查当前位置位于哪个书签
+    for (var i = 0; i < len; i++) {
+        if (currX >= axis[i].x &&
+            currX <= (axis[i].x + bmW) &&
+            currY >= axis[i].y &&
+            currY <= (axis[i].y + bmH)) {
+            return i;
+        }
+    }
+    return -1;
 }

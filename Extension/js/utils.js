@@ -1,4 +1,6 @@
-// 字符串格式化辅助
+/**
+ * 字符串格式化辅助
+ */
 String.prototype.format = function (args) {
     var result = this;
     if (arguments.length > 0) {
@@ -22,12 +24,16 @@ String.prototype.format = function (args) {
     return result;
 }
 
-// 判断字符串是否为空
+/**
+ * 判断字符串是否为空
+ */
 String.prototype.isEmpty = function () {
     return (this.trim() == "");
 }
 
-// 封装toast提示
+/**
+ * 封装toast提示
+ */
 function Toast() {
     this.position = 'toast-top-right';
     this.timeOut = '1500';
@@ -68,3 +74,5 @@ function initToast() {
         toastr.info(msg);
     }
 }
+
+

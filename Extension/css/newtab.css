@@ -322,6 +322,7 @@ body {
   background-size: 100% 100%;
   top: 0;
   left: 2px;
+  cursor: pointer;
 }
 .bookmark a .edit:hover {
   background: url(../imgs/edit_hover.png) no-repeat;
@@ -335,6 +336,7 @@ body {
   background-size: 90% 90%;
   top: 2px;
   right: 2px;
+  cursor: pointer;
 }
 .bookmark a .delete:hover {
   background: url(../imgs/delete_hover.png) no-repeat;
@@ -362,6 +364,21 @@ body {
   background: url(../imgs/engines/add.png) no-repeat center #f4f8fa;
   background-size: 40% 50%;
 }
+.bmShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.bmShadow p {
+  width: 110px;
+  height: 85px;
+  line-height: 85px;
+  background: #f4f8facf;
+  border-radius: 5%;
+  margin: 0 auto;
+  font-size: 29px;
+  text-align: center;
+}
 .shade {
   position: absolute;
   background: rgba(0, 0, 0, 0.4);
@@ -385,7 +402,6 @@ body {
   width: 440px;
   height: 280px;
   background-image: linear-gradient(to right, #f4f8fa, rgba(255, 255, 255), #f4f8fa);
-  border-radius: 4px;
   z-index: 100;
   margin-top: 480px;
   left: 50%;
