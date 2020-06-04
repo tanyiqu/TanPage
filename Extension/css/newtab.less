@@ -24,21 +24,15 @@ body {
     width   : 100%;
     height  : 100%;
     z-index : -1;
-    opacity: .9;
+    opacity : .7;
 
-    // background     : url("../imgs/bgs/bg-3.png") no-repeat center 0;
-    // background-size: auto;
-
-    // background-size: cover;
+    background     : url("../imgs/bgs/bg-3.png") no-repeat center 0;
+    background-size: cover;
     // img {
     //     width : 100%;
     //     height: 100%;
     // }
 
-    video {
-        // width : 100%;
-        // height: 100%;
-    }
 }
 
 // 搜索框
@@ -294,15 +288,20 @@ body {
         }
     }
 
-    animation : mymove .5s;
-    position  : absolute;
-    top       : 0;
-    right     : 0;
-    width     : 400px;
-    height    : 800px;
-    padding   : 0 0 8px 8px;
-    background: pink;
-    overflow  : auto;
+    animation          : mymove .5s;
+    position           : absolute;
+    top                : 0;
+    right              : 0;
+    width              : 400px;
+    height             : 800px;
+    padding            : 0 0 8px 8px;
+    background         : pink;
+    overflow           : auto;
+    // 设置区域的文字不能选中
+    -webkit-user-select:none;
+    -moz-user-select   :none;
+    -ms-user-select    :none;
+    user-select        :none;
 
     .head {
         position          : relative;

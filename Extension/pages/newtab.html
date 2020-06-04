@@ -16,7 +16,7 @@
 </head>
 
 <body>
-
+    <!-- 仓库 -->
     <a class="ck" href="https://github.com/Tanyiqu/TanPage" target="_blank">仓库</a>
 
     <form action="#" class="searsh">
@@ -43,31 +43,6 @@
         <!-- <div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png"><p>自定义</p></div> -->
     </div>
 
-    <!-- 设置 -->
-    <i class="showSetting"></i>
-    <div class="setting" style="display: none;">
-        <div class="head">
-            <h3>TanPage - 设置</h3>
-            <i id="closeSetting"></i>
-        </div>
-
-
-        <div>
-            <p>搜索框距离顶部距离(px)</p>
-            <input id="searsh_bar_margin_top" type="text">
-        </div>
-
-        <div>
-            <p>搜索框背景色(Hex/rgba)</p>
-            <input id="searsh_bar_background" type="text">
-        </div>
-
-
-        <div class="btns">
-            <button class="apply">恢复默认</button>
-            <button class="apply">应用</button>
-        </div>
-    </div>
 
     <!-- 书签 -->
     <div class="bookmark">
@@ -113,6 +88,38 @@
         </div>
     </div>
 
+    <!-- 设置 -->
+    <i class="showSetting"></i>
+    <div class="setting" style="display: none;">
+        <div class="head">
+            <h3>TanPage - 设置</h3>
+            <i id="closeSetting"></i>
+        </div>
+
+        <!-- 背景图透明度 -->
+        <div>
+            <p>背景透明度</p>
+            <input id="bgOpacity" type="range" min="0" max="100" step="1" value="30" />
+            <span class="bgOpacity-val">30</span>
+        </div>
+
+
+        <!-- <div>
+            <p>搜索框距离顶部距离(px)</p>
+            <input id="searsh_bar_margin_top" type="text">
+        </div>
+
+        <div>
+            <p>搜索框背景色(Hex/rgba)</p>
+            <input id="searsh_bar_background" type="text">
+        </div> -->
+
+
+        <div class="btns">
+            <button class="defaultSetting">恢复默认</button>
+            <button class="applySetting">应用</button>
+        </div>
+    </div>
 
     <!-- 遮罩层 -->
     <div class="shade"></div>
@@ -121,7 +128,6 @@
     <!-- 背景 -->
     <div class="background">
         <!-- <img src="../imgs/bgs/bg-3.png" alt=""> -->
-        <video src="../imgs/bgs/bg-4.mp4" autoplay loop></video>
     </div>
 </body>
 

@@ -2,6 +2,7 @@ var searsh_bar_background;
 var searsh_bar_margin_top;
 var engine;
 var bookmarks;
+var localSettings;
 
 // 出现的提示的li集合
 var arr = [];
@@ -51,6 +52,7 @@ var bmW, bmH;
         searsh_bar_margin_top = res.searsh_bar_margin_top;
         engine = res.engine;
         bookmarks = res.bookmarks;
+        localSettings = res.settings;
         // 加载配置
         initPage();
     });
@@ -203,11 +205,43 @@ function loadSetting() {
     // 关闭设置
     $("#closeSetting").click(() => {
         setting.css('display', 'none');
+        // 恢复保存前的设置
+
     });
 
+
+    // 背景透明度拖动条改变
+    $("#bgOpacity").bind('input porpertychange', (e) => {
+        var value = e.target.value;
+        var opacity = value / 100.0;
+        $('.bgOpacity-val').html(value);
+        $('.background').css('opacity', opacity + '');
+    });
+
+    // 应用设置
+    $('.applySetting').click(() => {
+        // 背景透明度
+        var opacity = $('.background').css('opacity');
+
+        var settings = {};
+        settings.bgOpacity = opacity;
+
+        // 保存到本地
+        chrome.storage.sync.set({ settings: settings });
+        // 设置框消失
+        setting.css('display', 'none');
+    });
+
+
     // 加载设置窗口的内容
-    $("#searsh_bar_margin_top").val(searsh_bar_margin_top);
-    $("#searsh_bar_background").val(searsh_bar_background);
+    // $("#searsh_bar_margin_top").val(searsh_bar_margin_top);
+    // $("#searsh_bar_background").val(searsh_bar_background);
+
+    // 背景透明度
+    var opacity = localSettings.bgOpacity;
+    $('.background').css('opacity', opacity);
+    $("#bgOpacity").val(parseInt(100 * opacity));
+    $('.bgOpacity-val').html(parseInt(100 * opacity));
 
 }
 
@@ -361,7 +395,7 @@ document.addEventListener("click", function (e) {
 
 // 刷新书签的显示
 function refreshBookmarks() {
-    console.log('刷新标签');
+    console.log('刷新书签');
     html = '';
     len = bookmarks.length;
     for (var i = 0; i < len; i++) {
