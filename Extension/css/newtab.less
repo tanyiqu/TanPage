@@ -4,10 +4,15 @@
     box-sizing: border-box;
 }
 
+// 设置区域的文字不能选中
+.cntSelect() {
+    -webkit-user-select: none;
+    -moz-user-select   : none;
+    -ms-user-select    : none;
+    user-select        : none;
+}
+
 body {
-    // background        : url("../imgs/bgs/bg-2.png") no-repeat center 0 fixed;
-    // background     : pink;
-    // background-size: auto;
     position: relative;
 }
 
@@ -24,7 +29,9 @@ body {
     width   : 100%;
     height  : 100%;
     z-index : -1;
-    opacity : .7;
+
+    opacity: .7;
+    filter : blur(0px);
 
     background     : url("../imgs/bgs/bg-3.png") no-repeat center 0;
     background-size: cover;
@@ -32,7 +39,7 @@ body {
     //     width : 100%;
     //     height: 100%;
     // }
-
+    
 }
 
 // 搜索框
@@ -47,7 +54,7 @@ body {
     border-radius: .0875rem;
     box-shadow   : 5px 5px 10px 5px rgba(0, 0, 0, .2);
     animation    : myshadow1 .3s;
-    user-select  : none;
+    .cntSelect();
 
     &:hover {
         animation : myshadow2 .3s;
@@ -163,8 +170,8 @@ body {
         line-height  : 54px;
         font-size    : .22rem;
         text-align   : left;
-        user-select  : none;
-        display      : flex;
+        .cntSelect();
+        display: flex;
 
         div {
             width          : 54px;
@@ -200,6 +207,7 @@ body {
     top          : 282px;
     background   : #fff;
     box-shadow   : 5px 5px 5px 1px rgba(0, 0, 0, .2);
+    z-index      : 2;
 
     @keyframes myshow {
         0% {
@@ -288,32 +296,27 @@ body {
         }
     }
 
-    animation          : mymove .5s;
-    position           : absolute;
-    top                : 0;
-    right              : 0;
-    width              : 400px;
-    height             : 800px;
-    padding            : 0 0 8px 8px;
-    background         : pink;
-    overflow           : auto;
-    // 设置区域的文字不能选中
-    -webkit-user-select:none;
-    -moz-user-select   :none;
-    -ms-user-select    :none;
-    user-select        :none;
+    animation     : mymove .5s;
+    position      : absolute;
+    top           : 0;
+    right         : 0;
+    width         : 400px;
+    height        : 800px;
+    // padding    : 0 0 8px 0;
+    background    : #ededed;
+    overflow      : auto;
+    .cntSelect();
 
     .head {
-        position          : relative;
-        display           : flex;
-        height            : 40px;
-        // justify-content: center;
-        // align-items    : center;
+        position  : relative;
+        display   : flex;
+        height    : 60px;
+        background: #fff;
 
-        h3 {
+        h4 {
             width      : fit-content;
-            height     : 40px;
-            line-height: 40px;
+            height     : 60px;
+            line-height: 60px;
             font-size  : 20px;
             margin-top : 5px;
             margin     : 0 auto;
@@ -328,7 +331,6 @@ body {
             background     : url(../imgs/close.png);
             background-size: 100% 100%;
             cursor         : pointer;
-
 
             &:hover {
                 background     : url(../imgs/close_hover.png);
@@ -378,7 +380,7 @@ body {
     // background    : pink;
     display          : flex;
     flex-wrap        : wrap;
-    user-select      : none;
+    .cntSelect();
 
     @keyframes move {
 
@@ -506,7 +508,7 @@ body {
 
 .shade {
     position  : absolute;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, .7);
     z-index   : 99;
     left      : 0px;
     top       : 0px;
@@ -519,7 +521,7 @@ body {
         }
 
         100% {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.7);
         }
     }
 

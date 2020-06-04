@@ -18,6 +18,7 @@ body {
   height: 100%;
   z-index: -1;
   opacity: 0.7;
+  filter: blur(0px);
   background: url("../imgs/bgs/bg-3.png") no-repeat center 0;
   background-size: cover;
 }
@@ -32,6 +33,9 @@ body {
   border-radius: 0.0875rem;
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
   animation: myshadow1 0.3s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 .searsh:hover {
@@ -124,6 +128,9 @@ body {
   line-height: 54px;
   font-size: 0.22rem;
   text-align: left;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
   display: flex;
 }
@@ -153,6 +160,7 @@ body {
   top: 282px;
   background: #fff;
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.2);
+  z-index: 2;
   animation: myshow 0.5s;
 }
 @keyframes myshow {
@@ -220,8 +228,7 @@ body {
   right: 0;
   width: 400px;
   height: 800px;
-  padding: 0 0 8px 8px;
-  background: pink;
+  background: #ededed;
   overflow: auto;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -239,12 +246,13 @@ body {
 .setting .head {
   position: relative;
   display: flex;
-  height: 40px;
+  height: 60px;
+  background: #fff;
 }
-.setting .head h3 {
+.setting .head h4 {
   width: fit-content;
-  height: 40px;
-  line-height: 40px;
+  height: 60px;
+  line-height: 60px;
   font-size: 20px;
   margin-top: 5px;
   margin: 0 auto;
@@ -293,6 +301,9 @@ body {
   padding-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 @keyframes move {
@@ -393,7 +404,7 @@ body {
 }
 .shade {
   position: absolute;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 99;
   left: 0px;
   top: 0px;
@@ -406,7 +417,7 @@ body {
     background: rgba(0, 0, 0, 0);
   }
   100% {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.7);
   }
 }
 .addBookmarkWd {

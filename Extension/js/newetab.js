@@ -453,7 +453,7 @@ function refreshBookmarks() {
 // 编辑书签
 function editBookmarks(showToast) {
     if (showToast) {
-        Toast.info('书签编辑模式<br>点击空白处退出', 'toast-bottom-left');
+        Toast.info('书签编辑模式<br>点击空白处退出');
     }
     editingBookmarks = true;
     html = '';
