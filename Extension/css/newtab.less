@@ -39,7 +39,7 @@ body {
     //     width : 100%;
     //     height: 100%;
     // }
-    
+
 }
 
 // 搜索框
@@ -197,6 +197,7 @@ body {
 
 }
 
+// 搜索引擎列表
 .engineList {
     position     : absolute;
     width        : 664px;
@@ -267,7 +268,7 @@ body {
     }
 }
 
-
+// 打开设置按钮
 .showSetting {
     position       : absolute;
     top            : 10px;
@@ -284,8 +285,8 @@ body {
     }
 }
 
+// 设置框
 .setting {
-
     @keyframes mymove {
         0% {
             opacity: 0;
@@ -296,17 +297,17 @@ body {
         }
     }
 
-    animation     : mymove .5s;
-    position      : absolute;
-    top           : 0;
-    right         : 0;
-    width         : 400px;
-    height        : 800px;
-    // padding    : 0 0 8px 0;
-    background    : #ededed;
-    overflow      : auto;
+    animation  : mymove .5s;
+    position   : absolute;
+    top        : 0;
+    right      : 0;
+    width      : 400px;
+    height     : 800px;
+    background : #ededed;
+    overflow   : auto;
     .cntSelect();
 
+    // 设置头部
     .head {
         position  : relative;
         display   : flex;
@@ -339,35 +340,77 @@ body {
         }
     }
 
+    // 选项卡按钮
+    .tab {
+        display: table;
+        width  : 100%;
 
+        .active {
+            background: #ededed;
+        }
 
-    p {
-        font-size: 16px;
-        margin   : 5px 0;
-    }
+        div {
+            display       : table-cell;
+            width         : 33.3%;
+            height        : 50px;
+            background    : #d8d8d8;
+            text-align    : center;
+            vertical-align: middle;
+            font-size     : 18px;
+            cursor        : pointer;
 
-    input {
-        height      : 35px;
-        width       : 80%;
-        font-size   : 16px;
-        padding-left: 5px;
-    }
-
-
-    .btns {
-        display: flex;
-
-        .apply {
-            width       : 80px;
-            height      : 30px;
-            margin-top  : 10px;
-            margin-right: 5px;
+            &:hover {
+                background: #ededed;
+            }
         }
     }
 
+    // 设置主体
+    .settingBody {
+        padding: 16px;
+        overflow   : auto;
+        // 设置中的一块
+        .block {
+            background: #fff;
+            width     : 100%;
+            padding   : 16px;
+            // 块的标题
+
+            .title {
+                color    : #000;
+                font-size: 14px;
+            }
+        }
+    }
+
+
+    // p {
+    //     font-size: 16px;
+    //     margin   : 5px 0;
+    // }
+
+    // input {
+    //     height      : 35px;
+    //     width       : 80%;
+    //     font-size   : 16px;
+    //     padding-left: 5px;
+    // }
+
+
+    // .btns {
+    //     display: flex;
+
+    //     .apply {
+    //         width       : 80px;
+    //         height      : 30px;
+    //         margin-top  : 10px;
+    //         margin-right: 5px;
+    //     }
+    // }
+
 }
 
-
+// 书签
 .bookmark {
     position         : absolute;
     z-index          : 1;
@@ -488,6 +531,7 @@ body {
     }
 }
 
+// 拖动书签的残影
 .bmShadow {
     position: absolute;
     left    : 0;
@@ -506,6 +550,7 @@ body {
     }
 }
 
+// 笼罩层
 .shade {
     position  : absolute;
     background: rgba(0, 0, 0, .7);
@@ -528,6 +573,7 @@ body {
     animation: myshade .3s;
 }
 
+// 添加/修改书签窗口
 .addBookmarkWd {
     position           : absolute;
     width              : 440px;

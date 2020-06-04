@@ -271,24 +271,38 @@ body {
   background: url(../imgs/close_hover.png);
   background-size: 100% 100%;
 }
-.setting p {
-  font-size: 16px;
-  margin: 5px 0;
+.setting .tab {
+  display: table;
+  width: 100%;
 }
-.setting input {
-  height: 35px;
-  width: 80%;
-  font-size: 16px;
-  padding-left: 5px;
+.setting .tab .active {
+  background: #ededed;
 }
-.setting .btns {
-  display: flex;
+.setting .tab div {
+  display: table-cell;
+  width: 33.3%;
+  height: 50px;
+  background: #d8d8d8;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  cursor: pointer;
 }
-.setting .btns .apply {
-  width: 80px;
-  height: 30px;
-  margin-top: 10px;
-  margin-right: 5px;
+.setting .tab div:hover {
+  background: #ededed;
+}
+.setting .settingBody {
+  padding: 16px;
+  overflow: auto;
+}
+.setting .settingBody .block {
+  background: #fff;
+  width: 100%;
+  padding: 16px;
+}
+.setting .settingBody .block .title {
+  color: #000;
+  font-size: 14px;
 }
 .bookmark {
   position: absolute;
