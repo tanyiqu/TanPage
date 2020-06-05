@@ -1,0 +1,58 @@
+// 通用样式
+
+// 指针
+.pointer {
+  cursor: pointer;
+}
+
+// 区域的文字不能选中
+.cntSelect() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// 拖动条
+input[type=range] {
+  -webkit-appearance: none;
+  width: 80%;
+  border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+  background: #51A351;
+
+  //&::-webkit-slider-container {
+  //  background: black;
+  //}
+
+  //&::-webkit-media-slider-container {
+  //  background: #2F96B4;
+  //}
+
+  &::-webkit-slider-runnable-track {
+    height: 15px;
+    border-radius: 10px; /*将轨道设为圆角的*/
+    box-shadow: 0 1px 1px #def3f8,
+    inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff;
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+  }
+
+  &:hover {
+    outline: none;
+    color: pink;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+}
