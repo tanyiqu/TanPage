@@ -116,14 +116,22 @@
 
             <label><input type="radio" name="wp" value="2">本地壁纸</label>
             <p>使用本地图片</p>
+        </div>
 
-            <p>背景透明度</p>
+        <!-- 壁纸透明度 -->
+        <div class="block">
+            <p class="title">壁纸透明度</p>
             <label for="bgOpacity"></label><input id="bgOpacity" type="range" min="0" max="100" step="1" value="30"/>
             <span>30</span>
-
-
         </div>
-        <div></div>
+
+        <!-- 壁纸模糊度 -->
+        <div class="block">
+            <p class="title">壁纸模糊度</p>
+            <label for="bgBlurry"></label><input id="bgBlurry" type="range" min="0" max="100" step="1" value="30"/>
+            <span>30</span>
+        </div>
+
     </div>
 
     <!-- 逻辑 -->

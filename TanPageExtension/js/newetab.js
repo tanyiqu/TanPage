@@ -31,9 +31,6 @@ let cgEngineImg = $("#cgEngineImg");
 // 切换搜索引擎时的所有所搜引擎列表
 let engineList = $('#engineList');
 
-// 设置框
-let setting = $('.setting');
-
 // 书签列表
 let bookmark = $('.bookmark');
 
@@ -79,7 +76,6 @@ function initWidget() {
     // 默认显示为隐藏的dom
     sugList.css('display', 'none');
     engineList.css('display', 'none');
-    setting.css('display', 'none');
     bmShadow.css('display', 'none');
 
     $('#addBookmarkWd').css('display', 'none');
@@ -104,8 +100,6 @@ function loadWidget() {
 
     // 加载书签
     loadBookmarks();
-
-
 }
 
 /**
@@ -135,9 +129,9 @@ function loadEngine() {
         let id = "#engineItem" + (n + 1);
         // 查询到标签后添加点击事件
         $(id).click(() => {
-            ChromeSync({engine: n});
-            ChromeSync({default_engine_url: engines[n].url});
-            ChromeSync({default_engine_name: engines[n].name});
+            ChromeSyncSet({engine: n});
+            ChromeSyncSet({default_engine_url: engines[n].url});
+            ChromeSyncSet({default_engine_name: engines[n].name});
             engine = n;
             cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
 
@@ -390,7 +384,7 @@ function refreshBookmarks() {
             let bm = [URL, label, name];
             bookmarks.push(bm);
             // chrome.storage.sync.set({bookmarks: bookmarks});
-            ChromeSync({bookmarks: bookmarks});
+            ChromeSyncSet({bookmarks: bookmarks});
             $('.shade').css('display', 'none');
             $('#addBookmarkWd').css('display', 'none');
             // 刷新书签的显示
@@ -442,7 +436,7 @@ function editBookmarks(showToast) {
                 bookmarks[n][0] = $('#abmURL').val();
                 bookmarks[n][1] = $('#abmLabel').val();
                 bookmarks[n][2] = $('#abmName').val();
-                ChromeSync({bookmarks: bookmarks});
+                ChromeSyncSet({bookmarks: bookmarks});
                 // 取消笼罩层和窗口显示
                 $('.shade').css('display', 'none');
                 $('#addBookmarkWd').css('display', 'none');
@@ -461,7 +455,7 @@ function editBookmarks(showToast) {
             // 删除第n个bookmark
             bookmarks.splice(n, 1);
             // 刷新本地存储
-            ChromeSync({bookmarks: bookmarks});
+            ChromeSyncSet({bookmarks: bookmarks});
             editBookmarks();
             Toast.success('删除成功！', 'toast-bottom-left');
             e.stopPropagation();
@@ -533,7 +527,7 @@ document.addEventListener('mouseup', (e) => {
         bookmarks[pos] = bookmarks[currentDraggingBm];
         bookmarks[currentDraggingBm] = temp;
         // 刷新本地存储
-        ChromeSync({bookmarks: bookmarks});
+        ChromeSyncSet({bookmarks: bookmarks});
     }
 
     bmShadow.css('display', 'none');

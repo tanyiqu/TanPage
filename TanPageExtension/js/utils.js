@@ -2,7 +2,7 @@
  * 谷歌扩展本地存储
  * @param kv 键值
  */
-function ChromeSync(kv) {
+function ChromeSyncSet(kv) {
     // noinspection JSUnresolvedVariable
     chrome.storage.sync.set(kv);
 }
