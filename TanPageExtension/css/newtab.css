@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+.pointer {
+  cursor: pointer;
+}
 body {
   position: relative;
 }
@@ -303,7 +306,8 @@ body {
 }
 .setting .settingBody .block .title {
   color: #000;
-  font-size: 14px;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 .bookmark {
   position: absolute;

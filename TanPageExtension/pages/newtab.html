@@ -108,20 +108,27 @@
         <!-- 壁纸 -->
         <div class="block">
             <p class="title">壁纸</p>
-            <label><input type="radio" name="wp" value="0">默认壁纸</label><br>
+            <label class="pointer"><input type="radio" name="wp" value="0">默认壁纸</label><br>
             <p>使用默认的壁纸</p>
 
-            <label><input type="radio" name="wp" value="1">Bing壁纸</label><br>
+            <label class="pointer"><input type="radio" name="wp" value="1">Bing壁纸</label><br>
             <p>使用必应每日一图</p>
 
-            <label><input type="radio" name="wp" value="2">本地壁纸</label>
+            <label class="pointer"><input type="radio" name="wp" value="2">本地壁纸</label>
             <p>使用本地图片</p>
         </div>
 
-        <!-- 壁纸透明度 -->
+        <!-- 壁纸白色笼罩 -->
         <div class="block">
-            <p class="title">壁纸透明度</p>
+            <p class="title">壁纸白色笼罩</p>
             <label for="bgOpacity"></label><input id="bgOpacity" type="range" min="0" max="100" step="1" value="30"/>
+            <span>30</span>
+        </div>
+
+        <!-- 壁纸黑色笼罩 -->
+        <div class="block">
+            <p class="title">壁纸黑色笼罩</p>
+            <label for="ssss"></label><input id="ssss" type="range" min="0" max="100" step="1" value="30"/>
             <span>30</span>
         </div>
 
