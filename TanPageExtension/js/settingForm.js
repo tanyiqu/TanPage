@@ -35,11 +35,11 @@ $("#closeSetting").click(() => {
  */
 function loadSetting() {
 
-    // 背景透明度拖动条改变
-    $("#bgOpacity").bind('input porpertychange', (e) => {
+    // 壁纸白色笼罩拖动条改变
+    $("#whiteShroud").bind('input porpertychange', (e) => {
         let value = e.target.value;
         let opacity = value / 100.0;
-        $('.bgOpacity-val').html(value);
+        $('#whiteShroudValue').html(value + '%');
         $('.background').css('opacity', opacity + '');
     });
 

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TanPage</title>
+    <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/newtab.css">
     <link rel="stylesheet" href="../css/toastr.min.css">
 
@@ -121,22 +122,28 @@
         <!-- 壁纸白色笼罩 -->
         <div class="block">
             <p class="title">壁纸白色笼罩</p>
-            <label for="bgOpacity"></label><input id="bgOpacity" type="range" min="0" max="100" step="1" value="30"/>
-            <span>30</span>
+            <label for="whiteShroud"></label><input id="whiteShroud" class="pointer" type="range" min="0" max="100"
+                                                    step="1"
+                                                    value="30"/>
+            <span id="whiteShroudValue">30%</span>
         </div>
 
         <!-- 壁纸黑色笼罩 -->
         <div class="block">
             <p class="title">壁纸黑色笼罩</p>
-            <label for="ssss"></label><input id="ssss" type="range" min="0" max="100" step="1" value="30"/>
-            <span>30</span>
+            <label for="blackShroud"></label><input id="blackShroud" class="pointer" type="range" min="0" max="100"
+                                                    step="1"
+                                                    value="30"/>
+            <span id="blackShroudValue">30%</span>
         </div>
 
         <!-- 壁纸模糊度 -->
         <div class="block">
             <p class="title">壁纸模糊度</p>
-            <label for="bgBlurry"></label><input id="bgBlurry" type="range" min="0" max="100" step="1" value="30"/>
-            <span>30</span>
+            <label for="bgBlurry"></label><input id="bgBlurry" class="pointer" type="range" min="0" max="100"
+                                                 step="1"
+                                                 value="0"/>
+            <span id="bgBlurryValue">0%</span>
         </div>
 
     </div>

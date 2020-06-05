@@ -1,26 +1,10 @@
+@import url(general);
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-
-// 通用样式
-// 设置区域的文字不能选中
-.cntSelect() {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-// 指针
-.pointer {
-  cursor: pointer;
-}
-
-// 通用样式结束
-//////////////////////
 
 body {
   position: relative;
@@ -61,7 +45,6 @@ body {
   border-radius: .0875rem;
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .2);
   animation: myshadow1 .3s;
-  .cntSelect();
 
   &:hover {
     animation: myshadow2 .3s;
@@ -157,6 +140,7 @@ body {
   left: 50%;
   margin-left: -332px;
   z-index: 2;
+  .cntSelect();
 
   // + 8px
   top: 282px;
@@ -177,7 +161,6 @@ body {
     line-height: 54px;
     font-size: .22rem;
     text-align: left;
-    .cntSelect();
     display: flex;
 
     div {
@@ -216,6 +199,7 @@ body {
   background: #fff;
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .2);
   z-index: 2;
+  .cntSelect();
 
   @keyframes myshow {
     0% {
@@ -309,7 +293,6 @@ body {
   width: 400px;
   height: 800px;
   background: #ededed;
-  // overflow   : auto;
   .cntSelect();
 
   // 设置头部
@@ -563,12 +546,16 @@ body {
   position: absolute;
   width: 440px;
   height: 280px;
-  background-image: linear-gradient(to right, #f4f8fa, rgba(255, 255, 255), #f4f8fa);
+  background-image: linear-gradient(to right,
+  #f4f8fa,
+  rgba(255, 255, 255),
+  #f4f8fa);
   // border-radius   : 4px;
   z-index: 100;
   margin-top: 480px;
   left: 50%;
   transform: translate(-50%, -50%);
+  .cntSelect();
 
   @keyframes myaddBookmark {
     0% {
