@@ -12,19 +12,19 @@ loadSetting();
 function loadSetting() {
     // 打开设置
     $(".showSetting").click(() => {
+        // 动态设置高度
         setting.css({
-            // 动态设置高度
             'height': window.innerHeight + "px",
             'display': 'block'
         });
+        $('#settingAppearance').css('height', (window.innerHeight - 110) + "px");
+
     });
     // 关闭设置
     $("#closeSetting").click(() => {
         setting.css('display', 'none');
         // 恢复保存前的设置
-
     });
-
 
     // 背景透明度拖动条改变
     $("#bgOpacity").bind('input porpertychange', (e) => {

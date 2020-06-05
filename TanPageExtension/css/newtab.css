@@ -293,7 +293,7 @@ body {
   padding: 16px;
   width: 100%;
   height: 500px;
-  background: pink;
+  /*background: pink;*/
   overflow: auto;
 }
 .setting .settingBody .block {
@@ -514,5 +514,26 @@ body {
 }
 .addBookmarkWd .btns .cancelAddBookmark:hover {
   background: rgba(255, 255, 255, 0.6);
+}
+.scroll {
+  overflow: auto;
+}
+.scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll::-webkit-scrollbar-track {
+  background: #ededed;
+  border-radius: 2px;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 3px;
+}
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #747474;
+}
+.scroll::-webkit-scrollbar-corner {
+  background: #ededed;
 }
 /*# sourceMappingURL=newtab.css.map */
