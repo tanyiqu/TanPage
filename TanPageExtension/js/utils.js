@@ -46,9 +46,7 @@ function Toast() {
     this.position = 'toast-top-right';
     this.timeOut = '1500';
 }
-
 initToast();
-
 function initToast() {
     Toast.success = function (msg, position, timeOut) {
         if (!position) {

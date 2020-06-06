@@ -1,41 +1,3 @@
-.pointer {
-  cursor: pointer;
-}
-input[type=range] {
-  -webkit-appearance: none;
-  width: 80%;
-  border-radius: 10px;
-  /*这个属性设置使填充进度条时的图形为圆角*/
-  background: #51A351;
-}
-input[type=range]::-webkit-slider-runnable-track {
-  height: 15px;
-  border-radius: 10px;
-  /*将轨道设为圆角的*/
-  box-shadow: 0 1px 1px #def3f8, inset 0 0.125em 0.125em #0d1112;
-  /*轨道内置阴影效果*/
-}
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 25px;
-  width: 25px;
-  margin-top: -5px;
-  /*使滑块超出轨道部分的偏移量相等*/
-  background: #ffffff;
-  border-radius: 50%;
-  /*外观设置为圆形*/
-  border: solid 0.125em rgba(205, 224, 230, 0.5);
-  /*设置边框*/
-  box-shadow: 0 0.125em 0.125em #3b4547;
-  /*添加底部阴影*/
-}
-input[type=range]:hover {
-  outline: none;
-  color: pink;
-}
-input[type=range]:focus {
-  outline: none;
-}
 * {
   margin: 0;
   padding: 0;
@@ -344,6 +306,12 @@ body {
   font-size: 16px;
   margin-bottom: 8px;
 }
+.setting .settingBody .block .rangeValue {
+  font-size: 15px;
+  color: #2ecc71;
+  margin: 10px 5% 0 0;
+  text-align: right;
+}
 .bookmark {
   position: absolute;
   z-index: 1;
@@ -557,25 +525,4 @@ body {
 }
 .addBookmarkWd .btns .cancelAddBookmark:hover {
   background: rgba(255, 255, 255, 0.6);
-}
-.scroll {
-  overflow: auto;
-}
-.scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-.scroll::-webkit-scrollbar-track {
-  background: #ededed;
-  border-radius: 2px;
-}
-.scroll::-webkit-scrollbar-thumb {
-  background: #aaa;
-  border-radius: 3px;
-}
-.scroll::-webkit-scrollbar-thumb:hover {
-  background: #747474;
-}
-.scroll::-webkit-scrollbar-corner {
-  background: #ededed;
 }

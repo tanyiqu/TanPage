@@ -52,7 +52,7 @@ function loadSetting() {
         settings.bgOpacity = opacity;
 
         // 保存到本地
-        ChromeSyncSet({settings: settings});
+        ChromeSyncSet({ settings: settings });
         // 设置框消失
         setting.css('display', 'none');
     });
@@ -69,3 +69,4 @@ function loadSetting() {
     // $('.bgOpacity-val').html(parseInt(100 * opacity));
 
 }
+
