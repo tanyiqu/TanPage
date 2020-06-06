@@ -14,7 +14,7 @@ $(".showSetting").click(() => {
         'height': window.innerHeight + "px",
         'display': 'block'
     });
-    $('#settingAppearance').css('height', (window.innerHeight - 110) + "px");
+    $('#settingAppearance').css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
 
     // 加载设置
     if (firstOpenSetting) {
@@ -57,15 +57,17 @@ function loadSetting() {
     // 应用设置
     $('.applySetting').click(() => {
         // 背景透明度
-        let opacity = $('.background').css('opacity');
+        // let opacity = $('.background').css('opacity');
 
-        let settings = {};
-        settings.bgOpacity = opacity;
+        // let settings = {};
+        // settings.bgOpacity = opacity;
 
-        // 保存到本地
-        ChromeSyncSet({ settings: settings });
+        // // 保存到本地
+        // ChromeSyncSet({ settings: settings });
         // 设置框消失
-        setting.css('display', 'none');
+        // setting.css('display', 'none');
+
+        // setting.hide();
     });
 
 

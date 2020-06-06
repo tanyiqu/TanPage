@@ -26,15 +26,11 @@ body {
 
 // 背景
 .background {
-  position: fixed;
-  width   : 100%;
-  height  : 100%;
-  z-index : -10;
-
-  // opacity: .7;
-  // filter : blur(0px);
-
-  background     : url("../imgs/bgs/bg-3.png") no-repeat center 0;
+  position       : fixed;
+  width          : 100%;
+  height         : 100%;
+  z-index        : -10;
+  background     : url("../imgs/bgs/bg-2.png") no-repeat center 0;
   background-size: cover;
 
 }
@@ -389,6 +385,35 @@ body {
 
     }
   }
+
+  // 底部按钮
+  .btns {
+    width     : 100%;
+    height    : 60px;
+    background: #d8d8d8;
+
+    button {
+      float     : right;
+      width     : 100px;
+      height    : 40px;
+      margin    : 10px 10px 0 0;
+      outline   : none;
+      border    : none;
+      font-size : 14px;
+      background: #efefef;
+      cursor    : pointer;
+
+      &:hover {
+        background: #2ecc71;
+      }
+
+      &:active {
+        background: #198044;
+      }
+
+    }
+  }
+
 }
 
 // 书签
