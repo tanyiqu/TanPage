@@ -70,3 +70,47 @@ input[type=range] {
     background: #ededed;
   }
 }
+
+// 单选按钮
+.radio-box {
+  label {
+    padding-left: 10px;
+    position    : relative;
+    display     : inline-block;
+    height      : 40px;
+    line-height : 40px;
+    margin-left: 10px;
+    cursor      : pointer;
+
+    input[type="radio"] {
+      width : 0;
+      height: 0;
+
+      &::before {
+        content      : '';
+        display      : inline-block;
+        width        : 14px;
+        height       : 14px;
+        border-radius: 50%;
+        border       : 1px solid rgb(0, 171, 134);
+        margin-right : 15px;
+        position     : absolute;
+        top          : 12px;
+        left         : 0;
+      }
+
+      &:checked::before {
+        background-clip : content-box;
+        background-color: #0069AB;
+        width           : 8px;
+        height          : 8px;
+        padding         : 3px;
+      }
+    }
+
+    span {
+      margin-left: 10px;
+      font-size  : 15px;
+    }
+  }
+}

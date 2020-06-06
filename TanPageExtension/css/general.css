@@ -51,3 +51,39 @@ input[type=range]:focus {
 .scroll::-webkit-scrollbar-corner {
   background: #ededed;
 }
+.radio-box label {
+  padding-left: 10px;
+  position: relative;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.radio-box label input[type="radio"] {
+  width: 0;
+  height: 0;
+}
+.radio-box label input[type="radio"]::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #00ab86;
+  margin-right: 15px;
+  position: absolute;
+  top: 12px;
+  left: 0;
+}
+.radio-box label input[type="radio"]:checked::before {
+  background-clip: content-box;
+  background-color: #0069AB;
+  width: 8px;
+  height: 8px;
+  padding: 3px;
+}
+.radio-box label span {
+  margin-left: 10px;
+  font-size: 15px;
+}

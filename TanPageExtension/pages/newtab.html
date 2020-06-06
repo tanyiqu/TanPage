@@ -91,7 +91,7 @@
 
     <!-- 设置 -->
     <i class="showSetting"></i>
-    <div class="setting" style="display: none;">
+    <div class="setting" style="display: block;">
         <!-- 顶部标题 -->
         <div class="head">
             <h4>TanPage - 设置</h4>
@@ -110,14 +110,25 @@
             <!-- 壁纸 -->
             <div class="block">
                 <p class="title">壁纸</p>
-                <label class="pointer"><input type="radio" name="wp" value="0">默认壁纸</label><br>
-                <p>使用默认的壁纸</p>
+                <div class="radio-box">
+                    <label for="yes" class="choose-box"><input type="radio" id="yes" name="choose" checked/>
+                        <span>默认壁纸</span>
+                    </label>
+                </div>
 
-                <label class="pointer"><input type="radio" name="wp" value="1">Bing壁纸</label><br>
-                <p>使用必应每日一图</p>
+                <div class="radio-box">
+                    <label for="no" class="choose-box">
+                        <input type="radio" id="no" name="choose" />
+                        <span>Bing壁纸</span>
+                    </label>
+                </div>
 
-                <label class="pointer"><input type="radio" name="wp" value="2">本地壁纸</label>
-                <p>使用本地图片</p>
+                <div class="radio-box">
+                    <label for="n0o" class="choose-box">
+                        <input type="radio" id="n0o" name="choose" />
+                        <span>本地壁纸</span>
+                    </label>
+                </div>
             </div>
 
             <!-- 壁纸白色笼罩 -->
