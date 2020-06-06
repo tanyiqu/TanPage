@@ -13,6 +13,7 @@
     <script src="../js/flexible.js"></script>
     <script src="../js/utils.js"></script>
     <script src="../js/engines.js"></script>
+    <script src="../js/general.js"></script>
     <script src="../js/toastr.min.js"></script>
 </head>
 
@@ -139,8 +140,9 @@
             <div class="block">
                 <p class="title">壁纸模糊度</p>
                 <label for="bgBlurry"></label><input id="bgBlurry" class="pointer" type="range" min="0" max="100"
-                    step="1" value="0" />
-                <p id="bgBlurryValue" class="rangeValue">0%</p>
+                    step="1" value="30"
+                    style="background : -webkit-linear-gradient(red, red) no-repeat, #ddd;background-size : 30% 100%;" />
+                <p id="bgBlurryValue" class="rangeValue">30%</p>
             </div>
 
         </div>
@@ -181,8 +183,16 @@
 
     </div>
 
-    <!-- 遮罩层 -->
+    <!-- 灰色遮罩层 -->
     <div class="shade"></div>
+
+    <!-- 白色遮罩层 -->
+    <div class="whiteShroudShade"></div>
+
+    <!-- 黑色遮罩层 -->
+    <div class="blackShroudShade"></div>
+
+
 
     <!-- 背景 -->
     <div class="background">

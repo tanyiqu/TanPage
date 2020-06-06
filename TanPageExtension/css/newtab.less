@@ -530,29 +530,6 @@ body {
   }
 }
 
-// 笼罩层
-.shade {
-  position  : absolute;
-  background: rgba(0, 0, 0, .7);
-  z-index   : 99;
-  left      : 0;
-  top       : 0;
-  opacity   : 0.6;
-  display   : none;
-
-  @keyframes myshade {
-    0% {
-      background: rgba(0, 0, 0, 0);
-    }
-
-    100% {
-      background: rgba(0, 0, 0, 0.7);
-    }
-  }
-
-  animation: myshade .3s;
-}
-
 // 添加/修改书签窗口
 .addBookmarkWd {
   position           : absolute;
@@ -651,4 +628,48 @@ body {
       }
     }
   }
+}
+
+
+// 笼罩层
+.shade {
+  position  : absolute;
+  background: rgba(0, 0, 0, .7);
+  z-index   : 99;
+  left      : 0;
+  top       : 0;
+  opacity   : 0.6;
+  display   : none;
+
+  @keyframes myshade {
+    0% {
+      background: rgba(0, 0, 0, 0);
+    }
+
+    100% {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  animation: myshade .3s;
+}
+
+// 白色遮罩层
+.whiteShroudShade {
+  position  : absolute;
+  background: rgba(111, 0, 0, .7);
+  z-index   : 0;
+  left      : 0;
+  top       : 0;
+  opacity   : 0.6;
+}
+
+// 黑色遮罩层
+.blackShroudShade {
+  position  : absolute;
+  background: rgba(0, 0, 0, .7);
+  z-index   : 0;
+  left      : 0;
+  top       : 0;
+  opacity   : 0.6;
 }

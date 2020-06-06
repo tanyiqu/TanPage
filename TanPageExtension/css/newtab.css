@@ -425,24 +425,6 @@ body {
   font-size: 29px;
   text-align: center;
 }
-.shade {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 99;
-  left: 0;
-  top: 0;
-  opacity: 0.6;
-  display: none;
-  animation: myshade 0.3s;
-}
-@keyframes myshade {
-  0% {
-    background: rgba(0, 0, 0, 0);
-  }
-  100% {
-    background: rgba(0, 0, 0, 0.7);
-  }
-}
 .addBookmarkWd {
   position: absolute;
   width: 440px;
@@ -525,4 +507,38 @@ body {
 }
 .addBookmarkWd .btns .cancelAddBookmark:hover {
   background: rgba(255, 255, 255, 0.6);
+}
+.shade {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 99;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  display: none;
+  animation: myshade 0.3s;
+}
+@keyframes myshade {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+.whiteShroudShade {
+  position: absolute;
+  background: rgba(111, 0, 0, 0.7);
+  z-index: 0;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+}
+.blackShroudShade {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
 }

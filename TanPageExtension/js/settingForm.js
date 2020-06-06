@@ -36,12 +36,19 @@ $("#closeSetting").click(() => {
 function loadSetting() {
 
     // 壁纸白色笼罩拖动条改变
-    $("#whiteShroud").bind('input porpertychange', (e) => {
-        let value = e.target.value;
+    $('#whiteShroud').RangeSlider(($this) => {
+        let value = $this.value;
         let opacity = value / 100.0;
-        $('#whiteShroudValue').html(value + '%');
         $('.background').css('opacity', opacity + '');
-    });
+    }, $('#whiteShroudValue'), true);
+
+    // 壁纸白色笼罩拖动条改变
+    $('#blackShroud').RangeSlider(($this) => {
+    }, $('#blackShroudValue'), true);
+
+    // 壁纸白色笼罩拖动条改变
+    $('#bgBlurry').RangeSlider(($this) => {
+    }, $('#bgBlurryValue'), true);
 
     // 应用设置
     $('.applySetting').click(() => {
