@@ -95,11 +95,30 @@ function initWidget() {
  * 包括添加各种控件的行为、监听等
  */
 function loadWidget() {
+    // 加载背景笼罩
+    loadShroud();
+
     // 加载搜索引擎
     loadEngine();
 
     // 加载书签
     loadBookmarks();
+}
+
+/**
+ * 加载背景笼罩
+ */
+function loadShroud() {
+    $('.ShroudShade').css({
+        'width': window.innerWidth + 'px',
+        'height': window.innerHeight + 'px'
+    });
+    $(window).resize(function () {
+        $('.ShroudShade').css({
+            'width': window.innerWidth + 'px',
+            'height': window.innerHeight + 'px'
+        });
+    });
 }
 
 /**
@@ -129,9 +148,9 @@ function loadEngine() {
         let id = "#engineItem" + (n + 1);
         // 查询到标签后添加点击事件
         $(id).click(() => {
-            ChromeSyncSet({engine: n});
-            ChromeSyncSet({default_engine_url: engines[n].url});
-            ChromeSyncSet({default_engine_name: engines[n].name});
+            ChromeSyncSet({ engine: n });
+            ChromeSyncSet({ default_engine_url: engines[n].url });
+            ChromeSyncSet({ default_engine_name: engines[n].name });
             engine = n;
             cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
 
@@ -384,7 +403,7 @@ function refreshBookmarks() {
             let bm = [URL, label, name];
             bookmarks.push(bm);
             // chrome.storage.sync.set({bookmarks: bookmarks});
-            ChromeSyncSet({bookmarks: bookmarks});
+            ChromeSyncSet({ bookmarks: bookmarks });
             $('.shade').css('display', 'none');
             $('#addBookmarkWd').css('display', 'none');
             // 刷新书签的显示
@@ -436,7 +455,7 @@ function editBookmarks(showToast) {
                 bookmarks[n][0] = $('#abmURL').val();
                 bookmarks[n][1] = $('#abmLabel').val();
                 bookmarks[n][2] = $('#abmName').val();
-                ChromeSyncSet({bookmarks: bookmarks});
+                ChromeSyncSet({ bookmarks: bookmarks });
                 // 取消笼罩层和窗口显示
                 $('.shade').css('display', 'none');
                 $('#addBookmarkWd').css('display', 'none');
@@ -455,7 +474,7 @@ function editBookmarks(showToast) {
             // 删除第n个bookmark
             bookmarks.splice(n, 1);
             // 刷新本地存储
-            ChromeSyncSet({bookmarks: bookmarks});
+            ChromeSyncSet({ bookmarks: bookmarks });
             editBookmarks();
             Toast.success('删除成功！', 'toast-bottom-left');
             e.stopPropagation();
@@ -527,7 +546,7 @@ document.addEventListener('mouseup', (e) => {
         bookmarks[pos] = bookmarks[currentDraggingBm];
         bookmarks[currentDraggingBm] = temp;
         // 刷新本地存储
-        ChromeSyncSet({bookmarks: bookmarks});
+        ChromeSyncSet({ bookmarks: bookmarks });
     }
 
     bmShadow.css('display', 'none');
@@ -551,7 +570,7 @@ function aboveBookmark(currX, currY) {
     for (let i = 0; i < len; i++) {
         let X = parseInt($(bms[i]).offset().left);
         let Y = parseInt($(bms[i]).offset().top);
-        axis.push({x: X, y: Y});
+        axis.push({ x: X, y: Y });
     }
     // 遍历axis，检查当前位置位于哪个书签
     for (let i = 0; i < len; i++) {

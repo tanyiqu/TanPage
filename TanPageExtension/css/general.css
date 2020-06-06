@@ -6,7 +6,7 @@ input[type=range] {
   width: 90%;
   height: 5px;
   background: -webkit-linear-gradient(#2ecc71, #2ecc71) no-repeat, #ddd;
-  background-size: 30% 100%;
+  background-size: 0% 100%;
   margin: 15px 5% 0 5%;
 }
 input[type=range]::-webkit-slider-runnable-track {

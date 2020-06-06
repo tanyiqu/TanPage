@@ -37,17 +37,21 @@ function loadSetting() {
 
     // 壁纸白色笼罩拖动条改变
     $('#whiteShroud').RangeSlider(($this) => {
-        let value = $this.value;
-        let opacity = value / 100.0;
-        $('.background').css('opacity', opacity + '');
+        let opacity = $this.value / 100.0;
+        $('.whiteShroudShade').css('opacity', opacity + '');
     }, $('#whiteShroudValue'), true);
 
     // 壁纸白色笼罩拖动条改变
     $('#blackShroud').RangeSlider(($this) => {
+        let opacity = $this.value / 100.0;
+        $('.blackShroudShade').css('opacity', opacity + '');
     }, $('#blackShroudValue'), true);
 
     // 壁纸白色笼罩拖动条改变
     $('#bgBlurry').RangeSlider(($this) => {
+        let blurry = $this.value / 10.0;
+        //  filter: blur();
+        $('.background').css('filter', ' blur(' + blurry + 'px)');
     }, $('#bgBlurryValue'), true);
 
     // 应用设置
