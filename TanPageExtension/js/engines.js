@@ -38,8 +38,8 @@ const engines = [{
     name: "q"
 }, {
     title: "谷歌",
-    url: "",
-    name: ""
+    url: "https://www.google.com/search",
+    name: "q"
 }, {
     title: "bilibili",
     url: "https://search.bilibili.com/all",
