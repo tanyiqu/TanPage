@@ -384,11 +384,27 @@ body {
         text-align: right;
       }
 
+      .text-noindent {
+        font-size     : 14px;
+        color         : rgb(48, 47, 47);
+        padding-bottom: 3px;
+      }
+
       // 正文
       .text {
-        font-size  : 14px;
+        .text-noindent;
         text-indent: 2em;
-        color      : rgb(48, 47, 47);
+      }
+
+      // 没有缩进的正文
+
+
+      // 链接
+      .lk {
+        .text-noindent;
+        color          : blue;
+        text-decoration: none;
+        margin-right   : 10px;
       }
 
     }

@@ -310,10 +310,24 @@ body {
   margin: 10px 5% 0 0;
   text-align: right;
 }
+.setting .settingBody .block .text-noindent {
+  font-size: 14px;
+  color: #302f2f;
+  padding-bottom: 3px;
+}
 .setting .settingBody .block .text {
   font-size: 14px;
-  text-indent: 2em;
   color: #302f2f;
+  padding-bottom: 3px;
+  text-indent: 2em;
+}
+.setting .settingBody .block .lk {
+  font-size: 14px;
+  color: #302f2f;
+  padding-bottom: 3px;
+  color: blue;
+  text-decoration: none;
+  margin-right: 10px;
 }
 .setting .btns {
   width: 100%;
