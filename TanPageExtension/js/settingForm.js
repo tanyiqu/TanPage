@@ -7,6 +7,13 @@ let setting = $('.setting');
 // 初始不要加载设置里面的东西，第一次点击设置按钮时进行加载，以后不用加载
 let firstOpenSetting = true;
 
+let settingAppearance = $('#settingAppearance');
+let settingLogical = $('#settingLogical');
+let settingOther = $('#settingOther');
+let settingAppearanceBtn = $('#settingAppearanceBtn');
+let settingLogicalBtn = $('#settingLogicalBtn');
+let settingOtherBtn = $('#settingOtherBtn');
+
 // 点击设置按钮
 $(".showSetting").click(() => {
     // 动态设置高度
@@ -14,7 +21,9 @@ $(".showSetting").click(() => {
         'height': window.innerHeight + "px",
         // 'display': 'block'
     });
-    $('#settingAppearance').css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
+    settingAppearance.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
+    settingLogical.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
+    settingOther.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
 
     // 加载设置
     if (firstOpenSetting) {
@@ -31,10 +40,14 @@ $("#closeSetting").click(() => {
 });
 
 
+
 /**
  * 加载设置窗口
  */
 function loadSetting() {
+
+    // 加载功能按钮
+    loadFunctionBtns();
 
     // 壁纸白色笼罩拖动条改变
     $('#whiteShroud').RangeSlider(($this) => {
@@ -55,10 +68,17 @@ function loadSetting() {
         $('.background').css('filter', ' blur(' + blurry + 'px)');
     }, $('#bgBlurryValue'), true);
 
+
+
+}
+
+/**
+ * 加载功能按钮
+ */
+function loadFunctionBtns() {
     // 应用设置
     $('.applySetting').click(() => {
         // 背景透明度
-
         setting.slideToggle(300);
     });
 
@@ -67,20 +87,34 @@ function loadSetting() {
         setting.slideToggle(300);
     });
 
+    // 切换tab标签页
+    settingAppearanceBtn.click(() => {
+        settingAppearanceBtn.addClass('active');
+        settingLogicalBtn.removeClass('active');
+        settingOtherBtn.removeClass('active');
+        settingAppearance.css('display', 'block');
+        settingLogical.css('display', 'none');
+        settingOther.css('display', 'none');
+    });
 
-    // 加载设置窗口的内容
-    // $("#searsh_bar_margin_top").val(search_bar_margin_top);
-    // $("#searsh_bar_background").val(search_bar_background);
+    settingLogicalBtn.click(() => {
+        settingAppearanceBtn.removeClass('active');
+        settingLogicalBtn.addClass('active');
+        settingOtherBtn.removeClass('active');
+        settingAppearance.css('display', 'none');
+        settingLogical.css('display', 'block');
+        settingOther.css('display', 'none');
+    });
 
-    // 背景透明度
-    // var opacity = localSettings.bgOpacity;
-    // $('.background').css('opacity', opacity);
-    // $("#bgOpacity").val(parseInt(100 * opacity));
-    // $('.bgOpacity-val').html(parseInt(100 * opacity));
-
+    settingOtherBtn.click(() => {
+        settingAppearanceBtn.removeClass('active');
+        settingLogicalBtn.removeClass('active');
+        settingOtherBtn.addClass('active');
+        settingAppearance.css('display', 'none');
+        settingLogical.css('display', 'none');
+        settingOther.css('display', 'block');
+    });
 }
-
-
 
 
 
