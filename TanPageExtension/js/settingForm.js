@@ -83,3 +83,9 @@ function loadSetting() {
 
 }
 
+
+
+
+
+// 暂时自动显示设置框
+$(".showSetting").trigger('click');

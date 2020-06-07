@@ -87,3 +87,9 @@ input[type=range]:focus {
   margin-left: 10px;
   font-size: 15px;
 }
+.radio-box p {
+  margin: 0 0 5px 34px;
+  font-size: 13px;
+  color: #7f7f7f;
+  padding-bottom: 3px;
+}

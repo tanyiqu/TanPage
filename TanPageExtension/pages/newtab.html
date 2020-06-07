@@ -91,7 +91,7 @@
 
     <!-- 设置 -->
     <i class="showSetting"></i>
-    <div class="setting" style="display: block;">
+    <div class="setting" style="display: none;">
         <!-- 顶部标题 -->
         <div class="head">
             <h4>TanPage - 设置</h4>
@@ -111,16 +111,28 @@
             <div class="block">
                 <p class="title">壁纸</p>
                 <div class="radio-box">
-                    <label for="yes" class="choose-box"><input type="radio" id="yes" name="choose" checked/>
+                    <label for="yes" class="choose-box"><input type="radio" id="yes" name="choose" checked />
                         <span>默认壁纸</span>
                     </label>
+                    <p>使用默认的图片作为壁纸</p>
                 </div>
 
                 <div class="radio-box">
                     <label for="no" class="choose-box">
                         <input type="radio" id="no" name="choose" />
-                        <span>Bing壁纸</span>
+                        <span>Bing每日一图</span>
                     </label>
+                    <p>使用Bing每日一图作为壁纸</p>
+                    <p>每天更新</p>
+                </div>
+
+                <div class="radio-box">
+                    <label for="no00" class="choose-box">
+                        <input type="radio" id="no00" name="choose" />
+                        <span>Bing随机壁纸</span>
+                    </label>
+                    <p>随机Bing每日一图作为壁纸</p>
+                    <p>再次点击可以切换壁纸</p>
                 </div>
 
                 <div class="radio-box">
@@ -128,7 +140,19 @@
                         <input type="radio" id="n0o" name="choose" />
                         <span>本地壁纸</span>
                     </label>
+                    <p>使用本地计算机的图片作为壁纸</p>
+                    <p>图片大小最好不要超过2MB，不能超过3MB</p>
                 </div>
+
+                <div class="radio-box">
+                    <label for="n0o0" class="choose-box">
+                        <input type="radio" id="n0o0" name="choose" />
+                        <span>其他壁纸源</span>
+                    </label>
+                    <p>使用其他壁纸源的图片作为壁纸</p>
+                    <p>敬请期待</p>
+                </div>
+
             </div>
 
             <!-- 壁纸白色笼罩 -->
