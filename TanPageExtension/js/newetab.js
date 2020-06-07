@@ -202,8 +202,9 @@ function loadBookmarks() {
 
     // 取消添加书签按钮
     $('.cancelAddBookmark').click(() => {
-        $('.shade').css('display', 'none');
-        $('#addBookmarkWd').css('display', 'none');
+        // 添加动画效果
+        $('.shade').fadeToggle(300);
+        $('#addBookmarkWd').fadeToggle(300);
     });
 
 }
@@ -402,10 +403,9 @@ function refreshBookmarks() {
             }
             let bm = [URL, label, name];
             bookmarks.push(bm);
-            // chrome.storage.sync.set({bookmarks: bookmarks});
             ChromeSyncSet({ bookmarks: bookmarks });
-            $('.shade').css('display', 'none');
-            $('#addBookmarkWd').css('display', 'none');
+            $('.shade').fadeToggle(300);
+            $('#addBookmarkWd').fadeToggle(300);
             // 刷新书签的显示
             Toast.success('添加成功！');
             refreshBookmarks();
@@ -436,12 +436,11 @@ function editBookmarks(showToast) {
             // 设置笼罩层
             $('.shade').css({
                 "width": window.innerWidth + "px",
-                "height": window.innerHeight + "px",
-                "display": "block"
+                "height": window.innerHeight + "px"
             });
             // 让添加的窗口弹出
-            let editBookmarkWd = $('#addBookmarkWd');
-            editBookmarkWd.css('display', 'block');
+            $('.shade').fadeToggle(300);
+            $('#addBookmarkWd').fadeToggle(300);
             let s = $('#addBookmarkWdTt');
             s.html('修改书签');
             // 显示原有的
@@ -457,8 +456,8 @@ function editBookmarks(showToast) {
                 bookmarks[n][2] = $('#abmName').val();
                 ChromeSyncSet({ bookmarks: bookmarks });
                 // 取消笼罩层和窗口显示
-                $('.shade').css('display', 'none');
-                $('#addBookmarkWd').css('display', 'none');
+                $('.shade').fadeToggle(300);
+                $('#addBookmarkWd').fadeToggle(300);
                 refreshBookmarks();
                 Toast.success('修改成功！');
             });
