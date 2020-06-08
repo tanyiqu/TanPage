@@ -118,10 +118,6 @@ function loadShroud() {
  */
 function loadEngine() {
     // 默认搜索引擎图标
-    // cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
-
-    console.log("url", engines[engine].imgurl);
-
     cgEngineImg.attr('src', engines[engine].imgurl);
 
     // 加载搜索引擎列表
@@ -150,7 +146,7 @@ function loadEngine() {
             cgEngineImg.attr('src', engines[engine].imgurl);
 
             // 弹出提示
-            Toast.success('已切换为：' + engines[engine].title, 'toast-top-center');
+            Toast.success('已切换为：' + engines[engine].name, 'toast-top-center');
         });
 
     }
@@ -165,14 +161,13 @@ function loadEngine() {
         const n = i;
         $("#tmp" + (n + 1)).click((event) => {
             console.log('临时切换', n);
-
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
             cgEngineImg.attr('src', engines[engine].imgurl);
             engineList.css('display', 'none');
 
             // 弹出提示
-            Toast.success(engines[n].name + "<br/>刷新后失效", 'toast-top-center');
+            Toast.success('临时切换：' + engines[n].name + "<br/>刷新后失效", 'toast-top-center');
             // 阻止事件向下传递
             event.stopPropagation();
         });
@@ -207,8 +202,18 @@ function loadBookmarks() {
 
 // 提交表单,动态切换搜索引擎等
 function onSearch() {
-    $('.search').attr('action', engines[engine].url);
-    input.attr('name', engines[engine].name);
+    // alert('00');
+    // $('.search').attr('action', engines[engine].url);
+    // input.attr('name', engines[engine].name);
+
+    // 拼接url
+    let oldurl = engines[engine].url;
+    let newurl = oldurl.replace('%s', input.val());
+
+    console.log(newurl);
+    window.location.href = newurl;
+    console.log('执行');
+    return false;
 }
 
 

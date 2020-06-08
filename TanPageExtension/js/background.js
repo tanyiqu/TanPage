@@ -33,6 +33,16 @@ function init() {
                     name: "多吉搜索",
                     url: "https://www.dogedoge.com/results?q=%s",
                     imgurl: "../imgs/egs/djss.png"
+                },
+                {
+                    name: "必应",
+                    url: "https://cn.bing.com/search?q=%s",
+                    imgurl: "../imgs/egs/by.png"
+                },
+                {
+                    name: "谷歌搜索",
+                    url: "https://www.google.com/search?q=%s",
+                    imgurl: "../imgs/egs/ggss.png"
                 }
             ]
     });
