@@ -428,7 +428,7 @@ function editBookmarks(showToast) {
     let html = '';
     let len = bookmarks.length;
     for (let i = 0; i < len; i++) {
-        html += '<a class="bmitem" style="animation: move .8s infinite;cursor:move;"><i class="edit" title="编辑"></i><i class="delete" title="删除"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i][1], bookmarks[i][2]);
+        html += '<a class="bmitem" style="animation: move .8s infinite;cursor:move;"><i class="edit" title="编辑"></i><i class="delete" title="删除"></i><p>{0}</p><span>{1}</span></a>'.format(bookmarks[i].lbl, bookmarks[i].name);
     }
     bookmark.html(html);
     // 依次给按钮添加监听
