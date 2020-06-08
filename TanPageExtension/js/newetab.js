@@ -386,7 +386,11 @@ function refreshBookmarks() {
         // 让添加的窗口弹出
         let addBookmarkWd = $('#addBookmarkWd');
         addBookmarkWd.css('display', 'block');
+        // 重置里面的内容
         let s = $('#addBookmarkWdTt');
+        $('#abmName').val('');
+        $('#abmLabel').val('');
+        $('#abmURL').val('');
         s.html('添加书签');
         // 删除原来的事件，重新添加
         $('.ensureAddBookmark').off('click');
