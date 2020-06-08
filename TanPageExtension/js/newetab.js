@@ -388,9 +388,7 @@ function refreshBookmarks() {
         addBookmarkWd.css('display', 'block');
         let s = $('#addBookmarkWdTt');
         s.html('添加书签');
-        // 点击事件
-        // 如果添加过了，就跳过
-        // 删除监听
+        // 删除原来的事件，重新添加
         $('.ensureAddBookmark').off('click');
         $('.ensureAddBookmark').click(() => {
             // 获取三个输入
@@ -401,7 +399,12 @@ function refreshBookmarks() {
                 Toast.error('内容不能为空！');
                 return;
             }
-            let bm = [URL, label, name];
+            // let bm = [URL, label, name];
+            let bm = {
+                name: name,
+                lbl: label,
+                url: URL
+            };
             bookmarks.push(bm);
             ChromeSyncSet({ bookmarks: bookmarks });
             $('.shade').fadeToggle(300);
@@ -447,16 +450,16 @@ function editBookmarks(showToast) {
             let s = $('#addBookmarkWdTt');
             s.html('修改书签');
             // 显示原有的
-            $('#abmName').val(bookmarks[n][2]);
-            $('#abmLabel').val(bookmarks[n][1]);
-            $('#abmURL').val(bookmarks[n][0]);
+            $('#abmName').val(bookmarks[n].name);
+            $('#abmLabel').val(bookmarks[n].lbl);
+            $('#abmURL').val(bookmarks[n].url);
             // 确定按钮的监听
             $('.ensureAddBookmark').off('click');
             $('.ensureAddBookmark').click(() => {
                 // 获取三个输入
-                bookmarks[n][0] = $('#abmURL').val();
-                bookmarks[n][1] = $('#abmLabel').val();
-                bookmarks[n][2] = $('#abmName').val();
+                bookmarks[n].url = $('#abmURL').val();
+                bookmarks[n].lbl = $('#abmLabel').val();
+                bookmarks[n].name = $('#abmName').val();
                 ChromeSyncSet({ bookmarks: bookmarks });
                 // 取消笼罩层和窗口显示
                 $('.shade').fadeToggle(300);
@@ -499,7 +502,7 @@ function editBookmarks(showToast) {
             // x = e.clientX;
             // y = e.clientY;
             // 标签文字
-            $('#bmShadow > p').html(bookmarks[n][1]);
+            $('#bmShadow > p').html(bookmarks[n].lbl);
         });
     }
 }
