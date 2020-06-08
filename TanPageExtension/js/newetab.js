@@ -362,7 +362,7 @@ function refreshBookmarks() {
     let html = '';
     let len = bookmarks.length;
     for (let i = 0; i < len; i++) {
-        html += '<a class="bm" id="bm{3}" href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i][0], bookmarks[i][1], bookmarks[i][2], i);
+        html += '<a class="bm" id="bm{3}" href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i].url, bookmarks[i].lbl, bookmarks[i].name, i);
     }
     html += '<a id="addBookMark"><p class="addBookMark"></p><span>添加</span></a>';
 
@@ -413,7 +413,10 @@ function refreshBookmarks() {
     });
 }
 
-// 编辑书签
+/**
+ * 编辑书签
+ * @param {*} showToast 显示toast
+ */
 function editBookmarks(showToast) {
     if (showToast) {
         Toast.info('书签编辑模式<br>点击空白处退出');

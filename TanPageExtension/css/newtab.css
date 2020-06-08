@@ -445,7 +445,7 @@ body {
   font-size: 0.225rem;
 }
 .bookmark .addBookMark {
-  background: url(../imgs/engines/add.png) no-repeat center #f4f8fa;
+  background: url(../imgs/egs/add.png) no-repeat center #f4f8fa;
   background-size: 40% 50%;
 }
 .bmShadow {
