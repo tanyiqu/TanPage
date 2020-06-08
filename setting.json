@@ -1,0 +1,35 @@
+{
+    "_author": "Tanyiqu",
+    "_name": "setting",
+    "_desc": "设置的配置文件",
+    "_engines": "搜索引擎列表，数组",
+    "engines": [
+        {
+            "name": "百度",
+            "url": "http://www.baidu.com/s?wd=%s",
+            "imgurl": "../imgs/egs/bd.png"
+        },
+        {
+            "name": "多吉搜索",
+            "url": "https://www.dogedoge.com/results?q=%s",
+            "imgurl": "../imgs/egs/djss.png"
+        }
+    ],
+    "_bookmarks": "书签列表，数组",
+    "bookmarks": [
+        {
+            "name": "百度搜索",
+            "lbl": "百度",
+            "url": "https://www.baidu.com"
+        },
+        {
+            "name": "哔哩哔哩",
+            "lbl": "Bili",
+            "url": "https://www.bilibili.com/"
+        }
+    ],
+    "_apr": "以apr开头的都是外观的一些设置",
+    "apr_bg_white_shade": 20,
+    "apr_bg_black_shade": 10,
+    "apr_bg_blur": 5
+}
