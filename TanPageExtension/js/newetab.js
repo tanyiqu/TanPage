@@ -1,6 +1,5 @@
-let search_bar_background;
-let search_bar_margin_top;
 let engine;
+let engines;
 let bookmarks;
 let localSettings;
 
@@ -50,11 +49,10 @@ let bmW, bmH;
     // noinspection JSUnresolvedVariable
     chrome.storage.sync.get(null, (res) => {
         // 获取配置
-        search_bar_background = res.search_bar_background;
-        search_bar_margin_top = res.search_bar_margin_top;
         engine = res.engine;
+        engines = res.engines;
         bookmarks = res.bookmarks;
-        localSettings = res.settings;
+        // localSettings = res.settings;
         // 加载配置
         initPage();
     });
@@ -80,14 +78,8 @@ function initWidget() {
 
     $('#addBookmarkWd').css('display', 'none');
     // 根据配置加载样式
-    console.log("加载样式");
-    // 设置背景色
-    $(".cgEngine").css('background', search_bar_background);
-    input.css("background", search_bar_background);
-    $('.searchBtn').css('background', search_bar_background);
+    // console.log("加载样式");
 
-    // 设置搜索框位置
-    $(".search").css('top', search_bar_margin_top);
 }
 
 /**
@@ -126,16 +118,20 @@ function loadShroud() {
  */
 function loadEngine() {
     // 默认搜索引擎图标
-    cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
+    // cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
+
+    console.log("url", engines[engine].imgurl);
+
+    cgEngineImg.attr('src', engines[engine].imgurl);
 
     // 加载搜索引擎列表
     let html = "";
     let len = engines.length;
     for (let i = 0; i < len; i++) {
 
-        html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="../imgs/engines/{2}.png" alt=""><p>{3}</p></div>'.format(i + 1, i + 1, i, engines[i].title);
+        html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="{2}" alt=""><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
     }
-    html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/engines/add.png" alt=""><p>自定义</p></div>';
+    html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/egs/add.png" alt=""><p>自定义</p></div>';
     engineList.html(html);
 
     // 提交搜索
@@ -150,12 +146,11 @@ function loadEngine() {
         $(id).click(() => {
             ChromeSyncSet({ engine: n });
             ChromeSyncSet({ default_engine_url: engines[n].url });
-            ChromeSyncSet({ default_engine_name: engines[n].name });
             engine = n;
-            cgEngineImg.attr('src', "../imgs/engines/" + engine + ".png");
+            cgEngineImg.attr('src', engines[engine].imgurl);
 
             // 弹出提示
-            Toast.success('已切换为：' + engines[n].title, 'toast-top-center');
+            Toast.success('已切换为：' + engines[engine].title, 'toast-top-center');
         });
 
     }
@@ -173,11 +168,11 @@ function loadEngine() {
 
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
-            cgEngineImg.attr('src', "../imgs/engines/" + n + ".png");
+            cgEngineImg.attr('src', engines[engine].imgurl);
             engineList.css('display', 'none');
 
             // 弹出提示
-            Toast.success(engines[n].title + "<br/>刷新后失效", 'toast-top-center');
+            Toast.success(engines[n].name + "<br/>刷新后失效", 'toast-top-center');
             // 阻止事件向下传递
             event.stopPropagation();
         });

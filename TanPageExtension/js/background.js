@@ -1,5 +1,6 @@
 // 做初始化，先存入初始数据
 // 检查有没有存入过
+console.log('扩展执行');
 chrome.storage.sync.get('first', (res) => {
     // 如果first没有数据，就是首次打开，如果有数据什么都不做
     console.log('res：' + res.first);
@@ -17,16 +18,40 @@ function init() {
 
     //默认搜索引擎
     chrome.storage.sync.set({ engine: 0 });
-    chrome.storage.sync.set({ default_engine_url: "http://www.baidu.com/s" });
-    chrome.storage.sync.set({ default_engine_name: "wd" });
+    chrome.storage.sync.set({ default_engine_url: "http://www.baidu.com/s?wd=%s" });
 
-    // 搜索框按钮
-    chrome.storage.sync.set({ search_bar_background: 'rgba(255,255,255,.9)' });
-    // 搜索框距离上面高度
-    chrome.storage.sync.set({ search_bar_margin_top: '220px' });
+    // 默认搜索引擎
+    chrome.storage.sync.set({
+        engines:
+            [
+                {
+                    name: "百度",
+                    url: "http://www.baidu.com/s?wd=%s",
+                    imgurl: "../imgs/egs/bd.png"
+                },
+                {
+                    name: "多吉搜索",
+                    url: "https://www.dogedoge.com/results?q=%s",
+                    imgurl: "../imgs/egs/djss.png"
+                }
+            ]
+    });
 
     // 默认书签
-    chrome.storage.sync.set({ bookmarks: [["https://www.baidu.com", "百度", "百度搜索"], ["https://www.bilibili.com/", "Bili", "哔哩哔哩"]] });
+    chrome.storage.sync.set({
+        bookmarks: [
+            {
+                name: "百度搜索",
+                lbl: "百度",
+                url: "https://www.baidu.com"
+            },
+            {
+                name: "哔哩哔哩",
+                lbl: "Bili",
+                url: "https://www.bilibili.com/"
+            }
+        ]
+    });
 
 }
 
@@ -40,7 +65,6 @@ chrome.contextMenus.create({
         chrome.storage.sync.get(null, (res) => {
             // 获取默认搜索引擎
             var default_engine_url = res.default_engine_url;
-            var default_engine_name = res.default_engine_name;
             chrome.tabs.create({
                 url: default_engine_url + "?" + default_engine_name + "=" + encodeURI(params.selectionText)
             });

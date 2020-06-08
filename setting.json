@@ -15,6 +15,9 @@
             "imgurl": "../imgs/egs/djss.png"
         }
     ],
+    "engine": 0,
+    "_default_engine": "默认引擎，用来实现进行使用默认引擎搜索",
+    "default_engine_url": "http://www.baidu.com/s?wd=%s",
     "_bookmarks": "书签列表，数组",
     "bookmarks": [
         {
