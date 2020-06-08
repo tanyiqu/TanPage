@@ -1,4 +1,8 @@
-// 通用样式
+/**
+ * 此文件为通用样式
+ */
+
+@colorPrimary: #4791eb;
 
 // 指针
 .pointer {
@@ -10,7 +14,7 @@ input[type=range] {
   -webkit-appearance: none;
   width             : 90%;
   height            : 5px;
-  background        : -webkit-linear-gradient(#2ecc71, #2ecc71) no-repeat, #ddd;
+  background        : -webkit-linear-gradient(@colorPrimary, @colorPrimary) no-repeat, #ddd;
   // 设置比例，实现左右颜色不一样
   background-size   : 0% 100%;
   margin            : 15px 5% 0 5%;
@@ -87,24 +91,26 @@ input[type=range] {
       height: 0;
 
       &::before {
-        content      : '';
-        display      : inline-block;
-        width        : 14px;
-        height       : 14px;
-        border-radius: 50%;
-        border       : 1px solid rgb(0, 171, 134);
-        margin-right : 15px;
-        position     : absolute;
-        top          : 12px;
-        left         : 0;
+        content         : '';
+        display         : inline-block;
+        width           : 14px;
+        height          : 14px;
+        border-radius   : 50%;
+        // border       : 1px solid rgb(0, 171, 134);
+        border          : 1px solid @colorPrimary;
+        margin-right    : 15px;
+        position        : absolute;
+        top             : 12px;
+        left            : 0;
       }
 
       &:checked::before {
-        background-clip : content-box;
-        background-color: #0069AB;
-        width           : 8px;
-        height          : 8px;
-        padding         : 3px;
+        background-clip    : content-box;
+        // background-color: #0069AB;
+        background-color   : @colorPrimary;
+        width              : 8px;
+        height             : 8px;
+        padding            : 3px;
       }
     }
 

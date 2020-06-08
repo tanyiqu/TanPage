@@ -1,3 +1,6 @@
+/**
+ * 此文件为通用样式
+ */
 .pointer {
   cursor: pointer;
 }
@@ -5,7 +8,7 @@ input[type=range] {
   -webkit-appearance: none;
   width: 90%;
   height: 5px;
-  background: -webkit-linear-gradient(#2ecc71, #2ecc71) no-repeat, #ddd;
+  background: -webkit-linear-gradient(#4791eb, #4791eb) no-repeat, #ddd;
   background-size: 0% 100%;
   margin: 15px 5% 0 5%;
 }
@@ -70,7 +73,7 @@ input[type=range]:focus {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid #00ab86;
+  border: 1px solid #4791eb;
   margin-right: 15px;
   position: absolute;
   top: 12px;
@@ -78,7 +81,7 @@ input[type=range]:focus {
 }
 .radio-box label input[type="radio"]:checked::before {
   background-clip: content-box;
-  background-color: #0069AB;
+  background-color: #4791eb;
   width: 8px;
   height: 8px;
   padding: 3px;
