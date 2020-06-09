@@ -318,11 +318,10 @@ body {
   background-size: 100% 100%;
 }
 .setting {
-  animation: mymove 0.5s;
   position: absolute;
   top: 0;
   right: 0;
-  width: 400px;
+  width: 399px;
   height: 800px;
   background: #ededed;
   -webkit-user-select: none;
@@ -330,22 +329,14 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-@keyframes mymove {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .setting .head {
   position: relative;
   display: flex;
   height: 60px;
+  width: 399px;
   background: #fff;
 }
 .setting .head h4 {
-  width: fit-content;
   height: 60px;
   line-height: 60px;
   font-size: 20px;
@@ -367,14 +358,14 @@ body {
 }
 .setting .tab {
   display: table;
-  width: 100%;
+  width: 399px;
 }
 .setting .tab .active {
   background: #ededed;
 }
 .setting .tab div {
   display: table-cell;
-  width: 33.3%;
+  width: 133px;
   height: 50px;
   background: #d8d8d8;
   text-align: center;
@@ -387,7 +378,7 @@ body {
 }
 .setting .settingBody {
   padding: 16px 16px 0;
-  width: 100%;
+  width: 399px;
   height: 500px;
   overflow: auto;
 }

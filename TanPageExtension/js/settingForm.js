@@ -14,6 +14,7 @@ let settingAppearanceBtn = $('#settingAppearanceBtn');
 let settingLogicalBtn = $('#settingLogicalBtn');
 let settingOtherBtn = $('#settingOtherBtn');
 
+
 // 点击设置按钮
 $(".showSetting").click(() => {
     // 动态设置高度
@@ -30,12 +31,12 @@ $(".showSetting").click(() => {
         loadSetting();
         firstOpenSetting = false;
     }
-    setting.slideToggle(300);
+    setting.slideLeftShow(400);
 });
 
 // 点击关闭设置
 $("#closeSetting").click(() => {
-    setting.slideToggle(300);
+    setting.slideLeftHide(400);
     // 恢复保存前的设置
 });
 
@@ -79,12 +80,14 @@ function loadFunctionBtns() {
     // 应用设置
     $('.applySetting').click(() => {
         // 背景透明度
-        setting.slideToggle(300);
+
+        setting.slideLeftHide(400);
     });
 
     // 恢复默认
     $('.defaultSetting').click(() => {
-        setting.slideToggle(300);
+
+        setting.slideLeftHide(400);
     });
 
     // 切换tab标签页
