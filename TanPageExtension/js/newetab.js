@@ -10,6 +10,9 @@ let currSelectLiNum = 0;
 // 当前被选中的li
 let currSelectLi = null;
 
+
+// 当前正在拖拽引擎
+let draggingEg = false;
 // 当前正在编辑书签
 let editingBookmarks = false;
 
@@ -124,8 +127,8 @@ function loadEngine() {
     let html = "";
     let len = engines.length;
     for (let i = 0; i < len; i++) {
-
-        html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="{2}" alt=""><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
+        // html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="{2}" alt=""><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
+        html += '<div class="engineItem" id="engineItem{0}"><i class="egimg" style="background: url({2}) no-repeat center;background-size: 100% 100%;"></i><i title="临时搜索" id="tmp{1}" class="tmp"></i><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
     }
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/egs/add.png" alt=""><p>自定义</p></div>';
     engineList.html(html);
@@ -148,6 +151,18 @@ function loadEngine() {
             // 弹出提示
             Toast.success('已切换为：' + engines[engine].name, 'toast-top-center');
         });
+
+        // 鼠标按下事件
+        $(id).mousedown((e) => {
+            if (e.target === $("#tmp" + (n + 1))[0]) {
+                return;
+            }
+            // e.target.style.cursor = 'pointer';
+            // console.log('12');
+            // 进入拖拽模式
+            draggingEg = true;
+        });
+
 
     }
 
@@ -176,6 +191,15 @@ function loadEngine() {
     // 输入框文本改变时添加搜索建议
     input.on('input', onInput);
 }
+
+
+// /**
+//  * 拖拽引擎功能
+//  */
+// function draggingEg() {
+
+// }
+
 
 /**
  * 加载书签
@@ -513,56 +537,109 @@ function editBookmarks(showToast) {
 
 // 鼠标移动事件
 document.addEventListener('mousemove', (e) => {
-    if (draggingBm === false) {
-        return;
-    }
-    // 当前位置
     let cX = e.clientX;
     let cY = e.clientY;
-    let offx = cX - (bmW / 2);
-    let offy = cY - (bmH / 2);
-    // 显示残影
-    bmShadow.css({
-        'display': 'block',
-        'width': bmW + 'px',
-        'height': bmH + 'px',
-        'left': offx + 'px',
-        'top': offy + 'px',
-        'cursor': 'move'
-    });
+
+    // 正在拖拽搜索引擎
+    if (draggingEg) {
+
+    }
+
+    // 正在拖拽书签
+    if (draggingBm) {
+        // 当前位置
+        let offx = cX - (bmW / 2);
+        let offy = cY - (bmH / 2);
+        // 显示残影
+        bmShadow.css({
+            'display': 'block',
+            'width': bmW + 'px',
+            'height': bmH + 'px',
+            'left': offx + 'px',
+            'top': offy + 'px',
+            'cursor': 'move'
+        });
+    }
+
 });
 
 // 鼠标释放事件
 document.addEventListener('mouseup', (e) => {
-    if (draggingBm === false) {
-        return;
-    }
-    draggingBm = false;
-
+    console.log('释放');
     // 松开时的坐标
     let reX = e.clientX;
     let reY = e.clientY;
-    // 如果这个地方下面有其他书签，就和它交换位置
-    // 判断当前位置是否有其他书签
-    let pos = aboveBookmark(reX, reY);
 
-    // 交换书签并刷新
-    if (pos !== -1) {
-        console.log(reX, reY, '下标', pos);
-        console.log(pos + '与' + currentDraggingBm + '交换');
-        // 交换操作
-        let temp = bookmarks[pos];
-        bookmarks[pos] = bookmarks[currentDraggingBm];
-        bookmarks[currentDraggingBm] = temp;
-        // 刷新本地存储
-        ChromeSyncSet({ bookmarks: bookmarks });
+    // 正在拖拽搜索引擎
+    if (draggingEg) {
+
+        // 判断当前位置是否有其他搜索引擎
+        let pos = aboveEngine(reX, reY);
+        console.log('编辑引擎', reX, reY, '下标', pos);
+
+        draggingEg = false;
+        return;
     }
 
-    bmShadow.css('display', 'none');
-    refreshBookmarks();
-    editBookmarks();
-    currentDraggingBm = -1;
+    // 正在拖拽书签
+    if (draggingBm) {
+
+        // 如果这个地方下面有其他书签，就和它交换位置
+        // 判断当前位置是否有其他书签
+        let pos = aboveBookmark(reX, reY);
+
+        // 交换书签并刷新
+        if (pos !== -1) {
+            console.log(reX, reY, '下标', pos);
+            console.log(pos + '与' + currentDraggingBm + '交换');
+            // 交换操作
+            let temp = bookmarks[pos];
+            bookmarks[pos] = bookmarks[currentDraggingBm];
+            bookmarks[currentDraggingBm] = temp;
+            // 刷新本地存储
+            ChromeSyncSet({ bookmarks: bookmarks });
+        }
+
+        bmShadow.css('display', 'none');
+        refreshBookmarks();
+        editBookmarks();
+        currentDraggingBm = -1;
+        draggingBm = false;
+    }
+
+
 });
+
+/**
+ * 判断当前位置是否有其他搜索引擎
+ * @param {*} cuurX 
+ * @param {*} cuurY 
+ */
+function aboveEngine(cuurX, cuurY) {
+    // 获取搜索引擎的宽高
+    // let W = $().width;
+    // 依次获取当前显示的书签的坐标
+    // let axis = [];
+    // let bms = $('.bmitem');
+    // let len = bms.length;
+    // // 依次记录所有书签的左上角坐标
+    // for (let i = 0; i < len; i++) {
+    //     let X = parseInt($(bms[i]).offset().left);
+    //     let Y = parseInt($(bms[i]).offset().top);
+    //     axis.push({ x: X, y: Y });
+    // }
+    // // 遍历axis，检查当前位置位于哪个书签
+    // for (let i = 0; i < len; i++) {
+    //     if (currX >= axis[i].x &&
+    //         currX <= (axis[i].x + bmW) &&
+    //         currY >= axis[i].y &&
+    //         currY <= (axis[i].y + bmH)) {
+    //         return i;
+    //     }
+    // }
+    // return -1;
+}
+
 
 /**
  * 判断当前位置是否有其他书签

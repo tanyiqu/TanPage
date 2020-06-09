@@ -1,7 +1,6 @@
 /**
  * 设置框的内容太多，单独放在一个js文件里面
  */
-
 // 设置框
 let setting = $('.setting');
 // 初始不要加载设置里面的东西，第一次点击设置按钮时进行加载，以后不用加载
@@ -17,20 +16,22 @@ let settingOtherBtn = $('#settingOtherBtn');
 
 // 点击设置按钮
 $(".showSetting").click(() => {
-    // 动态设置高度
-    setting.css({
-        'height': window.innerHeight + "px",
-        // 'display': 'block'
-    });
-    settingAppearance.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
-    settingLogical.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
-    settingOther.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
 
     // 加载设置
     if (firstOpenSetting) {
         loadSetting();
         firstOpenSetting = false;
     }
+
+    // 动态设置高度
+    setting.css({
+        'height': window.innerHeight + "px",
+    });
+    settingAppearance.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
+    settingLogical.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
+    settingOther.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
+
+
     setting.slideLeftShow(400);
 });
 
