@@ -630,7 +630,8 @@ function aboveEngine(currX, currY) {
     // 依次获取当前显示的书签的坐标
     let axis = [];
     let egs = $('.engineItem');
-    let len = egs.length;
+    // 去掉最后一个添加的item
+    let len = egs.length - 1;
     // 依次记录所有引擎的左上角坐标
     for (let i = 0; i < len; i++) {
         let X = parseInt($(egs[i]).offset().left);
