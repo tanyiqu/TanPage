@@ -10,9 +10,6 @@ let currSelectLiNum = 0;
 // 当前被选中的li
 let currSelectLi = null;
 
-
-// 当前正在拖拽引擎
-let draggingEg = false;
 // 当前正在编辑书签
 let editingBookmarks = false;
 
@@ -39,10 +36,16 @@ let bookmark = $('.bookmark');
 // 拖动书签时的残影
 let bmShadow = $('#bmShadow');
 
+
+// 当前正在拖拽引擎
+let draggingEg = false;
+// 当前正在拖动的引擎下标
+let currentDraggingEg = -1;
 // 正在拖拽书签
 let draggingBm = false;
 // 当前正在拖动的书签下标
 let currentDraggingBm = -1;
+
 // var x, y;
 // 书签的宽高
 let bmW, bmH;
@@ -161,9 +164,8 @@ function loadEngine() {
             // console.log('12');
             // 进入拖拽模式
             draggingEg = true;
+            currentDraggingEg = n;
         });
-
-
     }
 
     // 添加自定义搜索引擎按钮
@@ -187,18 +189,9 @@ function loadEngine() {
             event.stopPropagation();
         });
     }
-
     // 输入框文本改变时添加搜索建议
     input.on('input', onInput);
 }
-
-
-// /**
-//  * 拖拽引擎功能
-//  */
-// function draggingEg() {
-
-// }
 
 
 /**
@@ -575,10 +568,24 @@ document.addEventListener('mouseup', (e) => {
 
         // 判断当前位置是否有其他搜索引擎
         let pos = aboveEngine(reX, reY);
-        console.log('编辑引擎', reX, reY, '下标', pos);
-
+        // 如果自己跟自己交换，说明知识被点击了，执行点击操作
+        if (pos == currentDraggingEg) {
+            return false;
+        }
+        console.log(pos + ' 与 ' + currentDraggingEg + ' 交换');
+        if (pos != -1) {
+            // 交换操作
+            let temp = engines[pos];
+            engines[pos] = engines[currentDraggingEg];
+            engines[currentDraggingEg] = temp;
+            // 刷新本地存储
+            ChromeSyncSet({ engines: engines });
+        }
+        // refreshEngines();
+        loadEngine();
+        currentDraggingEg = -1;
         draggingEg = false;
-        return;
+        // return;
     }
 
     // 正在拖拽书签
@@ -615,29 +622,31 @@ document.addEventListener('mouseup', (e) => {
  * @param {*} cuurX 
  * @param {*} cuurY 
  */
-function aboveEngine(cuurX, cuurY) {
+function aboveEngine(currX, currY) {
     // 获取搜索引擎的宽高
-    // let W = $().width;
+    let W = parseInt($('#engineItemAdd').width());
+    let H = parseInt($('#engineItemAdd').height());
+    console.log(W, H);
     // 依次获取当前显示的书签的坐标
-    // let axis = [];
-    // let bms = $('.bmitem');
-    // let len = bms.length;
-    // // 依次记录所有书签的左上角坐标
-    // for (let i = 0; i < len; i++) {
-    //     let X = parseInt($(bms[i]).offset().left);
-    //     let Y = parseInt($(bms[i]).offset().top);
-    //     axis.push({ x: X, y: Y });
-    // }
-    // // 遍历axis，检查当前位置位于哪个书签
-    // for (let i = 0; i < len; i++) {
-    //     if (currX >= axis[i].x &&
-    //         currX <= (axis[i].x + bmW) &&
-    //         currY >= axis[i].y &&
-    //         currY <= (axis[i].y + bmH)) {
-    //         return i;
-    //     }
-    // }
-    // return -1;
+    let axis = [];
+    let egs = $('.engineItem');
+    let len = egs.length;
+    // 依次记录所有引擎的左上角坐标
+    for (let i = 0; i < len; i++) {
+        let X = parseInt($(egs[i]).offset().left);
+        let Y = parseInt($(egs[i]).offset().top);
+        axis.push({ x: X, y: Y });
+    }
+    // 遍历axis，检查当前位置位于哪个书签
+    for (let i = 0; i < len; i++) {
+        if (currX >= axis[i].x &&
+            currX <= (axis[i].x + W) &&
+            currY >= axis[i].y &&
+            currY <= (axis[i].y + H)) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 
