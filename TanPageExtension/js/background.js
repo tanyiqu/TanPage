@@ -48,11 +48,62 @@ function init() {
                     name: "搜狗搜索",
                     url: "https://www.sogou.com/sogou?query=%s",
                     imgurl: "../imgs/egs/sgss.png"
-                }, {
+                },
+                {
                     name: "360",
                     url: "https://www.so.com/s?q=%s",
                     imgurl: "../imgs/egs/360.png"
                 },
+                {
+                    name: "bilibili",
+                    url: "https://search.bilibili.com/all?keyword=%s",
+                    imgurl: "../imgs/egs/blbl.png"
+                },
+                {
+                    name: "淘宝",
+                    url: "https://s.taobao.com/search?q=%s",
+                    imgurl: "../imgs/egs/tb.png"
+                },
+                {
+                    name: "京东",
+                    url: "https://search.jd.com/Search?keyword=%s",
+                    imgurl: "../imgs/egs/jd.png"
+                },
+                {
+                    name: "腾讯视频",
+                    url: "https://v.qq.com/x/search/?q=%s",
+                    imgurl: "../imgs/egs/txsp.png"
+                },
+                {
+                    name: "AcFun",
+                    url: "https://www.acfun.cn/search?keyword=%s",
+                    imgurl: "../imgs/egs/acfun.png"
+                },
+                {
+                    name: "Iconfont",
+                    url: "https://www.iconfont.cn/search/index?q=%s",
+                    imgurl: "../imgs/egs/iconfont.png"
+                },
+                {
+                    name: "Yandex",
+                    url: "https://yandex.com/search/?text=%s",
+                    imgurl: "../imgs/egs/yandex.png"
+                },
+                {
+                    name: "CSDN",
+                    url: "https://so.csdn.net/so/search/s.do?q=%s",
+                    imgurl: "../imgs/egs/csdn.png"
+                },
+                {
+                    name: "GitHub",
+                    url: "https://github.com/search?q=%s",
+                    imgurl: "../imgs/egs/github.png"
+                },
+                {
+                    name: "百度百科",
+                    url: "https://baike.baidu.com/search?word=%s",
+                    imgurl: "../imgs/egs/bdbk.png"
+                }
             ]
     });
 
