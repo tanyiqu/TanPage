@@ -43,7 +43,16 @@ function init() {
                     name: "谷歌搜索",
                     url: "https://www.google.com/search?q=%s",
                     imgurl: "../imgs/egs/ggss.png"
-                }
+                },
+                {
+                    name: "搜狗搜索",
+                    url: "https://www.sogou.com/sogou?query=%s",
+                    imgurl: "../imgs/egs/sgss.png"
+                }, {
+                    name: "360",
+                    url: "https://www.so.com/s?q=%s",
+                    imgurl: "../imgs/egs/360.png"
+                },
             ]
     });
 
@@ -76,7 +85,8 @@ chrome.contextMenus.create({
             // 获取默认搜索引擎
             var default_engine_url = res.default_engine_url;
             chrome.tabs.create({
-                url: default_engine_url + "?" + default_engine_name + "=" + encodeURI(params.selectionText)
+                // url: default_engine_url + "?" + default_engine_name + "=" + encodeURI(params.selectionText)
+                url: default_engine_url.replace('%s', encodeURI(params.selectionText))
             });
         });
     }
