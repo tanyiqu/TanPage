@@ -532,10 +532,21 @@ function editBookmarks(showToast) {
 document.addEventListener('mousemove', (e) => {
     let cX = e.clientX;
     let cY = e.clientY;
-
+    // 获取搜索引擎的宽高
+    let W = parseInt($('#engineItemAdd').width());
+    let H = parseInt($('#engineItemAdd').height());
+    let offx = cX - (W / 2);
+    let offy = cY - (H / 2);
     // 正在拖拽搜索引擎
     if (draggingEg) {
-
+        console.log('移动中');
+        $('.engineItemShadow > img').attr('src', engines[currentDraggingEg].imgurl);
+        $('.engineItemShadow').css({
+            "display": "block",
+            'left': offx + 'px',
+            'top': offy + 'px',
+        });
+        $('#engineList').css('opacity', '0.5');
     }
 
     // 正在拖拽书签
@@ -570,9 +581,13 @@ document.addEventListener('mouseup', (e) => {
         let pos = aboveEngine(reX, reY);
         // 如果自己跟自己交换，说明知识被点击了，执行点击操作
         if (pos == currentDraggingEg) {
+            // 先让残影消失
+            $('.engineItemShadow').css('display', 'none');
+            draggingEg = false;
             return false;
         }
         console.log(pos + ' 与 ' + currentDraggingEg + ' 交换');
+        $('#engineList').css('opacity', '1');
         if (pos != -1) {
             // 交换操作
             let temp = engines[pos];
@@ -581,7 +596,7 @@ document.addEventListener('mouseup', (e) => {
             // 刷新本地存储
             ChromeSyncSet({ engines: engines });
         }
-        // refreshEngines();
+        $('.engineItemShadow').css('display', 'none');
         loadEngine();
         currentDraggingEg = -1;
         draggingEg = false;
