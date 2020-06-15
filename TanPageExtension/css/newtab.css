@@ -329,46 +329,6 @@ body {
   width: 100%;
   height: 100%;
 }
-.addEngine {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 399px;
-  height: 800px;
-  background: #ededed;
-  z-index: 1;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.addEngine .head {
-  position: relative;
-  display: flex;
-  height: 60px;
-  width: 399px;
-  background: #fff;
-}
-.addEngine .head h4 {
-  height: 60px;
-  line-height: 60px;
-  font-size: 20px;
-  margin: 0 auto;
-}
-.addEngine .head i {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 25px;
-  height: 25px;
-  background: url(../imgs/close.png);
-  background-size: 100% 100%;
-  cursor: pointer;
-}
-.addEngine .head i:hover {
-  background: url(../imgs/close_hover.png);
-  background-size: 100% 100%;
-}
 .showSetting {
   position: absolute;
   top: 10px;
@@ -383,32 +343,33 @@ body {
   background: url(../imgs/setting_hover.png);
   background-size: 100% 100%;
 }
-.setting {
+.window-right {
   position: absolute;
   top: 0;
   right: 0;
   width: 399px;
   height: 800px;
   background: #ededed;
+  z-index: 1;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-.setting .head {
+.window-right .head {
   position: relative;
   display: flex;
   height: 60px;
   width: 399px;
   background: #fff;
 }
-.setting .head h4 {
+.window-right .head h4 {
   height: 60px;
   line-height: 60px;
   font-size: 20px;
   margin: 0 auto;
 }
-.setting .head i {
+.window-right .head i {
   position: absolute;
   top: 10px;
   right: 12px;
@@ -418,9 +379,51 @@ body {
   background-size: 100% 100%;
   cursor: pointer;
 }
-.setting .head i:hover {
+.window-right .head i:hover {
   background: url(../imgs/close_hover.png);
   background-size: 100% 100%;
+}
+.window-right .window-body {
+  padding: 16px 16px 0;
+  width: 399px;
+  height: 500px;
+  overflow: auto;
+}
+.window-right .window-body .block {
+  background: #fff;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.window-right .window-body .block .title {
+  color: #000;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.window-right .window-body .block .rangeValue {
+  font-size: 15px;
+  color: #4791eb;
+  margin: 10px 5% 0 0;
+  text-align: right;
+}
+.window-right .window-body .block .text-noindent {
+  font-size: 14px;
+  color: #302f2f;
+  padding-bottom: 3px;
+}
+.window-right .window-body .block .text {
+  font-size: 14px;
+  color: #302f2f;
+  padding-bottom: 3px;
+  text-indent: 2em;
+}
+.window-right .window-body .block .lk {
+  font-size: 14px;
+  color: #302f2f;
+  padding-bottom: 3px;
+  color: #4791eb;
+  text-decoration: none;
+  margin-right: 10px;
 }
 .setting .tab {
   display: table;
@@ -441,48 +444,6 @@ body {
 }
 .setting .tab div:hover {
   background: #ededed;
-}
-.setting .settingBody {
-  padding: 16px 16px 0;
-  width: 399px;
-  height: 500px;
-  overflow: auto;
-}
-.setting .settingBody .block {
-  background: #fff;
-  width: 100%;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.setting .settingBody .block .title {
-  color: #000;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-.setting .settingBody .block .rangeValue {
-  font-size: 15px;
-  color: #4791eb;
-  margin: 10px 5% 0 0;
-  text-align: right;
-}
-.setting .settingBody .block .text-noindent {
-  font-size: 14px;
-  color: #302f2f;
-  padding-bottom: 3px;
-}
-.setting .settingBody .block .text {
-  font-size: 14px;
-  color: #302f2f;
-  padding-bottom: 3px;
-  text-indent: 2em;
-}
-.setting .settingBody .block .lk {
-  font-size: 14px;
-  color: #302f2f;
-  padding-bottom: 3px;
-  color: #4791eb;
-  text-decoration: none;
-  margin-right: 10px;
 }
 .setting .btns {
   width: 100%;

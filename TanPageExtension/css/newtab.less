@@ -293,47 +293,47 @@ body {
   }
 }
 
-.addEngine {
-  position  : absolute;
-  top       : 0;
-  right     : 0;
-  width     : 399px;
-  height    : 800px;
-  background: #ededed;
-  z-index   : 1;
-  .cntSelect();
+// .addEngine {
+//   position  : absolute;
+//   top       : 0;
+//   right     : 0;
+//   width     : 399px;
+//   height    : 800px;
+//   background: #ededed;
+//   z-index   : 1;
+//   .cntSelect();
 
-  .head {
-    position  : relative;
-    display   : flex;
-    height    : 60px;
-    width     : 399px;
-    background: #fff;
+//   .head {
+//     position  : relative;
+//     display   : flex;
+//     height    : 60px;
+//     width     : 399px;
+//     background: #fff;
 
-    h4 {
-      height     : 60px;
-      line-height: 60px;
-      font-size  : 20px;
-      margin     : 0 auto;
-    }
+//     h4 {
+//       height     : 60px;
+//       line-height: 60px;
+//       font-size  : 20px;
+//       margin     : 0 auto;
+//     }
 
-    i {
-      position       : absolute;
-      top            : 10px;
-      right          : 12px;
-      width          : 25px;
-      height         : 25px;
-      background     : url(../imgs/close.png);
-      background-size: 100% 100%;
-      cursor         : pointer;
+//     i {
+//       position       : absolute;
+//       top            : 10px;
+//       right          : 12px;
+//       width          : 25px;
+//       height         : 25px;
+//       background     : url(../imgs/close.png);
+//       background-size: 100% 100%;
+//       cursor         : pointer;
 
-      &:hover {
-        background     : url(../imgs/close_hover.png);
-        background-size: 100% 100%;
-      }
-    }
-  }
-}
+//       &:hover {
+//         background     : url(../imgs/close_hover.png);
+//         background-size: 100% 100%;
+//       }
+//     }
+//   }
+// }
 
 // 打开设置按钮
 .showSetting {
@@ -352,14 +352,15 @@ body {
   }
 }
 
-// 设置框
-.setting {
+// 右边弹出的窗口
+.window-right {
   position  : absolute;
   top       : 0;
   right     : 0;
   width     : 399px;
   height    : 800px;
   background: #ededed;
+  z-index   : 1;
   .cntSelect();
 
   // 设置头部
@@ -394,34 +395,8 @@ body {
     }
   }
 
-
-  // 选项卡按钮
-  .tab {
-    display: table;
-    width  : 399px;
-
-    .active {
-      background: #ededed;
-    }
-
-    div {
-      display       : table-cell;
-      width         : 133px;
-      height        : 50px;
-      background    : #d8d8d8;
-      text-align    : center;
-      vertical-align: middle;
-      font-size     : 18px;
-      cursor        : pointer;
-
-      &:hover {
-        background: #ededed;
-      }
-    }
-  }
-
   // 设置主体
-  .settingBody {
+  .window-body {
     padding : 16px 16px 0;
     width   : 399px;
     height  : 500px;
@@ -449,6 +424,7 @@ body {
         text-align: right;
       }
 
+      // 没有缩进的正文
       .text-noindent {
         font-size     : 14px;
         color         : rgb(48, 47, 47);
@@ -461,9 +437,6 @@ body {
         text-indent: 2em;
       }
 
-      // 没有缩进的正文
-
-
       // 链接
       .lk {
         .text-noindent;
@@ -472,6 +445,37 @@ body {
         margin-right   : 10px;
       }
 
+    }
+  }
+
+
+}
+
+// 设置框
+.setting {
+
+  // 选项卡按钮
+  .tab {
+    display: table;
+    width  : 399px;
+
+    .active {
+      background: #ededed;
+    }
+
+    div {
+      display       : table-cell;
+      width         : 133px;
+      height        : 50px;
+      background    : #d8d8d8;
+      text-align    : center;
+      vertical-align: middle;
+      font-size     : 18px;
+      cursor        : pointer;
+
+      &:hover {
+        background: #ededed;
+      }
     }
   }
 

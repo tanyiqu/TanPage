@@ -31,7 +31,7 @@ let cgEngineImg = $("#cgEngineImg");
 let engineList = $('#engineList');
 
 // 添加搜索引擎窗口
-let addEngine = $('.addEngine');
+let addEngine = $('#addEngine');
 
 // 书签列表
 let bookmark = $('.bookmark');

@@ -2,7 +2,7 @@
  * 设置框的内容太多，单独放在一个js文件里面
  */
 // 设置框
-let setting = $('.setting');
+let setting = $('#setting');
 // 初始不要加载设置里面的东西，第一次点击设置按钮时进行加载，以后不用加载
 let firstOpenSetting = true;
 
