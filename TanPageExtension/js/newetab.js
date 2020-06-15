@@ -30,6 +30,9 @@ let cgEngineImg = $("#cgEngineImg");
 // 切换搜索引擎时的所有所搜引擎列表
 let engineList = $('#engineList');
 
+// 添加搜索引擎窗口
+let addEngine = $('.addEngine');
+
 // 书签列表
 let bookmark = $('.bookmark');
 
@@ -170,7 +173,18 @@ function loadEngine() {
 
     // 添加自定义搜索引擎按钮
     $('#engineItemAdd').click(() => {
-        Toast.info('暂时不能自定义');
+        // 如果设置框在显示就取消显示
+        setting.slideLeftHide(400);
+        // 动态设置高
+        addEngine.css({
+            'height': window.innerHeight + "px",
+        });
+        addEngine.slideLeftShow(400);
+    });
+
+    // 关闭添加搜索引擎
+    $('#closeAddEngine').click(() => {
+        addEngine.slideLeftHide(400);
     });
 
     // 临时搜索

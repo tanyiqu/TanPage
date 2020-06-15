@@ -277,19 +277,61 @@ body {
 }
 
 .engineItemShadow {
-  position     : absolute;
-  width        : 60px;
-  height       : 60px;
-  left         : 0;
-  top          : 0;
+  position        : absolute;
+  width           : 60px;
+  height          : 60px;
+  left            : 0;
+  top             : 0;
   // background   : #ffffffc0;
-  background   : #ffffff;
-  border-radius: .0875rem;
-  z-index      : 1;
+  background      : #ffffff;
+  border-radius   : .0875rem;
+  z-index         : 1;
 
   img {
     width : 100%;
     height: 100%;
+  }
+}
+
+.addEngine {
+  position  : absolute;
+  top       : 0;
+  right     : 0;
+  width     : 399px;
+  height    : 800px;
+  background: #ededed;
+  z-index   : 1;
+  .cntSelect();
+
+  .head {
+    position  : relative;
+    display   : flex;
+    height    : 60px;
+    width     : 399px;
+    background: #fff;
+
+    h4 {
+      height     : 60px;
+      line-height: 60px;
+      font-size  : 20px;
+      margin     : 0 auto;
+    }
+
+    i {
+      position       : absolute;
+      top            : 10px;
+      right          : 12px;
+      width          : 25px;
+      height         : 25px;
+      background     : url(../imgs/close.png);
+      background-size: 100% 100%;
+      cursor         : pointer;
+
+      &:hover {
+        background     : url(../imgs/close_hover.png);
+        background-size: 100% 100%;
+      }
+    }
   }
 }
 
