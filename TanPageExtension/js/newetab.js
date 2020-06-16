@@ -303,7 +303,11 @@ function refreshTips() {
     for (let i = 0; i < len; i++) {
         let id = '#sug' + (i + 1);
         $(id).click(() => {
-            window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + arr[i];
+
+            // window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + arr[i];
+            let url = engines[engine].url.replace('%s', arr[i]);
+            // window.location.href = + "?" + engines[engine].name + "=" + arr[i];
+            window.location.href = url;
         });
     }
     sugList.css('display', 'block');
