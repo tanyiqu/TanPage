@@ -171,22 +171,6 @@ function loadEngine() {
         });
     }
 
-    // 添加自定义搜索引擎按钮
-    $('#engineItemAdd').click(() => {
-        // 如果设置框在显示就取消显示
-        setting.slideLeftHide(400);
-        // 动态设置高
-        addEngine.css({
-            'height': window.innerHeight + "px",
-        });
-        addEngine.slideLeftShow(400);
-    });
-
-    // 关闭添加搜索引擎
-    $('#closeAddEngine').click(() => {
-        addEngine.slideLeftHide(400);
-    });
-
     // 临时搜索
     for (let i = 0; i < len; i++) {
         const n = i;
@@ -205,6 +189,39 @@ function loadEngine() {
     }
     // 输入框文本改变时添加搜索建议
     input.on('input', onInput);
+
+
+    // 添加搜索引擎
+    addCustomEngine();
+}
+
+// 添加搜索引擎
+function addCustomEngine() {
+    // 添加自定义搜索引擎按钮
+    $('#engineItemAdd').click(() => {
+        // 如果设置框在显示就取消显示
+        setting.slideLeftHide(400);
+        // 动态设置高
+        addEngine.css({
+            'height': window.innerHeight + "px",
+        });
+        addEngine.slideLeftShow(400);
+    });
+
+    // 关闭添加搜索引擎
+    $('#closeAddEngine').click(() => {
+        addEngine.slideLeftHide(400);
+    });
+
+    // 点击选择logo
+    $('#selectEngineLogo').click(() => {
+        console.log('001');
+    });
+
+    // 点击确定
+    $('#ensureAddEngine').click(() => {
+        console.log('002');
+    });
 }
 
 
