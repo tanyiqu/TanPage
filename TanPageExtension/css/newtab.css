@@ -467,6 +467,22 @@ body {
   text-decoration: none;
   margin-right: 10px;
 }
+.window-right .window-body .block .btn-left {
+  width: 120px;
+  height: 40px;
+  margin: 10px 10px 0 0;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  background: #efefef;
+  cursor: pointer;
+}
+.window-right .window-body .block .btn-left:hover {
+  background: #4791eb;
+}
+.window-right .window-body .block .btn-left:active {
+  background: #007acc;
+}
 .setting .tab {
   display: table;
   width: 399px;
