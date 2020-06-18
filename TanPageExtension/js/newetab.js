@@ -215,7 +215,18 @@ function addCustomEngine() {
 
     // 点击选择logo
     $('#selectEngineLogo').click(() => {
-        console.log('001');
+        $('#chooseEngineLogo').click();
+    });
+
+    // 触发选择文件
+    $('#chooseEngineLogo').change((e) => {
+        //获取读取我文件的File对象
+        var selectedFile = $('#chooseEngineLogo')[0].files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onload = function () {
+            showCutEngineLogoWindow(this.result);
+        }
     });
 
     // 点击确定
@@ -224,6 +235,10 @@ function addCustomEngine() {
     });
 }
 
+// 显示裁剪搜索引擎logo的窗口
+function showCutEngineLogoWindow(imgUrl) {
+    // console.log('imgUrl', imgUrl);
+}
 
 /**
  * 加载书签
