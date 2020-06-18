@@ -38,7 +38,8 @@ function loadCutEngineLogo(imgUrl) {
         }
         // 绘制
         ctx.drawImage(img, x, y, cW, cH);
-        refreshPreview(156, 109, 200, 200);
+        // 在中央绘制
+        refreshPreview(156, 109, frameSize.w, frameSize.h);
     }
     img.crossOrigin = 'anonymous';
     img.src = imgUrl;
@@ -48,7 +49,9 @@ function loadCutEngineLogo(imgUrl) {
 
 // 拖动
 var frame = document.getElementById('frame');
-var dragging = false;
+var draggingFrame = false;
+// 正在右下角拖拽缩放
+var draggingResiseSE = false;
 var frameOffX = 100;
 var frameOffY = 100;
 
@@ -67,20 +70,28 @@ function getPosition(el) {
     return { x: _x, y: _y };
 }
 
-var mouseA;
-var Axis;
-var axis;
-var frameA;
+// frame距离浏览器左上角位置
+var frameCoor;
+// frame距离canvas左上角的距离
+var frameToCanvasCoor;
+// 鼠标的坐标
+var mouseCoor;
+// 鼠标距离frame左上角的位置
+var coor;
+// frame的宽高，默认200*200
+var frameSize = {
+    w: 200,
+    h: 200
+};
 
-
+// 预览的canvasContext
 var pCtx = document.getElementById('previewCanvas').getContext('2d');
+// 预览的image
 var pImg = new Image();
-
 pImg.crossOrigin = 'anonymous';
 
+// 临时的canvas
 var c = document.createElement('canvas');
-c.width = 200;
-c.height = 200;
 var cC = c.getContext('2d');
 
 /**
@@ -91,6 +102,8 @@ var cC = c.getContext('2d');
  * @param {*} h frame的高
  */
 function refreshPreview(x, y, w, h) {
+    c.width = w;
+    c.height = h;
     // -16是因为有padding:16
     var data = ctx.getImageData(x - 16, y - 16, w, h);
     pImg.onload = function () {
@@ -102,48 +115,83 @@ function refreshPreview(x, y, w, h) {
     pImg.src = dataUrl;
 }
 
-
+// 拖拽移动
 frame.onmousedown = function (e) {
-    dragging = true;
+    draggingFrame = true;
 
     // frame距离浏览器左上角位置
-    Axis = getPosition(frame);
-    console.log('frame距离浏览器左上角位置', Axis);
+    frameCoor = getPosition(frame);
+    console.log('frame距离浏览器左上角位置', frameCoor);
 
     // 鼠标距离frame左上角的位置
-    axis = {
-        x: e.x - Axis.x,
-        y: e.y - Axis.y,
+    coor = {
+        x: e.x - frameCoor.x,
+        y: e.y - frameCoor.y,
     };
-    console.log('鼠标距离frame左上角的位置', axis);
+    console.log('鼠标距离frame左上角的位置', coor);
 };
 
+// 拖拽缩放-右下角
+$('.drag-right-bottom').mousedown((e) => {
+    draggingResiseSE = true;
+    // 获取frame的坐标
+    frameCoor = getPosition(frame);
+    var canvasToBrowser = getPosition(document.getElementById('cut-logo-canvas'));
+    console.log('frameCoor', frameCoor);
+
+    // 获取frame距离canvas左上角的距离
+    frameToCanvasCoor = {
+        x: frameCoor.x - canvasToBrowser.x,
+        y: frameCoor.y - canvasToBrowser.y
+    }
+    return false;
+});
+
 document.onmousemove = function (e) {
-    if (dragging) {
+    if (draggingFrame) {
         var canvasOff = getPosition(myCanvas);
         var canvasA = {
             x: e.x - canvasOff.x,
             y: e.y - canvasOff.y
         };
-
-        var x = (canvasA.x - axis.x + 16);
-        var y = (canvasA.y - axis.y + 16);
-
-
-
+        var x = (canvasA.x - coor.x + 16);
+        var y = (canvasA.y - coor.y + 16);
         frame.style.left = x + 'px';
         frame.style.top = y + 'px';
-
-
         // 实时刷新preview
-        refreshPreview(x, y, 200, 200);
-
+        refreshPreview(x, y, frameSize.w, frameSize.h);
     }
+
+    // 拖拽缩放-右下角
+    if (draggingResiseSE) {
+        // 获取鼠标的坐标
+        mouseCoor = {
+            x: e.x,
+            y: e.y
+        };
+        // 计算差值
+        w = mouseCoor.x - frameCoor.x;
+        h = mouseCoor.y - frameCoor.y;
+        if (h > w) {
+            w = h;
+        }
+        frameSize.w = w;
+        frameSize.h = w;
+        // 给frame重新设置大小,设置为正方形
+        frame.style.width = w + 'px';
+        frame.style.height = w + 'px';
+
+        refreshPreview(frameToCanvasCoor.x + 16, frameToCanvasCoor.y + 16, frameSize.w, frameSize.h);
+    }
+
 };
 
 document.onmouseup = function (e) {
-    if (dragging) {
-        dragging = false;
+    if (draggingFrame) {
+        draggingFrame = false;
+    }
+    if (draggingResiseSE) {
+        draggingResiseSE = false;
     }
 };
 
