@@ -103,3 +103,17 @@ jQuery.fn.slideLeftShow = function (speed, callback) {
         marginRight: "show"
     }, speed, callback);
 };
+
+/**
+ * 获取e1在浏览器中的位置
+ * @param {*} el 
+ */
+function getPosition(el) {
+    _x = 0, _y = 0;
+    while (el.offsetParent !== null) {
+        _x += el.offsetLeft;
+        _y += el.offsetTop;
+        el = el.offsetParent;
+    }
+    return { x: _x, y: _y };
+}

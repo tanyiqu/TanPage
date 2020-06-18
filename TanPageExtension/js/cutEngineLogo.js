@@ -5,8 +5,47 @@
 var myCanvas = document.getElementById("cut-logo-canvas");
 var ctx = myCanvas.getContext("2d");
 
+// 预览的canvasContext
+var pCtx = document.getElementById('previewCanvas').getContext('2d');
+// 预览的image
+var pImg = new Image();
+pImg.crossOrigin = 'anonymous';
+
+// 临时的canvas
+var c = document.createElement('canvas');
+var cC = c.getContext('2d');
+
+// 拖动
+var frame = document.getElementById('frame');
+
+// 正在拖动frame
+var draggingFrame = false;
+// 正在右下角拖拽缩放
+var draggingResiseSE = false;
+
+// frame距离浏览器左上角位置
+var frameCoor;
+// frame距离canvas左上角的距离
+var frameToCanvasCoor;
+// 鼠标的坐标
+var mouseCoor;
+// 鼠标距离frame左上角的位置
+var coor;
+// frame的宽高，默认200*200
+var frameSize = {
+    w: 200,
+    h: 200
+};
+
 // 加载窗口
 function loadCutEngineLogo(imgUrl) {
+    console.log('加载cut');
+    // 重置状态
+    frameSize.w = 200;
+    frameSize.h = 200;
+    frame.style.width = '200px';
+    frame.style.height = '200px';
+    // frame居中
     ctx.clearRect(0, 0, 512, 418);
     var img = new Image();
     // 把框框调到居中的位置
@@ -46,53 +85,6 @@ function loadCutEngineLogo(imgUrl) {
 }
 
 
-
-// 拖动
-var frame = document.getElementById('frame');
-var draggingFrame = false;
-// 正在右下角拖拽缩放
-var draggingResiseSE = false;
-var frameOffX = 100;
-var frameOffY = 100;
-
-
-/**
- * 获取e1在浏览器中的位置
- * @param {*} el 
- */
-function getPosition(el) {
-    _x = 0, _y = 0;
-    while (el.offsetParent !== null) {
-        _x += el.offsetLeft;
-        _y += el.offsetTop;
-        el = el.offsetParent;
-    }
-    return { x: _x, y: _y };
-}
-
-// frame距离浏览器左上角位置
-var frameCoor;
-// frame距离canvas左上角的距离
-var frameToCanvasCoor;
-// 鼠标的坐标
-var mouseCoor;
-// 鼠标距离frame左上角的位置
-var coor;
-// frame的宽高，默认200*200
-var frameSize = {
-    w: 200,
-    h: 200
-};
-
-// 预览的canvasContext
-var pCtx = document.getElementById('previewCanvas').getContext('2d');
-// 预览的image
-var pImg = new Image();
-pImg.crossOrigin = 'anonymous';
-
-// 临时的canvas
-var c = document.createElement('canvas');
-var cC = c.getContext('2d');
 
 /**
  * 刷新preview图像
