@@ -336,6 +336,62 @@ body {
   background-size: 100% 100%;
   margin-top: 10px;
 }
+#cutEngineLogoWindow {
+  position: absolute;
+  width: 800px;
+  height: 450px;
+  left: 50%;
+  margin-left: -400px;
+  display: block;
+}
+.cut-engine-logo {
+  position: absolute;
+  width: 800px;
+  height: 450px;
+  z-index: 100;
+  left: 50%;
+  margin-left: -400px;
+  margin-top: 200px;
+  background: #fff;
+  border-radius: 5px;
+  display: flex;
+  padding: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.cut-engine-logo .cut-logo-canvas {
+  flex: 2;
+  background: #dddddd;
+  border: solid 1px gray;
+}
+.cut-engine-logo .right {
+  flex: 1;
+  text-align: center;
+  padding-top: 20px;
+}
+.cut-engine-logo .right p {
+  font-size: 20px;
+}
+.cut-engine-logo .right canvas {
+  margin-top: 10px;
+  border: solid 1px gray;
+}
+.cut-engine-logo .right button {
+  width: 100px;
+  height: 35px;
+  margin: 10px 0 0 0;
+}
+.cut-engine-logo .frame {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 116px;
+  top: 116px;
+  cursor: move;
+  border: solid 1px #000;
+}
 .showSetting {
   position: absolute;
   top: 10px;

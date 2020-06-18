@@ -276,6 +276,7 @@ body {
   }
 }
 
+// 拖拽搜索引擎的残影
 .engineItemShadow {
   position        : absolute;
   width           : 60px;
@@ -293,7 +294,7 @@ body {
   }
 }
 
-// 添加搜索引擎窗口
+// 添加搜索引擎的右侧窗口
 .add-engine-block {
   .logo {
     width          : 80px;
@@ -303,6 +304,78 @@ body {
     margin-top     : 10px;
   }
 }
+
+// 添加搜索引擎的裁剪窗口
+#cutEngineLogoWindow {
+  position   : absolute;
+  width      : 800px;
+  height     : 450px;
+  left       : 50%;
+  margin-left: -400px;
+  display    : block;
+}
+
+// .cut-engine-logo {
+//   width     : 800px;
+//   height    : 450px;
+// }
+
+
+.cut-engine-logo {
+  position     : absolute;
+  width        : 800px;
+  height       : 450px;
+  z-index      : 100;
+  left         : 50%;
+  margin-left  : -400px;
+  margin-top   : 200px;
+  background   : #fff;
+  border-radius: 5px;
+  display      : flex;
+  padding      : 16px;
+  .cntSelect();
+
+  .cut-logo-canvas {
+    flex      : 2;
+    background: #dddddd;
+    border    : solid 1px gray;
+  }
+
+  .right {
+    flex      : 1;
+    text-align: center;
+
+    padding-top: 20px;
+
+    p {
+      font-size: 20px;
+    }
+
+    canvas {
+      margin-top: 10px;
+      border    : solid 1px gray;
+    }
+
+    button {
+      width : 100px;
+      height: 35px;
+      margin: 10px 0 0 0;
+    }
+
+  }
+
+  .frame {
+    position: absolute;
+    width   : 200px;
+    height  : 200px;
+    left    : 116px;
+    top     : 116px;
+    cursor  : move;
+    border  : solid 1px #000;
+  }
+}
+
+
 
 // 打开设置按钮
 .showSetting {

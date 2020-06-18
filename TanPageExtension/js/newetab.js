@@ -237,7 +237,15 @@ function addCustomEngine() {
 
 // 显示裁剪搜索引擎logo的窗口
 function showCutEngineLogoWindow(imgUrl) {
-    // console.log('imgUrl', imgUrl);
+    // 打开笼罩层
+    $('.shade').css({
+        "width": window.innerWidth + "px",
+        "height": window.innerHeight + "px",
+        "display": "block"
+    });
+    $('#cutEngineLogoWindow').css('display', 'block');
+    // 加载
+    loadCutEngineLogo(imgUrl);
 }
 
 /**
