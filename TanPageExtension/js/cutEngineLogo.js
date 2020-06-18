@@ -72,6 +72,37 @@ var Axis;
 var axis;
 var frameA;
 
+
+var pCtx = document.getElementById('previewCanvas').getContext('2d');
+var pImg = new Image();
+
+pImg.crossOrigin = 'anonymous';
+
+var c = document.createElement('canvas');
+c.width = 200;
+c.height = 200;
+var cC = c.getContext('2d');
+
+/**
+ * 刷新preview图像
+ * @param {*} x frame的x偏移
+ * @param {*} y y 偏移
+ * @param {*} w frame的宽
+ * @param {*} h frame的高
+ */
+function refreshPreview(x, y, w, h) {
+    // -16是因为有padding:16
+    var data = ctx.getImageData(x - 16, y - 16, w, h);
+    pImg.onload = function () {
+        pCtx.clearRect(0, 0, 100, 100);
+        pCtx.drawImage(pImg, 0, 0, w, h, 0, 0, 100, 100);
+    };
+    cC.putImageData(data, 0, 0);
+    dataUrl = c.toDataURL('image/png', 1);
+    pImg.src = dataUrl;
+}
+
+
 frame.onmousedown = function (e) {
     dragging = true;
 
@@ -85,8 +116,6 @@ frame.onmousedown = function (e) {
         y: e.y - Axis.y,
     };
     console.log('鼠标距离frame左上角的位置', axis);
-
-
 };
 
 document.onmousemove = function (e) {
@@ -117,38 +146,6 @@ document.onmouseup = function (e) {
         dragging = false;
     }
 };
-
-
-var pCtx = document.getElementById('previewCanvas').getContext('2d');
-var pImg = new Image();
-
-pImg.crossOrigin = 'anonymous';
-
-var c = document.createElement('canvas');
-c.width = 200;
-c.height = 200;
-var cC = c.getContext('2d');
-
-/**
- * 刷新preview图像
- * @param {*} x frame的x偏移
- * @param {*} y y 偏移
- * @param {*} w frame的宽
- * @param {*} h frame的高
- */
-function refreshPreview(x, y, w, h) {
-    var data = ctx.getImageData(x, y, w, h);
-
-    pImg.onload = function () {
-        pCtx.clearRect(0, 0, 100, 100);
-        pCtx.drawImage(pImg, 0, 0, w, h, 0, 0, 100, 100);
-    };
-    cC.putImageData(data, 0, 0);
-    dataUrl = c.toDataURL('image/png', 1);
-    pImg.src = dataUrl;
-}
-
-
 
 
 // 确定按钮

@@ -390,7 +390,15 @@ body {
   left: 116px;
   top: 116px;
   cursor: move;
-  border: solid 1px #000;
+  border: solid 2px #4292df;
+}
+.cut-engine-logo .frame .drag-right-bottom {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  background: #4292df;
 }
 .showSetting {
   position: absolute;
