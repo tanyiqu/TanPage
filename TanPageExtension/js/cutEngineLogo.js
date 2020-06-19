@@ -6,7 +6,8 @@ var myCanvas = document.getElementById("cut-logo-canvas");
 var ctx = myCanvas.getContext("2d");
 
 // 预览的canvasContext
-var pCtx = document.getElementById('previewCanvas').getContext('2d');
+var pCanvas = document.getElementById('previewCanvas');
+var pCtx = pCanvas.getContext('2d');
 // 预览的image
 var pImg = new Image();
 pImg.crossOrigin = 'anonymous';
@@ -190,7 +191,12 @@ document.onmouseup = function (e) {
 
 // 确定按钮
 $('#ensureCutEngineLogo').click(() => {
+    // 获取预览canvas显示图片的dataurl
+    var data = pCanvas.toDataURL('image/png', 1);
 
+    console.log('确定');
+
+    $('#selectEngineLogo').attr('src', data);
 
     $('#cutEngineLogoWindow').css('display', 'none');
     $('.shade').css('display', 'none');

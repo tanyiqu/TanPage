@@ -71,14 +71,17 @@
 
                 <div class="input-line">
                     <p>搜索引擎</p>
-                    <input type="text" placeholder="请输入名称">
+                    <input type="text" placeholder="请输入名称" id="customEngineName">
                 </div>
                 <div class="input-line">
                     <p>url（用“%s”代替搜索字词）</p>
-                    <input type="text" placeholder="如：http://www.baidu.com/s?wd=%s">
+                    <input type="text" placeholder="如：http://www.baidu.com/s?wd=%s" id="customEngineUrl">
                 </div>
                 <p class="text-noindent">图标（分辨率 ≥ 80*80）</p>
-                <div class="logo pointer" id="selectEngineLogo"></div>
+                <!-- <div class="logo pointer" id="selectEngineLogo"> -->
+                <div class="logo pointer">
+                    <img id="selectEngineLogo" src="../imgs/add-engine-logo.png" alt="">
+                </div>
                 <input type="file" id="chooseEngineLogo" accept="image/png,image/jpeg" style="display: none">
                 <button class="btn-left" id="ensureAddEngine"> 确定 </button>
 

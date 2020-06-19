@@ -221,8 +221,8 @@ function addCustomEngine() {
     // 触发选择文件
     $('#chooseEngineLogo').change((e) => {
         //获取读取我文件的File对象
-        var selectedFile = $('#chooseEngineLogo')[0].files[0];
-        var reader = new FileReader();
+        let selectedFile = $('#chooseEngineLogo')[0].files[0];
+        let reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onload = function () {
             showCutEngineLogoWindow(this.result);
@@ -231,7 +231,38 @@ function addCustomEngine() {
 
     // 点击确定
     $('#ensureAddEngine').click(() => {
-        console.log('002');
+        // 添加搜索引擎
+        // 获取名称
+        let name = $('#customEngineName').val();
+        // 获取url
+        let url = $('#customEngineUrl').val();
+        if (name.isEmpty() || url.isEmpty()) {
+            Toast.error('内容不能为空！');
+            return;
+        }
+        // 获取图标url，如果没有选择图片就用默认的图片
+        let imgurl = $('#selectEngineLogo').attr('src');
+        let imgurls = [];
+        // 将imgurl分割
+        if (imgurl.length > 2048) {
+
+        }
+        // console.log('length', imgurl.length);
+
+        let eg = {
+            imgurl: imgurl,
+            name: name,
+            url: url
+        };
+
+        console.log('eg', eg);
+        console.log('engines', engines);
+        engines.push(eg);
+
+
+
+        // 刷新本地存储
+        ChromeSyncSet({ engines: engines });
     });
 }
 
