@@ -132,8 +132,7 @@ function loadEngine() {
     let html = "";
     let len = engines.length;
     for (let i = 0; i < len; i++) {
-        // html += '<div class="engineItem" id="engineItem{0}"><i title="临时搜索" id="tmp{1}" class="tmp"></i><img src="{2}" alt=""><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
-        html += '<div class="engineItem" id="engineItem{0}"><i class="egimg" style="background: url({2}) no-repeat center;background-size: 100% 100%;"></i><i title="临时搜索" id="tmp{1}" class="tmp"></i><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
+        html += '<div class="engineItem" id="engineItem{0}"><i class="egimg" style="background: url({2}) no-repeat center;background-size: 100% 100%;"></i><i title="临时搜索" id="tmp{1}" class="tmp-searsh"></i><i title="删除" id="del{1}" class="del-engine"></i><p>{3}</p></div>'.format(i + 1, i + 1, engines[i].imgurl, engines[i].name);
     }
     html += '<div class="engineItem" id="engineItemAdd"><img src="../imgs/egs/add.png" alt=""><p>自定义</p></div>';
     engineList.html(html);
@@ -173,6 +172,8 @@ function loadEngine() {
     // 临时搜索
     for (let i = 0; i < len; i++) {
         const n = i;
+        // 清除原来的事件
+        $("#tmp" + (n + 1)).off('click');
         $("#tmp" + (n + 1)).click((event) => {
             console.log('临时切换', n);
             // 暂时改变图标和搜索引擎，页面刷新回复正常
@@ -186,6 +187,24 @@ function loadEngine() {
             event.stopPropagation();
         });
     }
+    // 删除搜索引擎
+    for (let i = 0; i < len; i++) {
+        const n = i;
+        // 清除原来的事件
+        $("#del" + (n + 1)).off('click');
+        $("#del" + (n + 1)).click((event) => {
+            // 在engines里面删除
+            engines.splice(n, 1);
+            // 刷新本地存储
+            ChromeLocalSet({ engines: engines });
+            // 弹出提示
+            Toast.success('删除成功！', 'toast-top-center');
+            loadEngine();
+            return false;
+        });
+    }
+
+
     // 输入框文本改变时添加搜索建议
     input.on('input', onInput);
 
@@ -197,6 +216,7 @@ function loadEngine() {
 // 添加搜索引擎
 function addCustomEngine() {
     // 添加自定义搜索引擎按钮
+    $('#engineItemAdd').off('click');
     $('#engineItemAdd').click(() => {
         // 如果设置框在显示就取消显示
         setting.slideLeftHide(400);
@@ -208,16 +228,19 @@ function addCustomEngine() {
     });
 
     // 关闭添加搜索引擎
+    $('#closeAddEngine').off('click');
     $('#closeAddEngine').click(() => {
         addEngine.slideLeftHide(400);
     });
 
     // 点击选择logo
+    $('#selectEngineLogo').off('click');
     $('#selectEngineLogo').click(() => {
         $('#chooseEngineLogo').click();
     });
 
     // 触发选择文件
+    $('#chooseEngineLogo').off('change');
     $('#chooseEngineLogo').change((e) => {
         //获取读取我文件的File对象
         let selectedFile = $('#chooseEngineLogo')[0].files[0];
@@ -229,6 +252,7 @@ function addCustomEngine() {
     });
 
     // 点击确定
+    $('#ensureAddEngine').off('click');
     $('#ensureAddEngine').click(() => {
         // 添加搜索引擎
         // 获取名称
@@ -261,7 +285,7 @@ function addCustomEngine() {
 
         // 刷新本地存储
         ChromeLocalSet({ engines: engines });
-        
+
         // 刷新搜索引擎列表
         loadEngine();
 
