@@ -199,8 +199,10 @@ function loadEngine() {
             ChromeLocalSet({ engines: engines });
             // 弹出提示
             Toast.success('删除成功！', 'toast-top-center');
+
+            event.stopPropagation();
             loadEngine();
-            return false;
+            engineList.css('opacity', '1');
         });
     }
 
@@ -472,7 +474,10 @@ document.addEventListener("click", function (e) {
         if (c === 'block') {
             engineList.css('display', 'none');
         } else {
-            engineList.css('display', 'block');
+            engineList.css({
+                display: 'block',
+                opacity: 1
+            });
         }
     } else {
         engineList.css('display', 'none');
