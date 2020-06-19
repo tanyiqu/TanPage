@@ -14,14 +14,14 @@ function init() {
     // 做初始化
     console.log('初始化')
     // 写入初始信息
-    chrome.storage.sync.set({ first: 'first' });
+    chrome.storage.local.set({ first: 'first' });
 
     //默认搜索引擎
-    chrome.storage.sync.set({ engine: 0 });
-    chrome.storage.sync.set({ default_engine_url: "http://www.baidu.com/s?wd=%s" });
+    chrome.storage.local.set({ engine: 0 });
+    chrome.storage.local.set({ default_engine_url: "http://www.baidu.com/s?wd=%s" });
 
     // 默认搜索引擎
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         engines:
             [
                 {
@@ -108,7 +108,7 @@ function init() {
     });
 
     // 默认书签
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         bookmarks: [
             {
                 name: "百度搜索",
@@ -132,7 +132,7 @@ chrome.contextMenus.create({
     contexts: ['selection'], // 只有当选中文字时才会出现此右键菜单
     onclick: function (params) {
 
-        chrome.storage.sync.get(null, (res) => {
+        chrome.storage.local.get(null, (res) => {
             // 获取默认搜索引擎
             var default_engine_url = res.default_engine_url;
             chrome.tabs.create({

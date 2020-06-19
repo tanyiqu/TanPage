@@ -56,12 +56,11 @@ let bmW, bmH;
 // 加载配置信息，入口函数
 (function () {
     // noinspection JSUnresolvedVariable
-    chrome.storage.sync.get(null, (res) => {
+    chrome.storage.local.get(null, (res) => {
         // 获取配置
         engine = res.engine;
         engines = res.engines;
         bookmarks = res.bookmarks;
-        // localSettings = res.settings;
         // 加载配置
         initPage();
     });
@@ -149,8 +148,8 @@ function loadEngine() {
         let id = "#engineItem" + (n + 1);
         // 查询到标签后添加点击事件
         $(id).click(() => {
-            ChromeSyncSet({ engine: n });
-            ChromeSyncSet({ default_engine_url: engines[n].url });
+            ChromeLocalSet({ engine: n });
+            ChromeLocalSet({ default_engine_url: engines[n].url });
             engine = n;
             cgEngineImg.attr('src', engines[engine].imgurl);
 
@@ -245,12 +244,13 @@ function addCustomEngine() {
         let imgurls = [];
         // 将imgurl分割
         if (imgurl.length > 2048) {
-
+            imgurls = splitLongString(imgurl);
         }
         // console.log('length', imgurl.length);
 
         let eg = {
             imgurl: imgurl,
+            imgurls: imgurls,
             name: name,
             url: url
         };
@@ -259,10 +259,8 @@ function addCustomEngine() {
         console.log('engines', engines);
         engines.push(eg);
 
-
-
         // 刷新本地存储
-        ChromeSyncSet({ engines: engines });
+        ChromeLocalSet({ engines: engines });
     });
 }
 
@@ -304,10 +302,6 @@ function loadBookmarks() {
 
 // 提交表单,动态切换搜索引擎等
 function onSearch() {
-    // alert('00');
-    // $('.search').attr('action', engines[engine].url);
-    // input.attr('name', engines[engine].name);
-
     // 拼接url
     let oldurl = engines[engine].url;
     let newurl = oldurl.replace('%s', input.val());
@@ -516,7 +510,7 @@ function refreshBookmarks() {
                 url: URL
             };
             bookmarks.push(bm);
-            ChromeSyncSet({ bookmarks: bookmarks });
+            ChromeLocalSet({ bookmarks: bookmarks });
             $('.shade').fadeToggle(300);
             $('#addBookmarkWd').fadeToggle(300);
             // 刷新书签的显示
@@ -570,7 +564,7 @@ function editBookmarks(showToast) {
                 bookmarks[n].url = $('#abmURL').val();
                 bookmarks[n].lbl = $('#abmLabel').val();
                 bookmarks[n].name = $('#abmName').val();
-                ChromeSyncSet({ bookmarks: bookmarks });
+                ChromeLocalSet({ bookmarks: bookmarks });
                 // 取消笼罩层和窗口显示
                 $('.shade').fadeToggle(300);
                 $('#addBookmarkWd').fadeToggle(300);
@@ -589,7 +583,7 @@ function editBookmarks(showToast) {
             // 删除第n个bookmark
             bookmarks.splice(n, 1);
             // 刷新本地存储
-            ChromeSyncSet({ bookmarks: bookmarks });
+            ChromeLocalSet({ bookmarks: bookmarks });
             editBookmarks();
             Toast.success('删除成功！', 'toast-bottom-left');
             e.stopPropagation();
@@ -683,7 +677,7 @@ document.addEventListener('mouseup', (e) => {
             engines[pos] = engines[currentDraggingEg];
             engines[currentDraggingEg] = temp;
             // 刷新本地存储
-            ChromeSyncSet({ engines: engines });
+            ChromeLocalSet({ engines: engines });
         }
         $('.engineItemShadow').css('display', 'none');
         loadEngine();
@@ -708,7 +702,7 @@ document.addEventListener('mouseup', (e) => {
             bookmarks[pos] = bookmarks[currentDraggingBm];
             bookmarks[currentDraggingBm] = temp;
             // 刷新本地存储
-            ChromeSyncSet({ bookmarks: bookmarks });
+            ChromeLocalSet({ bookmarks: bookmarks });
         }
 
         bmShadow.css('display', 'none');
