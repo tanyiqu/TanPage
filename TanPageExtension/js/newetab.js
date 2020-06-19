@@ -261,6 +261,15 @@ function addCustomEngine() {
 
         // 刷新本地存储
         ChromeLocalSet({ engines: engines });
+        
+        // 刷新搜索引擎列表
+        loadEngine();
+
+        // 关闭窗口
+        addEngine.slideLeftHide(400);
+
+        // 提示成功
+        Toast.success('添加成功！');
     });
 }
 

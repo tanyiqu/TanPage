@@ -34,24 +34,24 @@ var mouseCoor;
 var coor;
 // frame的宽高，默认200*200
 var frameSize = {
-    w: 200,
-    h: 200
+    w: 418,
+    h: 418
 };
 
 // 加载窗口
 function loadCutEngineLogo(imgUrl) {
     console.log('加载cut');
     // 重置状态
-    frameSize.w = 200;
-    frameSize.h = 200;
-    frame.style.width = '200px';
-    frame.style.height = '200px';
+    frameSize.w = 418;
+    frameSize.h = 418;
+    frame.style.width = '418px';
+    frame.style.height = '418px';
     // frame居中
     ctx.clearRect(0, 0, 512, 418);
     var img = new Image();
     // 把框框调到居中的位置
-    frame.style.left = (156 + 16) + 'px';
-    frame.style.top = (109 + 16) + 'px';
+    frame.style.left = '63px';
+    frame.style.top = '16px';
 
     img.onload = () => {
         // 获取宽高比
@@ -79,7 +79,7 @@ function loadCutEngineLogo(imgUrl) {
         // 绘制
         ctx.drawImage(img, x, y, cW, cH);
         // 在中央绘制
-        refreshPreview(156, 109, frameSize.w, frameSize.h);
+        refreshPreview(47 + 16, 0 + 16, frameSize.w, frameSize.h);
     }
     img.crossOrigin = 'anonymous';
     img.src = imgUrl;

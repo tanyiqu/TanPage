@@ -1,7 +1,7 @@
 // 做初始化，先存入初始数据
 // 检查有没有存入过
 console.log('扩展执行');
-chrome.storage.sync.get('first', (res) => {
+chrome.storage.local.get('first', (res) => {
     // 如果first没有数据，就是首次打开，如果有数据什么都不做
     console.log('res：' + res.first);
     if (res.first !== "first") {
