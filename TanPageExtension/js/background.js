@@ -123,6 +123,16 @@ function init() {
         ]
     });
 
+    // 添加设置
+    chrome.storage.local.set({
+        localSetting: {
+            // 背景模式
+            bg_mode: 0,
+            // 本地图片背景时的dataurl
+            bg_localdata: "dataurl"
+        },
+    });
+
 }
 
 

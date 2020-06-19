@@ -31,8 +31,15 @@
             "url": "https://www.bilibili.com/"
         }
     ],
-    "_apr": "以apr开头的都是外观的一些设置",
-    "apr_bg_white_shade": 20,
-    "apr_bg_black_shade": 10,
-    "apr_bg_blur": 5
+    "setting": {
+        "bg_mode": 0,
+        "bg_localdata": "dataurl"
+    },
+    "_st_bg_mode": "背景模式",
+    "st_bg_mode": 0,
+    "st_bg_localdata": "dataurl",
+    "_st_apr": "appearance的缩写，以apr开头的都是外观的一些设置",
+    "st_apr_bg_white_shade": 20,
+    "st_apr_bg_black_shade": 10,
+    "st_apr_bg_blur": 5
 }

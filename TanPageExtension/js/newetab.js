@@ -1,7 +1,8 @@
+// 需要从本地存储读的数据
 let engine;
 let engines;
 let bookmarks;
-let localSettings;
+let localSetting;
 
 // 出现的提示的li集合
 let arr = [];
@@ -61,8 +62,12 @@ let bmW, bmH;
         engine = res.engine;
         engines = res.engines;
         bookmarks = res.bookmarks;
+        localSetting = res.localSetting;
         // 加载配置
         initPage();
+
+        // 暂时自动显示设置框
+        $(".showSetting").trigger('click');
     });
 })();
 
@@ -71,6 +76,7 @@ let bmW, bmH;
 function initPage() {
     initWidget();
     loadWidget();
+    loadBG();
 }
 
 /**
@@ -461,44 +467,6 @@ document.onkeydown = function (event) {
 };
 
 
-// 监听点击事件
-document.addEventListener("click", function (e) {
-    // 如果点击的是input，直接返回，否则点击其他就提示框他消失
-    if (e.target === input[0]) {
-        engineList.css('display', 'none');
-        return;
-    }
-    if (e.target !== sugList[0]) {
-        sugList.css('display', 'none');
-
-    }
-
-    // 点击切换搜索引擎，这里再监听是为了点击外部消失
-    if (e.target === cgEngineBtn[0] || e.target === cgEngineImg[0]) {
-        let c = engineList.css('display');
-        if (c === 'block') {
-            engineList.css('display', 'none');
-        } else {
-            engineList.css({
-                display: 'block',
-                opacity: 1
-            });
-        }
-    } else {
-        engineList.css('display', 'none');
-    }
-
-    // 正在编辑书签时，点击空白退出编辑
-    if (e.target !== bookmark[0] && editingBookmarks) {
-        editingBookmarks = false;
-        refreshBookmarks();
-
-        draggingBm = false;
-        Toast.info('已退出书签编辑模式！', 'toast-bottom-left');
-    }
-});
-
-
 // 刷新书签的显示
 function refreshBookmarks() {
     console.log('刷新书签');
@@ -654,6 +622,79 @@ function editBookmarks(showToast) {
     }
 }
 
+/**
+ * 加载壁纸
+ */
+function loadBG() {
+    console.log('jzbz');
+    var bgcss = '';
+
+    switch (localSetting.bg_mode) {
+        // 默认壁纸
+        case 0:
+            bgcss = 'url("../imgs/bgs/bg.png") no-repeat center 0';
+            break;
+
+        // 必应壁纸
+        case 1:
+            break;
+
+        // 本地壁纸
+        case 2:
+            bgcss = 'url(' + localSetting.bg_localdata + ') no-repeat center 0';
+            break;
+
+        // 其他
+        case 3:
+            break;
+    }
+
+
+    $('.background').css({
+        'background': bgcss,
+        'background-size': "cover"
+    });
+}
+
+
+// 监听点击事件
+document.addEventListener("click", function (e) {
+    // 如果点击的是input，直接返回，否则点击其他就提示框他消失
+    if (e.target === input[0]) {
+        engineList.css('display', 'none');
+        return;
+    }
+    if (e.target !== sugList[0]) {
+        sugList.css('display', 'none');
+
+    }
+
+    // 点击切换搜索引擎，这里再监听是为了点击外部消失
+    if (e.target === cgEngineBtn[0] || e.target === cgEngineImg[0]) {
+        let c = engineList.css('display');
+        if (c === 'block') {
+            engineList.css('display', 'none');
+        } else {
+            engineList.css({
+                display: 'block',
+                opacity: 1
+            });
+        }
+    } else {
+        engineList.css('display', 'none');
+    }
+
+    // 正在编辑书签时，点击空白退出编辑
+    if (e.target !== bookmark[0] && editingBookmarks) {
+        editingBookmarks = false;
+        refreshBookmarks();
+
+        draggingBm = false;
+        Toast.info('已退出书签编辑模式！', 'toast-bottom-left');
+    }
+});
+
+
 // 鼠标移动事件
 document.addEventListener('mousemove', (e) => {
     let cX = e.clientX;
@@ -692,6 +733,7 @@ document.addEventListener('mousemove', (e) => {
     }
 
 });
+
 
 // 鼠标释放事件
 document.addEventListener('mouseup', (e) => {

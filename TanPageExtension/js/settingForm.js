@@ -51,6 +51,9 @@ function loadSetting() {
     // 加载功能按钮
     loadFunctionBtns();
 
+    // 加载设置项的值
+    loadSettingValues();
+
     // 壁纸白色笼罩拖动条改变
     $('#whiteShroud').RangeSlider(($this) => {
         let opacity = $this.value / 100.0;
@@ -69,9 +72,6 @@ function loadSetting() {
         //  filter: blur();
         $('.background').css('filter', ' blur(' + blurry + 'px)');
     }, $('#bgBlurryValue'), true);
-
-
-
 }
 
 /**
@@ -121,6 +121,27 @@ function loadFunctionBtns() {
 }
 
 
+/**
+ * 加载设置项的值
+ */
+function loadSettingValues() {
+    console.log('加载设置值');
 
-// 暂时自动显示设置框
-$(".showSetting").trigger('click');
+    // 背景模式
+    switch (localSetting.bg_mode) {
+        case 0:
+            $('#defaultWP').attr('checked', 'checked');
+            break
+        case 1:
+            $('#BingWP').attr('checked', 'checked');
+            break
+        case 2:
+            $('#defaultWP').attr('checked', 'checked');
+            break
+        case 3:
+            $('#defaultWP').attr('checked', 'checked');
+            break
+    }
+
+}
+
