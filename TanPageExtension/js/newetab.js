@@ -238,12 +238,15 @@ function addCustomEngine() {
     // 点击选择logo
     $('#selectEngineLogo').off('click');
     $('#selectEngineLogo').click(() => {
+        console.log('点击选择文件');
         $('#chooseEngineLogo').click();
     });
 
     // 触发选择文件
     $('#chooseEngineLogo').off('change');
     $('#chooseEngineLogo').change((e) => {
+        console.log('已选择文件');
+
         //获取读取我文件的File对象
         let selectedFile = $('#chooseEngineLogo')[0].files[0];
         let reader = new FileReader();
@@ -301,6 +304,8 @@ function addCustomEngine() {
 
 // 显示裁剪搜索引擎logo的窗口
 function showCutEngineLogoWindow(imgUrl) {
+    // 将内容设置为空，否则连续选择同一个文件不会触发回调
+    $('#chooseEngineLogo').val('');
     // 打开笼罩层
     $('.shade').css({
         "width": window.innerWidth + "px",
