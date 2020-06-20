@@ -128,15 +128,15 @@ function init() {
         bg_setting: {
             // 背景模式
             bg_mode: 0,
-            // 背景大小限制
-            bg_size_limit: 3145728,
             // 本地图片背景时的dataurl
             bg_localdata: "dataurl",
             // 笼罩
             bg_white_shade: 10,
             bg_black_shade: 0,
             // 模糊度
-            bg_blurry: 5
+            bg_blurry: 5,
+            // 背景大小限制
+            bg_size_limit: 3145728
         },
     });
 

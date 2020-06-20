@@ -182,6 +182,10 @@ function loadBGSettingValues() {
  * 设置背景设置相关值
  */
 function setBGSettingValues() {
+    // 笼罩和模糊度
+    bg_setting.bg_white_shade = parseInt($('#whiteShroud').val());
+    bg_setting.bg_black_shade = parseInt($('#blackShroud').val());
+    bg_setting.bg_blurry = parseInt($('#bgBlurry').val());
     // 背景大小限制
     bg_setting.bg_size_limit = parseInt($('#bgSizeLimit').val());
 
