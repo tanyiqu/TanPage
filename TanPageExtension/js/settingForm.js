@@ -73,6 +73,10 @@ function loadSettingAppearance() {
 function loadFunctionBtns() {
     // 应用设置
     $('.applySetting').click(() => {
+
+        // 设置背景设置相关值
+        setBGSettingValues();
+
         setting.slideLeftHide(400);
     });
     // 恢复默认
@@ -139,7 +143,7 @@ function loadSettingValues() {
 
 
 /**
- * 背景模式值，方便重用
+ * 加载背景设置相关值
  */
 function loadBGSettingValues() {
     // 背景模式
@@ -157,10 +161,26 @@ function loadBGSettingValues() {
             $('#otherWP').attr('checked', 'checked');
             break
     }
+    // 背景大小限制
+    $('#bgSizeLimit').val(bg_setting.bg_size_limit);
 }
 
 /**
- * 选择
+ * 设置背景设置相关值
+ */
+function setBGSettingValues() {
+    // 背景大小限制
+    bg_setting.bg_size_limit = parseInt($('#bgSizeLimit').val());
+
+
+    // 保存本地
+    ChromeLocalSet({ bg_setting: bg_setting });
+
+}
+
+
+/**
+ * 选择壁纸
  */
 function chooseBG() {
     // 默认
@@ -180,8 +200,8 @@ function chooseBG() {
         let selectedFile = $('#chooselocalWP')[0].files[0];
         $('#chooselocalWP').val('');
 
-        if (selectedFile.size > 3145728) {
-            Toast.error('文件太大可能导致加载过慢！<br>可以在 “设置->逻辑->壁纸大小限制” 里更改预设值！');
+        if (selectedFile.size > bg_setting.bg_size_limit) {
+            Toast.error('文件太大可能导致加载过慢！<br>可以在 “设置->逻辑->本地壁纸大小限制” 里更改预设值！');
             return;
         }
 

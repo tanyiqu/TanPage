@@ -128,6 +128,8 @@ function init() {
         bg_setting: {
             // 背景模式
             bg_mode: 0,
+            // 背景大小限制
+            bg_size_limit: 3145728,
             // 本地图片背景时的dataurl
             bg_localdata: "dataurl"
         },

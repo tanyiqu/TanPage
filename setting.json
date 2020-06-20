@@ -33,6 +33,7 @@
     ],
     "bg_setting": {
         "bg_mode": 0,
+        "bg_size_limit": 3145728,
         "bg_localdata": "dataurl"
     },
     "_st_bg_mode": "背景模式",
