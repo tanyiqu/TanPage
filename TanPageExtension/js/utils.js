@@ -2,9 +2,9 @@
  * 谷歌扩展本地存储
  * @param kv 键值
  */
-function ChromeLocalSet(kv) {
+function ChromeLocalSet(kv, cb) {
     // noinspection JSUnresolvedVariable
-    chrome.storage.local.set(kv);
+    chrome.storage.local.set(kv, cb);
 }
 
 

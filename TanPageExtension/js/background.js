@@ -123,9 +123,9 @@ function init() {
         ]
     });
 
-    // 添加设置
+    // 添加背景设置，因为data比较大，就单独进行存放
     chrome.storage.local.set({
-        localSetting: {
+        bg_setting: {
             // 背景模式
             bg_mode: 0,
             // 本地图片背景时的dataurl

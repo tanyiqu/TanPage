@@ -1,6 +1,7 @@
 /**
  * 设置框的内容太多，单独放在一个js文件里面
  */
+
 // 设置框
 let setting = $('#setting');
 // 初始不要加载设置里面的东西，第一次点击设置按钮时进行加载，以后不用加载
@@ -42,11 +43,13 @@ $("#closeSetting").click(() => {
 });
 
 
-
 /**
  * 加载设置窗口
  */
 function loadSetting() {
+
+    // 加载样式
+    loadSettingAppearance();
 
     // 加载功能按钮
     loadFunctionBtns();
@@ -54,24 +57,14 @@ function loadSetting() {
     // 加载设置项的值
     loadSettingValues();
 
-    // 壁纸白色笼罩拖动条改变
-    $('#whiteShroud').RangeSlider(($this) => {
-        let opacity = $this.value / 100.0;
-        $('.whiteShroudShade').css('opacity', opacity + '');
-    }, $('#whiteShroudValue'), true);
+}
 
-    // 壁纸白色笼罩拖动条改变
-    $('#blackShroud').RangeSlider(($this) => {
-        let opacity = $this.value / 100.0;
-        $('.blackShroudShade').css('opacity', opacity + '');
-    }, $('#blackShroudValue'), true);
 
-    // 壁纸白色笼罩拖动条改变
-    $('#bgBlurry').RangeSlider(($this) => {
-        let blurry = $this.value / 10.0;
-        //  filter: blur();
-        $('.background').css('filter', ' blur(' + blurry + 'px)');
-    }, $('#bgBlurryValue'), true);
+/**
+ * 加载样式
+ */
+function loadSettingAppearance() {
+
 }
 
 /**
@@ -80,14 +73,10 @@ function loadSetting() {
 function loadFunctionBtns() {
     // 应用设置
     $('.applySetting').click(() => {
-        // 背景透明度
-
         setting.slideLeftHide(400);
     });
-
     // 恢复默认
     $('.defaultSetting').click(() => {
-
         setting.slideLeftHide(400);
     });
 
@@ -100,7 +89,6 @@ function loadFunctionBtns() {
         settingLogical.css('display', 'none');
         settingOther.css('display', 'none');
     });
-
     settingLogicalBtn.click(() => {
         settingAppearanceBtn.removeClass('active');
         settingLogicalBtn.addClass('active');
@@ -109,7 +97,6 @@ function loadFunctionBtns() {
         settingLogical.css('display', 'block');
         settingOther.css('display', 'none');
     });
-
     settingOtherBtn.click(() => {
         settingAppearanceBtn.removeClass('active');
         settingLogicalBtn.removeClass('active');
@@ -118,6 +105,26 @@ function loadFunctionBtns() {
         settingLogical.css('display', 'none');
         settingOther.css('display', 'block');
     });
+
+    // 壁纸白色笼罩拖动条改变
+    $('#whiteShroud').RangeSlider(($this) => {
+        let opacity = $this.value / 100.0;
+        $('.whiteShroudShade').css('opacity', opacity + '');
+    }, $('#whiteShroudValue'), true);
+    // 壁纸白色笼罩拖动条改变
+    $('#blackShroud').RangeSlider(($this) => {
+        let opacity = $this.value / 100.0;
+        $('.blackShroudShade').css('opacity', opacity + '');
+    }, $('#blackShroudValue'), true);
+    // 壁纸模糊度拖动条改变
+    $('#bgBlurry').RangeSlider(($this) => {
+        let blurry = $this.value / 10.0;
+        //  filter: blur();
+        $('.background').css('filter', ' blur(' + blurry + 'px)');
+    }, $('#bgBlurryValue'), true);
+
+    // 选择壁纸功能
+    chooseBG();
 }
 
 
@@ -125,10 +132,8 @@ function loadFunctionBtns() {
  * 加载设置项的值
  */
 function loadSettingValues() {
-    console.log('加载设置值');
-
     // 背景模式
-    switch (localSetting.bg_mode) {
+    switch (bg_setting.bg_mode) {
         case 0:
             $('#defaultWP').attr('checked', 'checked');
             break
@@ -136,12 +141,61 @@ function loadSettingValues() {
             $('#BingWP').attr('checked', 'checked');
             break
         case 2:
-            $('#defaultWP').attr('checked', 'checked');
+            $('#localWP').attr('checked', 'checked');
             break
         case 3:
-            $('#defaultWP').attr('checked', 'checked');
+            $('#otherWP').attr('checked', 'checked');
             break
     }
 
 }
 
+
+/**
+ * 选择
+ */
+function chooseBG() {
+    // 默认
+    $('#defaultWP').click(() => {
+        bg_setting.bg_mode = 0;
+        ChromeLocalSet({ bg_setting: bg_setting }, () => {
+            loadBG();
+        });
+
+    });
+
+    // 必应
+    $('#BingWP').click(() => {
+        bg_setting.bg_mode = 1;
+        ChromeLocalSet({ bg_setting: bg_setting }, () => {
+            loadBG();
+        });
+
+    });
+
+    // 本地
+    $('#localWP').click(() => {
+
+        // 弹出选择文件框
+
+
+
+        // bg_setting.bg_mode = 2;
+        // ChromeLocalSet({ bg_setting: bg_setting }, () => {
+        //     loadBG();
+        // });
+
+    });
+
+    // 其他
+    $('#otherWP').click(() => {
+        bg_setting.bg_mode = 0;
+        ChromeLocalSet({ bg_setting: bg_setting }, () => {
+            loadBG();
+        });
+
+    });
+
+    // 刷新已加载好的壁纸
+    // loadBG();
+}

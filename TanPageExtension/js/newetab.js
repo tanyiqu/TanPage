@@ -2,7 +2,7 @@
 let engine;
 let engines;
 let bookmarks;
-let localSetting;
+let bg_setting;
 
 // 出现的提示的li集合
 let arr = [];
@@ -62,7 +62,7 @@ let bmW, bmH;
         engine = res.engine;
         engines = res.engines;
         bookmarks = res.bookmarks;
-        localSetting = res.localSetting;
+        bg_setting = res.bg_setting;
         // 加载配置
         initPage();
 
@@ -626,10 +626,9 @@ function editBookmarks(showToast) {
  * 加载壁纸
  */
 function loadBG() {
-    console.log('jzbz');
     var bgcss = '';
 
-    switch (localSetting.bg_mode) {
+    switch (bg_setting.bg_mode) {
         // 默认壁纸
         case 0:
             bgcss = 'url("../imgs/bgs/bg.png") no-repeat center 0';
@@ -637,11 +636,12 @@ function loadBG() {
 
         // 必应壁纸
         case 1:
+            bgcss = 'url("https://api.dujin.org/bing/1920.php") no-repeat center 0';
             break;
 
         // 本地壁纸
         case 2:
-            bgcss = 'url(' + localSetting.bg_localdata + ') no-repeat center 0';
+            bgcss = 'url(' + bg_setting.bg_localdata + ') no-repeat center 0';
             break;
 
         // 其他
