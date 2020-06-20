@@ -634,15 +634,16 @@ function loadBG() {
             bgcss = 'url("../imgs/bgs/bg.png") no-repeat center 0';
             break;
 
-        // 必应壁纸
+        // 本地壁纸
         case 1:
+            bgcss = 'url(' + bg_setting.bg_localdata + ') no-repeat center 0';
+            break;
+
+        // 必应壁纸
+        case 2:
             bgcss = 'url("https://api.dujin.org/bing/1920.php") no-repeat center 0';
             break;
 
-        // 本地壁纸
-        case 2:
-            bgcss = 'url(' + bg_setting.bg_localdata + ') no-repeat center 0';
-            break;
 
         // 其他
         case 3:

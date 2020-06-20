@@ -133,23 +133,31 @@ function loadFunctionBtns() {
  */
 function loadSettingValues() {
     // 背景模式
+    loadBGSettingValues();
+
+}
+
+
+/**
+ * 背景模式值，方便重用
+ */
+function loadBGSettingValues() {
+    // 背景模式
     switch (bg_setting.bg_mode) {
         case 0:
             $('#defaultWP').attr('checked', 'checked');
             break
         case 1:
-            $('#BingWP').attr('checked', 'checked');
+            $('#localWP').attr('checked', 'checked');
             break
         case 2:
-            $('#localWP').attr('checked', 'checked');
+            $('#BingWP').attr('checked', 'checked');
             break
         case 3:
             $('#otherWP').attr('checked', 'checked');
             break
     }
-
 }
-
 
 /**
  * 选择
@@ -164,28 +172,45 @@ function chooseBG() {
 
     });
 
+    // 本地
+    $('#chooselocalWP').change(() => {
+        // 选择了图片
+        console.log('0011');
+        //获取读取我文件的File对象
+        let selectedFile = $('#chooselocalWP')[0].files[0];
+        $('#chooselocalWP').val('');
+
+        if (selectedFile.size > 3145728) {
+            Toast.error('文件太大可能导致加载过慢！<br>可以在 “设置->逻辑->壁纸大小限制” 里更改预设值！');
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onload = function () {
+            // showCutEngineLogoWindow(this.result);
+            bg_setting.bg_localdata = this.result;
+            bg_setting.bg_mode = 1;
+            ChromeLocalSet({ bg_setting: bg_setting }, () => {
+                loadBG();
+            });
+        }
+    });
+    $('#localWP').click(() => {
+        // 弹出选择文件框
+        $('#chooselocalWP').click();
+    });
+
     // 必应
     $('#BingWP').click(() => {
-        bg_setting.bg_mode = 1;
+        bg_setting.bg_mode = 2;
         ChromeLocalSet({ bg_setting: bg_setting }, () => {
             loadBG();
         });
 
     });
 
-    // 本地
-    $('#localWP').click(() => {
 
-        // 弹出选择文件框
-
-
-
-        // bg_setting.bg_mode = 2;
-        // ChromeLocalSet({ bg_setting: bg_setting }, () => {
-        //     loadBG();
-        // });
-
-    });
 
     // 其他
     $('#otherWP').click(() => {
@@ -195,7 +220,4 @@ function chooseBG() {
         });
 
     });
-
-    // 刷新已加载好的壁纸
-    // loadBG();
 }
