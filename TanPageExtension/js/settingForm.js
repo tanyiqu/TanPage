@@ -244,10 +244,15 @@ function chooseBG() {
         ChromeLocalSet({ bg_setting: bg_setting }, () => {
             loadBG();
         });
-
     });
 
-
+    // 自定义
+    $('#customWP').click(() => {
+        bg_setting.bg_mode = 3;
+        ChromeLocalSet({ bg_setting: bg_setting }, () => {
+            loadBG();
+        });
+    });
 
     // 其他
     $('#otherWP').click(() => {

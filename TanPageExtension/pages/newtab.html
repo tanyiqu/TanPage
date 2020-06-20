@@ -12,7 +12,6 @@
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script src="../js/flexible.js"></script>
     <script src="../js/utils.js"></script>
-    <!-- <script src="../js/engines.js"></script> -->
     <script src="../js/general.js"></script>
     <script src="../js/toastr.min.js"></script>
 </head>
@@ -210,6 +209,15 @@
                 </div> -->
 
                 <div class="radio-box">
+                    <label for="customWP" class="choose-box">
+                        <input type="radio" id="customWP" name="choose" />
+                        <span>自定义壁纸源</span>
+                    </label>
+                    <p>使用自定义壁纸源的图片作为壁纸</p>
+                    <p>可在 “设置->逻辑->自定义壁纸源偏好” 里设置壁纸类型</p>
+                </div>
+
+                <div class="radio-box">
                     <label for="otherWP" class="choose-box">
                         <input type="radio" id="otherWP" name="choose" />
                         <span>其他壁纸源</span>
@@ -255,6 +263,15 @@
                 <div class="input-line">
                     <p>字节单位 (1MB = 1048576 Byte)</p>
                     <input type="number" placeholder="请输入大小" id="bgSizeLimit">
+                </div>
+            </div>
+
+            <!-- 自定义壁纸源偏好 -->
+            <div class="block">
+                <p class="title">自定义壁纸源偏好</p>
+                <div class="input-line">
+                    <p>使用自己的壁纸源</p>
+                    <input type="text" placeholder="请输入自定义壁纸源" id="cuntomWPPreferences">
                 </div>
             </div>
 
