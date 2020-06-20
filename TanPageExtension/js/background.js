@@ -131,7 +131,12 @@ function init() {
             // 背景大小限制
             bg_size_limit: 3145728,
             // 本地图片背景时的dataurl
-            bg_localdata: "dataurl"
+            bg_localdata: "dataurl",
+            // 笼罩
+            bg_white_shade: 10,
+            bg_black_shade: 0,
+            // 模糊度
+            bg_blurry: 5
         },
     });
 

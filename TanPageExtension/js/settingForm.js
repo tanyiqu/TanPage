@@ -56,7 +56,6 @@ function loadSetting() {
 
     // 加载设置项的值
     loadSettingValues();
-
 }
 
 
@@ -123,7 +122,6 @@ function loadFunctionBtns() {
     // 壁纸模糊度拖动条改变
     $('#bgBlurry').RangeSlider(($this) => {
         let blurry = $this.value / 10.0;
-        //  filter: blur();
         $('.background').css('filter', ' blur(' + blurry + 'px)');
     }, $('#bgBlurryValue'), true);
 
@@ -161,6 +159,21 @@ function loadBGSettingValues() {
             $('#otherWP').attr('checked', 'checked');
             break
     }
+    // 白色笼罩
+    $('#whiteShroud').val(bg_setting.bg_white_shade);
+    $('#whiteShroud').css('background-size', bg_setting.bg_white_shade + '% 100%');
+    $('.whiteShroudShade').css('opacity', (bg_setting.bg_white_shade / 100.0) + '');
+    $('#whiteShroudValue').html(bg_setting.bg_white_shade + '%');
+    // 黑色笼罩
+    $('#blackShroud').val(bg_setting.bg_black_shade);
+    $('#blackShroud').css('background-size', bg_setting.bg_black_shade + '% 100%');
+    $('.blackShroudShade').css('opacity', (bg_setting.bg_black_shade / 100.0) + '');
+    $('#blackShroudValue').html(bg_setting.bg_black_shade + '%');
+    // 模糊度
+    $('#bgBlurry').val(bg_setting.bg_blurry);
+    $('#bgBlurry').css('background-size', bg_setting.bg_blurry + '% 100%');
+    $('.background').css('filter', ' blur(' + (bg_setting.bg_blurry / 10.0) + 'px)');
+    $('#bgBlurryValue').html(bg_setting.bg_blurry + '%');
     // 背景大小限制
     $('#bgSizeLimit').val(bg_setting.bg_size_limit);
 }
