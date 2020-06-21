@@ -17,7 +17,7 @@ let editingBookmarks = false;
 
 // 加这个为了不让$报警告
 // noinspection JSUnresolvedVariable
-let $ = jQuery;
+// let $ = jQuery;
 
 // 输入框
 let input = $('.inputBar');
@@ -432,59 +432,30 @@ function refreshTips() {
 }
 
 
-// 键盘事件，主要是搜索建议时的上下选择
-document.onkeydown = function (event) {
-    // 37 左
-    // 38 上
-    // 39 右
-    // 40 下
-    let len = arr.length;
-    let code = event.keyCode;
-    // 判断提示框是否在显示
-    let show = sugList.css('display');
-    if (show === 'none') {
-        return;
-    }
-
-    // 按下了上/下
-    if (code === 38 || code === 40) {
-        //如果没有被选中
-        code = code - 39;
-        //上 -1
-        //下 1
-        // 找到当前被选择的li的编号
-        currSelectLiNum += code;
-        if (currSelectLiNum === 0 || currSelectLiNum === -1) {
-            currSelectLiNum = len;
-        }
-        if (currSelectLiNum === len + 1) {
-            currSelectLiNum = 1;
-        }
-        // 根据编号，找到这个li
-        let id = "#sug" + currSelectLiNum;
-        currSelectLi = $(id);
-
-        // 改变input中显示的内容
-        input.val(currSelectLi.text());
-
-        // 改变它的背景色
-        $(".sug").css('background', "#fff");
-        currSelectLi.css('background', "#ededed");
-    }
-};
-
-
 // 刷新书签的显示
 function refreshBookmarks() {
     console.log('刷新书签');
     let html = '';
     let len = bookmarks.length;
+
     for (let i = 0; i < len; i++) {
         html += '<a class="bm" id="bm{3}" href="{0}"><p>{1}</p><span>{2}</span></a>'.format(bookmarks[i].url, bookmarks[i].lbl, bookmarks[i].name, i);
     }
     html += '<a id="addBookMark"><p class="addBookMark"></p><span>添加</span></a>';
-
     bookmark.html(html);
+
+    // 点击事件，根据设置选择页面打开方式
+    for (let i = 0; i < len; i++) {
+        let id = '#bm' + i;
+        $(id).click((e) => {
+            if (page_setting.bookmark_target_self) {
+                $(id).attr('target', '_self');
+            } else {
+                $(id).attr('target', '_blank');
+            }
+        });
+    }
+
     // 如果内容没有超过16个
     if (len >= 16) {
         $('#addBookMark').css('display', 'none');
@@ -669,6 +640,47 @@ function loadBG() {
 
 }
 
+
+// 键盘事件，主要是搜索建议时的上下选择
+document.onkeydown = function (event) {
+    // 37 左
+    // 38 上
+    // 39 右
+    // 40 下
+    let len = arr.length;
+    let code = event.keyCode;
+    // 判断提示框是否在显示
+    let show = sugList.css('display');
+    if (show === 'none') {
+        return;
+    }
+
+    // 按下了上/下
+    if (code === 38 || code === 40) {
+        //如果没有被选中
+        code = code - 39;
+        //上 -1
+        //下 1
+        // 找到当前被选择的li的编号
+        currSelectLiNum += code;
+        if (currSelectLiNum === 0 || currSelectLiNum === -1) {
+            currSelectLiNum = len;
+        }
+        if (currSelectLiNum === len + 1) {
+            currSelectLiNum = 1;
+        }
+        // 根据编号，找到这个li
+        let id = "#sug" + currSelectLiNum;
+        currSelectLi = $(id);
+
+        // 改变input中显示的内容
+        input.val(currSelectLi.text());
+
+        // 改变它的背景色
+        $(".sug").css('background', "#fff");
+        currSelectLi.css('background', "#ededed");
+    }
+};
 
 // 监听点击事件
 document.addEventListener("click", function (e) {
