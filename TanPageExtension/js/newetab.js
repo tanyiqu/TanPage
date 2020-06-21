@@ -354,9 +354,12 @@ function onSearch() {
     let oldurl = engines[engine].url;
     let newurl = oldurl.replace('%s', input.val());
 
-    console.log(newurl);
-    window.location.href = newurl;
-    console.log('执行');
+    // 判断在哪个页面打开
+    if (page_setting.search_target_self) {
+        window.open(newurl, '_self');
+    } else {
+        window.open(newurl, '_blank');
+    }
     return false;
 }
 
@@ -416,11 +419,13 @@ function refreshTips() {
     for (let i = 0; i < len; i++) {
         let id = '#sug' + (i + 1);
         $(id).click(() => {
-
-            // window.location.href = engines[engine].url + "?" + engines[engine].name + "=" + arr[i];
             let url = engines[engine].url.replace('%s', arr[i]);
-            // window.location.href = + "?" + engines[engine].name + "=" + arr[i];
-            window.location.href = url;
+            // 判断在哪个页面打开
+            if (page_setting.search_target_self) {
+                window.open(url, '_self');
+            } else {
+                window.open(url, '_blank');
+            }
         });
     }
     sugList.css('display', 'block');

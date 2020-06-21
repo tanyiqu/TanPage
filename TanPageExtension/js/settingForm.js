@@ -76,6 +76,9 @@ function loadFunctionBtns() {
         // 设置背景设置相关值
         setBGSettingValues();
 
+        // 设置页面设置相关值
+        setPageSettingValues();
+
         setting.slideLeftHide(400);
     });
     // 恢复默认
@@ -137,6 +140,9 @@ function loadSettingValues() {
     // 背景模式
     loadBGSettingValues();
 
+    // 页面设置
+    loadPageSettingValues();
+
 }
 
 
@@ -178,6 +184,26 @@ function loadBGSettingValues() {
     $('#bgSizeLimit').val(bg_setting.bg_size_limit);
 }
 
+
+/**
+ * 页面设置
+ */
+function loadPageSettingValues() {
+    // 页面打开方式
+    if (page_setting.search_target_self) {
+        $('#thisPGForSh').attr('checked', 'checked');
+    } else {
+        $('#newPGForSh').attr('checked', 'checked');
+    }
+    if (page_setting.bookmark_target_self) {
+        $('#thisPGForBm').attr('checked', 'checked');
+    } else {
+        $('#newPGForBm').attr('checked', 'checked');
+    }
+
+}
+
+
 /**
  * 设置背景设置相关值
  */
@@ -195,6 +221,17 @@ function setBGSettingValues() {
 
 }
 
+/**
+ * 设置页面设置相关值
+ */
+function setPageSettingValues() {
+    // 页面打开方式
+    page_setting.search_target_self = ($('input:radio[name="targetForSh"]:checked').val() === 'thisPGForSh');
+    page_setting.bookmark_target_self = ($('input:radio[name="targetForBm"]:checked').val() === 'thisPGForBm');
+
+    // 保存本地
+    ChromeLocalSet({ page_setting: page_setting });
+}
 
 /**
  * 选择壁纸
