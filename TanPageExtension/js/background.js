@@ -140,6 +140,16 @@ function init() {
         },
     });
 
+    // 页眉设置，乱七八糟的设置加载这里面
+    chrome.storage.local.set({
+        page_setting: {
+            // 搜索目标页眉
+            search_target_self: true,
+            // 书签打开目标页面
+            bookmark_target_self: true
+        }
+    });
+
 }
 
 

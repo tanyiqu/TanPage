@@ -3,6 +3,7 @@ let engine;
 let engines;
 let bookmarks;
 let bg_setting;
+let page_setting;
 
 // 出现的提示的li集合
 let arr = [];
@@ -63,6 +64,7 @@ let bmW, bmH;
         engines = res.engines;
         bookmarks = res.bookmarks;
         bg_setting = res.bg_setting;
+        page_setting = res.page_setting;
         // 加载配置
         initPage();
 
@@ -643,7 +645,7 @@ function loadBG() {
         case 2:
             bgcss = 'url("https://api.dujin.org/bing/1920.php")';
             break;
-            
+
         // 自定义
         case 3:
             bgcss = 'url("http://www.dmoe.cc/random.php")';

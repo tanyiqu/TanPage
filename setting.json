@@ -38,5 +38,9 @@
         "bg_white_shade": 10,
         "bg_black_shade": 0,
         "bg_blurry": 5
+    },
+    "page_setting": {
+        "search_target_self": true,
+        "bookmark_target_self": true
     }
 }
