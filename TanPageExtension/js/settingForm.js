@@ -182,6 +182,8 @@ function loadBGSettingValues() {
     $('#bgBlurryValue').html(bg_setting.bg_blurry + '%');
     // 背景大小限制
     $('#bgSizeLimit').val(bg_setting.bg_size_limit);
+    // 自定义壁纸源
+    $('#cuntomWPPreferences').val(bg_setting.bg_custom_url);
 }
 
 
@@ -214,7 +216,8 @@ function setBGSettingValues() {
     bg_setting.bg_blurry = parseInt($('#bgBlurry').val());
     // 背景大小限制
     bg_setting.bg_size_limit = parseInt($('#bgSizeLimit').val());
-
+    // 壁纸源
+    bg_setting.bg_custom_url = $('#cuntomWPPreferences').val();
 
     // 保存本地
     ChromeLocalSet({ bg_setting: bg_setting });
@@ -293,10 +296,7 @@ function chooseBG() {
 
     // 其他
     $('#otherWP').click(() => {
-        bg_setting.bg_mode = 0;
-        ChromeLocalSet({ bg_setting: bg_setting }, () => {
-            loadBG();
-        });
-
+        alert('敬请期待！');
+        return false;
     });
 }

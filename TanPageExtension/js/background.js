@@ -136,7 +136,9 @@ function init() {
             // 模糊度
             bg_blurry: 5,
             // 背景大小限制
-            bg_size_limit: 3145728
+            bg_size_limit: 3145728,
+            // 自定义壁纸源
+            bg_custom_url: "http://www.dmoe.cc/random.php"
         },
     });
 

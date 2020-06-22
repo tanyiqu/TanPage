@@ -37,7 +37,8 @@
         "bg_localdata": "dataurl",
         "bg_white_shade": 10,
         "bg_black_shade": 0,
-        "bg_blurry": 5
+        "bg_blurry": 5,
+        "bg_custom_url": "http://www.dmoe.cc/random.php"
     },
     "page_setting": {
         "search_target_self": true,

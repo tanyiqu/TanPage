@@ -624,9 +624,8 @@ function loadBG() {
 
         // 自定义
         case 3:
-            bgcss = 'url("http://www.dmoe.cc/random.php")';
+            bgcss = 'url("' + bg_setting.bg_custom_url + '")';
             break;
-
 
         // 其他
         default:
