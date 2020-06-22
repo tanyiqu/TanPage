@@ -162,7 +162,7 @@ function loadBGSettingValues() {
             $('#BingWP').attr('checked', 'checked');
             break
         case 3:
-            $('#otherWP').attr('checked', 'checked');
+            $('#customWP').attr('checked', 'checked');
             break
     }
     // 白色笼罩
