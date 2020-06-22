@@ -116,6 +116,20 @@ body {
   height: 100%;
   z-index: -10;
 }
+.downloadBG {
+  position: fixed;
+  bottom: 10px;
+  right: 12px;
+  height: 25px;
+  width: 25px;
+  background: url(../imgs/download.png);
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.downloadBG:hover {
+  background: url(../imgs/download_hover.png);
+  background-size: 100% 100%;
+}
 .search {
   position: absolute;
   width: 664px;
