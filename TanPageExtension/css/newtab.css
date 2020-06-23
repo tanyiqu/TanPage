@@ -564,7 +564,8 @@ body {
   padding-bottom: 3px;
   color: #4791eb;
   text-decoration: none;
-  margin-right: 10px;
+  margin: 0;
+  padding: 0;
 }
 .window-right .window-body .block .btn-left {
   width: 120px;
