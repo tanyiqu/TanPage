@@ -246,7 +246,6 @@ function chooseBG() {
         ChromeLocalSet({ bg_setting: bg_setting }, () => {
             loadBG();
         });
-
     });
 
     // 本地

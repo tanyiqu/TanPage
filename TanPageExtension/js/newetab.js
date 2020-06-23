@@ -79,6 +79,7 @@ function initPage() {
     initWidget();
     loadWidget();
     loadBG();
+    loadOther();
 }
 
 /**
@@ -604,41 +605,56 @@ function editBookmarks(showToast) {
  * 加载壁纸
  */
 function loadBG() {
-    var bgcss = '';
-
+    let bgsrc = '';
     switch (bg_setting.bg_mode) {
         // 默认壁纸
         case 0:
-            bgcss = 'url("../imgs/bgs/bg.png")';
+            bgsrc = '../imgs/bgs/bg.png';
             break;
 
         // 本地壁纸
         case 1:
-            bgcss = 'url(' + bg_setting.bg_localdata + ')';
+            bgsrc = bg_setting.bg_localdata;
+
             break;
 
         // 必应壁纸
         case 2:
-            bgcss = 'url("https://api.dujin.org/bing/1920.php")';
+            bgsrc = 'https://api.dujin.org/bing/1920.php';
             break;
 
         // 自定义
         case 3:
-            bgcss = 'url("' + bg_setting.bg_custom_url + '")';
+            bgsrc = bg_setting.bg_custom_url;
             break;
 
         // 其他
         default:
+            bgsrc = '../imgs/bgs/bg.png';
             break;
     }
 
-    $('.background').css({
-        'background-image': bgcss,
-        'background-size': 'cover',
-    });
+    $('.background > img').attr('src', bgsrc);
 
 }
 
+
+/**
+ * 加载其他功能等
+ */
+function loadOther() {
+    saveBG();
+}
+
+
+// 保存壁纸为图片
+function saveBG() {
+    $('.downloadBG').click(() => {
+        console.log('保存壁纸');
+
+        console.log($('.background'));
+    });
+}
 
 // 键盘事件，主要是搜索建议时的上下选择
 document.onkeydown = function (event) {
