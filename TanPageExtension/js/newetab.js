@@ -19,6 +19,10 @@ let editingBookmarks = false;
 // noinspection JSUnresolvedVariable
 // let $ = jQuery;
 
+// 背景img
+let bgImg = document.querySelector('.background > img');
+bgImg.crossOrigin = 'anonymous';
+
 // 输入框
 let input = $('.inputBar');
 
@@ -650,9 +654,24 @@ function loadOther() {
 // 保存壁纸为图片
 function saveBG() {
     $('.downloadBG').click(() => {
-        console.log('保存壁纸');
-
-        console.log($('.background'));
+        var bgCanvas = document.createElement("canvas");
+        var ctx = bgCanvas.getContext('2d');
+        // 获取图片的原始尺寸
+        bgCanvas.width = bgImg.naturalWidth;
+        bgCanvas.height = bgImg.naturalHeight;
+        ctx.drawImage(bgImg, 0, 0, bgCanvas.width, bgCanvas.height);
+        // 使用toDataURL方法将图像转换被base64编码的URL字符串
+        var url = bgCanvas.toDataURL('image/jpeg', 1);
+        // 生成一个a元素
+        var a = document.createElement('a');
+        // 创建一个单击事件
+        var event = new MouseEvent('click');
+        // 将a的download属性设置为图片名称
+        a.download = 'TanPage-壁纸';
+        // 将生成的URL设置为a.href属性
+        a.href = url;
+        // 触发a的单击事件
+        a.dispatchEvent(event);
     });
 }
 
