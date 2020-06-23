@@ -138,7 +138,9 @@ function init() {
             // 背景大小限制
             bg_size_limit: 3145728,
             // 自定义壁纸源
-            bg_custom_url: "http://www.dmoe.cc/random.php"
+            bg_custom_url: "http://www.dmoe.cc/random.php",
+            // 壁纸保存格式
+            bg_save_type: "image/jpeg"
         },
     });
 

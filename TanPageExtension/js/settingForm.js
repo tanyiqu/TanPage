@@ -180,6 +180,12 @@ function loadBGSettingValues() {
     $('#bgBlurry').css('background-size', bg_setting.bg_blurry + '% 100%');
     $('.background').css('filter', ' blur(' + (bg_setting.bg_blurry / 10.0) + 'px)');
     $('#bgBlurryValue').html(bg_setting.bg_blurry + '%');
+    // 壁纸保存类型
+    if (bg_setting.bg_save_type === 'image/jpeg') {
+        $('#type_jpeg').attr('checked', 'checked');
+    } else {
+        $('#type_png').attr('checked', 'checked');
+    }
     // 背景大小限制
     $('#bgSizeLimit').val(bg_setting.bg_size_limit);
     // 自定义壁纸源
@@ -214,6 +220,8 @@ function setBGSettingValues() {
     bg_setting.bg_white_shade = parseInt($('#whiteShroud').val());
     bg_setting.bg_black_shade = parseInt($('#blackShroud').val());
     bg_setting.bg_blurry = parseInt($('#bgBlurry').val());
+    // 壁纸保存类型
+    bg_setting.bg_save_type = $('input:radio[name="BGSaveType"]:checked').val();
     // 背景大小限制
     bg_setting.bg_size_limit = parseInt($('#bgSizeLimit').val());
     // 壁纸源

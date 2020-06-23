@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TanPage</title>
+    <title>TanPage-新标签页</title>
     <!-- <link rel="stylesheet" href="../css/general.css"> -->
     <link rel="stylesheet" href="../css/newtab.css">
     <link rel="stylesheet" href="../css/toastr.min.css">
@@ -201,15 +201,6 @@
                     <p>每天更新</p>
                 </div>
 
-                <!-- <div class="radio-box">
-                    <label for="BingWPRandom" class="choose-box">
-                        <input type="radio" id="BingWPRandom" name="choose" />
-                        <span>Bing随机壁纸</span>
-                    </label>
-                    <p>随机Bing每日一图作为壁纸</p>
-                    <p>再次点击可以切换壁纸</p>
-                </div> -->
-
                 <div class="radio-box">
                     <label for="customWP" class="choose-box">
                         <input type="radio" id="customWP" name="choose" />
@@ -252,6 +243,25 @@
                 <label for="bgBlurry"></label><input id="bgBlurry" class="pointer" type="range" min="0" max="100"
                     step="1" value="0" />
                 <p id="bgBlurryValue" class="rangeValue">0%</p>
+            </div>
+
+            <!-- 壁纸保存格式 -->
+            <div class="block">
+                <p class="title">壁纸保存格式</p>
+                <div class="radio-box">
+                    <label for="type_jpeg" class="choose-box">
+                        <input type="radio" id="type_jpeg" value="image/jpeg" name="BGSaveType" checked />
+                        <span>image/jpeg</span>
+                    </label>
+                    <p>图片较小，有损压缩</p>
+                </div>
+                <div class="radio-box">
+                    <label for="type_png" class="choose-box">
+                        <input type="radio" id="type_png" value="image/png" name="BGSaveType" />
+                        <span>image/png</span>
+                    </label>
+                    <p>图片相比jpeg类型较大，无损压缩</p>
+                </div>
             </div>
 
         </div>

@@ -661,7 +661,7 @@ function saveBG() {
         bgCanvas.height = bgImg.naturalHeight;
         ctx.drawImage(bgImg, 0, 0, bgCanvas.width, bgCanvas.height);
         // 使用toDataURL方法将图像转换被base64编码的URL字符串
-        var url = bgCanvas.toDataURL('image/jpeg', 1);
+        var url = bgCanvas.toDataURL(bg_setting.bg_save_type, 1);
         // 生成一个a元素
         var a = document.createElement('a');
         // 创建一个单击事件
