@@ -82,7 +82,7 @@ let bmW, bmH;
 function initPage() {
     initWidget();
     loadWidget();
-    loadBG();
+    loadBG(true);
     loadOther();
 }
 
@@ -607,8 +607,9 @@ function editBookmarks(showToast) {
 
 /**
  * 加载壁纸
+ * @param {*} dntPlayAnim 默认不播放切换动画
  */
-function loadBG() {
+function loadBG(dntPlayAnim) {
     let bgsrc = '';
     switch (bg_setting.bg_mode) {
         // 默认壁纸
@@ -638,8 +639,22 @@ function loadBG() {
             break;
     }
 
-    $('.background > img').attr('src', bgsrc);
+    // $('.background > img').attr('src', bgsrc);
 
+    let img = $('.background > img');
+    if (dntPlayAnim) {
+        img.attr('src', bgsrc);
+    } else {
+        img.animate(
+            { opacity: 'toggle' },
+            "slow",
+            null,
+            function () {
+                img.attr("src", bgsrc);
+                img.animate({ opacity: 'toggle' }, 300);
+            }
+        );
+    }
 }
 
 
