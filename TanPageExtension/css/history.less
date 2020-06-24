@@ -1,0 +1,125 @@
+* {
+    margin    : 0;
+    padding   : 0;
+    box-sizing: border-box;
+}
+
+.header {
+    z-index   : 10;
+    position  : fixed;
+    top       : 0;
+    left      : 0;
+    height    : 56px;
+    width     : 100%;
+    background: pink;
+}
+
+.ul-header {
+    z-index      : 10;
+    position     : fixed;
+    width        : 98.6%;
+    height       : 50px;
+    margin       : 0 auto;
+    top          : 56px;
+    left         : 0.7%;
+    display      : flex;
+    background   : #fff;
+    border-bottom: solid 2px #dee2e6;
+
+    h3 {
+        font-size: 16px;
+    }
+
+    .ul- {
+        height      : 50px;
+        line-height : 50px;
+        padding-left: 10px;
+    }
+
+    .ul-page {
+        flex         : 7;
+        // background: saddlebrown;
+        .ul-();
+    }
+
+    .ul-visit-time {
+        flex         : 1.5;
+        // background: skyblue;
+        .ul-();
+    }
+
+    .ul-visit-count {
+        flex         : 1.5;
+        // background: springgreen;
+        .ul-();
+    }
+}
+
+ul {
+    width          : 98.6%;
+    margin         : 0 auto;
+    list-style-type: none;
+    margin-top     : 106px;
+
+    li {
+        height     : 50px;
+        line-height: 50px;
+        width      : 100%;
+        position   : relative;
+
+
+        border-bottom: solid 1px #dee2e6;
+
+        &:hover {
+            background: #ececec;
+        }
+
+        display: flex;
+
+        .li- {
+            height      : 50px;
+            line-height : 50px;
+            padding-left: 10px;
+        }
+
+        p {
+            font-size: 15px;
+        }
+
+        .page {
+            display : flex;
+            flex    : 7;
+            position: relative;
+
+
+            img {
+                position  : absolute;
+                width     : 16px;
+                height    : 16px;
+                top       : 50%;
+                margin-top: -8px;
+            }
+
+
+            .li-();
+
+            a {
+                margin-left    : 24px;
+                text-decoration: none;
+                color          : #4791eb;
+            }
+        }
+
+        .visit-time {
+            flex           : 1.5;
+            // background  : skyblue;
+            .li-();
+        }
+
+        .visit-count {
+            flex           : 1.5;
+            // background  : springgreen;
+            .li-();
+        }
+    }
+}

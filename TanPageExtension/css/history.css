@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.header {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  background: pink;
+}
+.ul-header {
+  z-index: 10;
+  position: fixed;
+  width: 98.6%;
+  height: 50px;
+  margin: 0 auto;
+  top: 56px;
+  left: 0.7%;
+  display: flex;
+  background: #fff;
+  border-bottom: solid 2px #dee2e6;
+}
+.ul-header h3 {
+  font-size: 16px;
+}
+.ul-header .ul- {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.ul-header .ul-page {
+  flex: 7;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.ul-header .ul-visit-time {
+  flex: 1.5;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.ul-header .ul-visit-count {
+  flex: 1.5;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+ul {
+  width: 98.6%;
+  margin: 0 auto;
+  list-style-type: none;
+  margin-top: 106px;
+}
+ul li {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  position: relative;
+  border-bottom: solid 1px #dee2e6;
+  display: flex;
+}
+ul li:hover {
+  background: #ececec;
+}
+ul li .li- {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+ul li p {
+  font-size: 15px;
+}
+ul li .page {
+  display: flex;
+  flex: 7;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+ul li .page img {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  margin-top: -8px;
+}
+ul li .page a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: #4791eb;
+}
+ul li .visit-time {
+  flex: 1.5;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+ul li .visit-count {
+  flex: 1.5;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}

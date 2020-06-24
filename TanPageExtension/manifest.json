@@ -21,6 +21,8 @@
     "storage",
     "unlimitedStorage",
     "contextMenus",
+    "history",
+    "chrome://favicon/",
     "http://*/",
     "https://*/"
   ],
