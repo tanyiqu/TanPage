@@ -29,7 +29,7 @@ function showHistory(array) {
         if (index === 0) {
             return true;
         }
-        html += '<li><div class="page"><img src="chrome://favicon/size/16@2x/{0}" alt=""><p><a href="{0}" target="_blank">{1}</a></p></div><div class="visit-time"><p>{2}</p></div><div class="visit-count"><p>{3}</p></div></li>'.format(value.url, value.title, value.lastVisitTime, value.visitCount);
+        html += '<li><div class="page"><img src="chrome://favicon/size/16@2x/{0}" alt=""><p><a href="{0}" target="_blank">{1}</a></p></div><div class="visit-time"><p>{2}</p></div><div class="visit-count"><p>{3}</p></div></li>'.format(value.url, value.title, formatDate(value.lastVisitTime), value.visitCount);
     });
 
     list.html(html);

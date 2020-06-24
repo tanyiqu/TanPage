@@ -109,7 +109,7 @@ jQuery.fn.slideLeftShow = function (speed, callback) {
 
 
 /**
- * 获取e1在浏览器中的位置
+ * 获取e1在浏览器中的位置（坐标）
  * @param {*} el 
  */
 function getPosition(el) {
@@ -124,51 +124,16 @@ function getPosition(el) {
 
 
 /**
- * 实现StringBuilder
+ * 时间戳转日期
+ * @param {*} timestamp 时间戳
  */
-function StringBuilder() {
-    this._stringArray = new Array();
-    StringBuilder.prototype.append = function (str) {
-        this._stringArray.push(str);
-    }
-    StringBuilder.prototype.toString = function (joinGap) {
-        return this._stringArray.join(joinGap);
-    }
-}
-
-
-/**
- * 分割长的字符串
- * @param {*} str 
- */
-function splitLongString(str) {
-    strs = [];
-    let len = str.length;
-    // 计算能分割的次数
-    let n = parseInt(len / 2048);
-    let start = 0;
-    let end = 2048;
-    for (let i = 0; i < n; i++) {
-        let tmp = str.slice(start, end);
-        strs.push(tmp);
-        start += 2048;
-        end += 2048;
-    }
-    if (len % 2048 !== 0) {
-        strs.push(str.slice(start));
-    }
-    return strs;
-}
-
-
-/**
- * 合并长的字符串
- * @param {*} strs 
- */
-function mergeLongString(strs) {
-    str = '';
-    for (s in strs) {
-        str += s;
-    }
-    return str;
+function formatDate(timestamp) {
+    var date = new Date(timestamp);
+    var YY = date.getFullYear() + '-';
+    var MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+    var hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var ss = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+    return YY + MM + DD + " " + hh + mm + ss;
 }
