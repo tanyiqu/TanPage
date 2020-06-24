@@ -487,6 +487,7 @@ function refreshBookmarks() {
         $('#abmURL').val('');
         s.html('添加书签');
         $('.addFunctionalBm').css('height', '38px');
+        $('.addFunctionalBm').children('option').eq(0).prop('selected', true);
         // 删除原来的事件，重新添加
         $('.ensureAddBookmark').off('click');
         $('.ensureAddBookmark').click(() => {
@@ -519,11 +520,15 @@ function refreshBookmarks() {
         let val = $(".addFunctionalBm").val();
         switch (val) {
             case 'history':
-                
+                $('#abmName').val('历史记录');
+                $('#abmLabel').val('History');
+                $('#abmURL').val('../pages/history.html');
                 break;
             case 'none':
             default:
-
+                $('#abmName').val('');
+                $('#abmLabel').val('');
+                $('#abmURL').val('');
                 break;
         }
     });
