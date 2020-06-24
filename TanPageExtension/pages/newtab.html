@@ -126,7 +126,7 @@
         <p></p>
     </a>
 
-    <!-- 添加书签对话框，课用于修改书签 -->
+    <!-- 添加书签对话框，可用于修改书签 -->
     <div class="addBookmarkWd" id="addBookmarkWd" style="display: none;">
         <p id="addBookmarkWdTt">添加网址</p>
         <div class="lines">
@@ -148,8 +148,12 @@
 
 
         <div class="btns">
-            <button class="ensureAddBookmark">确定</button>
-            <button class="cancelAddBookmark">取消</button>
+            <select class="addFunctionalBm">
+                <option class="opt" value="none">未选择</option>
+                <option class="opt" value="history">历史记录</option>
+            </select>
+            <button class="button ensureAddBookmark">确定</button>
+            <button class="button cancelAddBookmark">取消</button>
         </div>
     </div>
 

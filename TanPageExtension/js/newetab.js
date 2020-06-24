@@ -486,6 +486,7 @@ function refreshBookmarks() {
         $('#abmLabel').val('');
         $('#abmURL').val('');
         s.html('添加书签');
+        $('.addFunctionalBm').css('height', '38px');
         // 删除原来的事件，重新添加
         $('.ensureAddBookmark').off('click');
         $('.ensureAddBookmark').click(() => {
@@ -511,6 +512,20 @@ function refreshBookmarks() {
             Toast.success('添加成功！');
             refreshBookmarks();
         });
+    });
+
+    // 添加功能书签
+    $(".addFunctionalBm").change(() => {
+        let val = $(".addFunctionalBm").val();
+        switch (val) {
+            case 'history':
+                
+                break;
+            case 'none':
+            default:
+
+                break;
+        }
     });
 }
 
@@ -547,6 +562,7 @@ function editBookmarks(showToast) {
             $('#addBookmarkWd').fadeToggle(300);
             let s = $('#addBookmarkWdTt');
             s.html('修改书签');
+            $('.addFunctionalBm').css('height', '0');
             // 显示原有的
             $('#abmName').val(bookmarks[n].name);
             $('#abmLabel').val(bookmarks[n].lbl);
