@@ -129,12 +129,6 @@ function loadShroud() {
         'width': window.innerWidth + 'px',
         'height': window.innerHeight + 'px'
     });
-    $(window).resize(function () {
-        $('.ShroudShade').css({
-            'width': window.innerWidth + 'px',
-            'height': window.innerHeight + 'px'
-        });
-    });
 }
 
 /**
@@ -755,7 +749,7 @@ document.onkeydown = function (event) {
     }
 };
 
-// 监听点击事件
+// 窗口鼠标点击监听
 document.addEventListener("click", function (e) {
     // 如果点击的是input，直接返回，否则点击其他就提示框他消失
     if (e.target === input[0]) {
@@ -793,7 +787,7 @@ document.addEventListener("click", function (e) {
 });
 
 
-// 鼠标移动事件
+// 窗口鼠标移动监听
 document.addEventListener('mousemove', (e) => {
     let cX = e.clientX;
     let cY = e.clientY;
@@ -833,7 +827,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 
-// 鼠标释放事件
+// 窗口鼠标释放监听
 document.addEventListener('mouseup', (e) => {
     console.log('释放');
     // 松开时的坐标
@@ -894,7 +888,34 @@ document.addEventListener('mouseup', (e) => {
         currentDraggingBm = -1;
         draggingBm = false;
     }
+});
 
+
+// 窗口大小变化监听
+$(window).resize(function () {
+    let windowW = window.innerWidth;
+    let windowH = window.innerHeight;
+    // 壁纸笼罩大小随浏览器大小改变
+    $('.ShroudShade').css({
+        'width': windowW + 'px',
+        'height': windowH + 'px'
+    });
+    // 右侧设置窗口随浏览器大小改变
+    if ($('#setting').css('display') === 'block') {
+        // $('#setting').css();
+        $('#setting').css({
+            'height': windowH + "px",
+        });
+        $('#settingAppearance').css('height', (windowH - (50 + 60 + 60)) + "px");
+        $('#settingLogical').css('height', (windowH - (50 + 60 + 60)) + "px");
+        $('#settingOther').css('height', (windowH - (50 + 60 + 60)) + "px");
+    }
+    // 右侧添加搜索引擎窗口随浏览器大小改变
+    if (addEngine.css('display') === 'block') {
+        addEngine.css({
+            'height': windowH + "px",
+        });
+    }
 
 });
 

@@ -31,7 +31,6 @@ $(".showSetting").click(() => {
     settingLogical.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
     settingOther.css('height', (window.innerHeight - (50 + 60 + 60)) + "px");
 
-
     setting.slideLeftShow(400);
 });
 
