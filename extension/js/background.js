@@ -111,9 +111,9 @@ function init() {
     chrome.storage.local.set({
         bookmarks: [
             {
-                name: "百度搜索",
-                lbl: "百度",
-                url: "https://www.baidu.com"
+                name: "历史记录",
+                lbl: "History",
+                url: "../pages/history.html"
             },
             {
                 name: "哔哩哔哩",
