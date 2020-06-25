@@ -17,7 +17,6 @@ let settingOtherBtn = $('#settingOtherBtn');
 
 // 点击设置按钮
 $(".showSetting").click(() => {
-
     // 加载设置
     if (firstOpenSetting) {
         loadSetting();
@@ -41,7 +40,6 @@ $("#closeSetting").click(() => {
     setting.slideLeftHide(400);
     // 恢复保存前的设置
 });
-
 
 /**
  * 加载设置窗口

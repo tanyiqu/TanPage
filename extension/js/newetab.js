@@ -73,7 +73,10 @@ let bmW, bmH;
         initPage();
 
         // 暂时自动显示设置框
-        $(".showSetting").trigger('click');
+        // $(".showSetting").trigger('click');
+
+        // 加载设置项的值
+        loadSettingValues();
     });
 })();
 
