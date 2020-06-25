@@ -719,8 +719,8 @@ body {
   box-shadow: 0 0 5px 3px rgba(9, 208, 243, 0.3);
 }
 .bookmark span {
-  color: #000;
-  font-size: 0.225rem;
+  color: #ffffff;
+  font-size: 16px;
 }
 .bookmark .addBookMark {
   background: url(../imgs/egs/add.png) no-repeat center #f4f8fa;

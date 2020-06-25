@@ -5,12 +5,12 @@
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "pages/popup.html",
-    "default_icon": "imgs/extensions.png"
+    "default_icon": "extensions.png"
   },
   "icons": {
-    "16": "imgs/extensions.png",
-    "48": "imgs/extensions.png",
-    "128": "imgs/extensions.png"
+    "16": "extensions.png",
+    "48": "extensions.png",
+    "128": "extensions.png"
   },
   "background": {
     "scripts": [
@@ -23,7 +23,9 @@
     "contextMenus",
     "history",
     "chrome://favicon/",
-    "http://suggestion.baidu.com/"
+    "http://suggestion.baidu.com/",
+    "http://*/*",
+    "https://*/*"
   ],
   "chrome_url_overrides": {
     "newtab": "pages/newtab.html"

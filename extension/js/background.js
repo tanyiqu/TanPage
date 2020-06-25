@@ -131,16 +131,16 @@ function init() {
             // 本地图片背景时的dataurl
             bg_localdata: "dataurl",
             // 笼罩
-            bg_white_shade: 10,
-            bg_black_shade: 0,
+            bg_white_shade: 5,
+            bg_black_shade: 20,
             // 模糊度
             bg_blurry: 5,
             // 背景大小限制
             bg_size_limit: 3145728,
             // 自定义壁纸源
-            bg_custom_url: "http://www.dmoe.cc/random.php",
+            bg_custom_url: "https://api.sunweihu.com/api/sjbz/api.php",
             // 壁纸保存格式
-            bg_save_type: "image/jpeg"
+            bg_save_type: "image/png"
         },
     });
 
@@ -150,7 +150,7 @@ function init() {
             // 搜索目标页眉
             search_target_self: true,
             // 书签打开目标页面
-            bookmark_target_self: true
+            bookmark_target_self: false
         }
     });
 

@@ -632,7 +632,7 @@ function loadBG(dntPlayAnim) {
     switch (bg_setting.bg_mode) {
         // 默认壁纸
         case 0:
-            bgsrc = '../imgs/bgs/bg.png';
+            bgsrc = '../imgs/bgs/bg.jpg';
             break;
 
         // 本地壁纸
