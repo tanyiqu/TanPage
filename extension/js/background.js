@@ -132,7 +132,7 @@ function init() {
             bg_localdata: "dataurl",
             // 笼罩
             bg_white_shade: 5,
-            bg_black_shade: 20,
+            bg_black_shade: 15,
             // 模糊度
             bg_blurry: 5,
             // 背景大小限制

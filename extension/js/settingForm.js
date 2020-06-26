@@ -127,8 +127,14 @@ function loadFunctionBtns() {
 
     // 选择壁纸功能
     chooseBG();
-}
 
+    // 更新日志
+    $('#updateLog').click(() => {
+        // 打开或折叠
+        $('#updateLogDetail').slideToggle(400);
+        return false;
+    });
+}
 
 /**
  * 加载设置项的值
