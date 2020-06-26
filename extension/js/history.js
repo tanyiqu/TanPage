@@ -23,6 +23,7 @@ function showHistory(array) {
     console.log(array);
 
     let list = $('#list');
+    list.html('');
     let html = '';
     // 遍历array
     $.each(array, function (index, value) {
@@ -59,7 +60,24 @@ function showHistory(array) {
         visit_count.addClass('visit-count');
         visit_count.html('<p>' + value.visitCount + '</p>');
 
-        li.append(page, visit_time, visit_count);
+        let deleteBtn = '<div class="img-delete-history" id="his_ID_' + value.id + '"></div>';
+        li.attr('id', 'li_his_ID_' + value.id);
+        li.attr('url', value.url);
+        li.append(page, visit_time, visit_count, deleteBtn);
         list.append(li);
+    });
+
+    // 全部添加监听事件
+    $('.img-delete-history').click((e) => {
+        // 获取被点击的那一项的id
+        let id = '#li_' + e.target.id;
+        let target = $(id);
+        console.log(target);
+        // 隐藏自己
+        target.hide();
+        // 删除此条历史
+        console.log('删除', target.attr('url'));
+        chrome.history.deleteUrl({ url: target.attr('url') });
+
     });
 }

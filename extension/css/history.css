@@ -10,7 +10,13 @@
   left: 0;
   height: 56px;
   width: 100%;
-  background: pink;
+  background: #fff;
+  border-bottom: solid 1px #dee2e6;
+}
+.header h1 {
+  line-height: 56px;
+  font-size: 24px;
+  margin-left: 20px;
 }
 .ul-header {
   z-index: 10;
@@ -45,7 +51,7 @@
   padding-left: 10px;
 }
 .ul-header .ul-visit-count {
-  flex: 1.5;
+  flex: 1;
   height: 50px;
   line-height: 50px;
   padding-left: 10px;
@@ -102,8 +108,20 @@ ul li .visit-time {
   padding-left: 10px;
 }
 ul li .visit-count {
-  flex: 1.5;
+  flex: 1;
   height: 50px;
   line-height: 50px;
   padding-left: 10px;
+}
+ul li .img-delete-history {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 10px;
+  top: 16px;
+  cursor: pointer;
+}
+ul li .img-delete-history:hover {
+  background: url(../imgs/close_hover.png);
+  background-size: 100% 100%;
 }

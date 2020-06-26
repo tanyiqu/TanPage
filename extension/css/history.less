@@ -5,13 +5,21 @@
 }
 
 .header {
-    z-index   : 10;
-    position  : fixed;
-    top       : 0;
-    left      : 0;
-    height    : 56px;
-    width     : 100%;
-    background: pink;
+    z-index      : 10;
+    position     : fixed;
+    top          : 0;
+    left         : 0;
+    height       : 56px;
+    width        : 100%;
+    // background: pink;
+    background   : #fff;
+    border-bottom: solid 1px #dee2e6;
+
+    h1 {
+        line-height: 56px;
+        font-size  : 24px;
+        margin-left: 20px;
+    }
 }
 
 .ul-header {
@@ -49,7 +57,7 @@
     }
 
     .ul-visit-count {
-        flex         : 1.5;
+        flex         : 1;
         // background: springgreen;
         .ul-();
     }
@@ -111,15 +119,29 @@ ul {
         }
 
         .visit-time {
-            flex           : 1.5;
-            // background  : skyblue;
+            flex: 1.5;
             .li-();
         }
 
         .visit-count {
-            flex           : 1.5;
-            // background  : springgreen;
+            flex: 1;
             .li-();
+        }
+
+        .img-delete-history {
+            position       : absolute;
+            width          : 18px;
+            height         : 18px;
+            right          : 10px;
+            top            : 16px;
+            cursor         : pointer;
+            // background     : url(../imgs/close.png);
+            // background-size: 100% 100%;
+
+            &:hover {
+                background     : url(../imgs/close_hover.png);
+                background-size: 100% 100%;
+            }
         }
     }
 }
