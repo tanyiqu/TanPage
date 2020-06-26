@@ -29,8 +29,37 @@ function showHistory(array) {
         if (index === 0) {
             return true;
         }
-        html += '<li><div class="page"><img src="chrome://favicon/size/16@2x/{0}" alt=""><p><a href="{0}" target="_blank">{1}</a></p></div><div class="visit-time"><p>{2}</p></div><div class="visit-count"><p>{3}</p></div></li>'.format(value.url, value.title, formatDate(value.lastVisitTime), value.visitCount);
-    });
 
-    list.html(html);
+        let li = $(document.createElement('li'));
+        let page = $(document.createElement('div'));
+        page.addClass('page');
+        let p = $(document.createElement('p'));
+        let a = $(document.createElement('a'));
+        a.attr({
+            target: '_blank',
+            href: value.url
+        });
+        // 处理标题
+        let title = '';
+        if (value.title.isEmpty()) {
+            title = value.url;
+        } else {
+            title = value.title;
+        }
+        a.text(title);
+        p.append(a);
+        page.append('<img src="chrome://favicon/size/16@2x/' + value.url + '" alt="">');
+        page.append(p);
+
+        let visit_time = $(document.createElement('div'));
+        visit_time.addClass('visit-time');
+        visit_time.html('<p>' + formatDate(value.lastVisitTime) + '</p>');
+
+        let visit_count = $(document.createElement('div'));
+        visit_count.addClass('visit-count');
+        visit_count.html('<p>' + value.visitCount + '</p>');
+
+        li.append(page, visit_time, visit_count);
+        list.append(li);
+    });
 }
