@@ -280,16 +280,9 @@ function addCustomEngine() {
         }
         // 获取图标url，如果没有选择图片就用默认的图片
         let imgurl = $('#selectEngineLogo').attr('src');
-        let imgurls = [];
-        // 将imgurl分割
-        if (imgurl.length > 2048) {
-            imgurls = splitLongString(imgurl);
-        }
-        // console.log('length', imgurl.length);
 
         let eg = {
             imgurl: imgurl,
-            imgurls: imgurls,
             name: name,
             url: url
         };
