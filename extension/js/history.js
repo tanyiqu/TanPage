@@ -14,6 +14,16 @@ chrome.history.search(query, function (res) {
     showHistory(res);
 });
 
+// 清除历史功能
+
+$('.clear-history').mouseover(() => {
+
+});
+
+$('.clear-history').mouseout(() => {
+
+});
+
 /**
  * 在页面显示历史
  * @param {*} array 历史数组
