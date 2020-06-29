@@ -14,15 +14,43 @@ chrome.history.search(query, function (res) {
     showHistory(res);
 });
 
+
+loadFunctions();
+
+function loadFunctions() {
+    loadClearHistory();
+}
+
+
+
 // 清除历史功能
+function loadClearHistory() {
+    // 监听移入移出事件
+    $('#clear-history').mouseenter(() => {
+        let sub = $('#sub');
+        sub.stop();
+        sub.slideDown(200);
+    });
+    $('#clear-history').mouseleave(() => {
+        let sub = $('#sub');
+        sub.stop();
+        sub.slideUp(200);
+    });
+    // 清除历史点击事件
+    $('#clear1Hour').click(() => {
+        console.log('clear1Hour');
+    });
+    $('#clear24Hours').click(() => {
+        console.log('clear24Hours');
+    });
+    $('#clear7Days').click(() => {
+        console.log('clear7Days');
+    });
+    $('#clearAll').click(() => {
+        console.log('clearAll');
+    });
+}
 
-$('.clear-history').mouseover(() => {
-
-});
-
-$('.clear-history').mouseout(() => {
-
-});
 
 /**
  * 在页面显示历史

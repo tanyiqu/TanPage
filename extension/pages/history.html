@@ -15,17 +15,38 @@
     <div class="header">
         <span class="title">History</span>
         <!-- 清空历史记录按钮 -->
-
     </div>
-    <div class="clear-history">
+    <!-- <div class="clear-history">
         <div class="item">
-            Clear All
+            Clear History
         </div>
 
-        <!-- <div class="item">
-            clear all
-        </div> -->
-    </div>
+        <div class="items" style="display: none;">
+            <div class="item">
+                Clear Last Hour
+            </div>
+            <div class="item">
+                Clear Last 24 Hours
+            </div>
+            <div class="item">
+                Clear Last 7 days
+            </div>
+            <div class="item">
+                Clear All
+            </div>
+        </div>
+    </div> -->
+
+    <ul class="clear-history-nav">
+        <li id="clear-history">Clear History
+            <ul id="sub">
+                <li id="clear1Hour">Clear Last Hour</li>
+                <li id="clear24Hours">Clear Last 24 Hours</li>
+                <li id="clear7Days">Clear Last 7 days</li>
+                <li id="clearAll">Clear All</li>
+            </ul>
+        </li>
+    </ul>
 
     <div class="ul-header">
         <div class="ul-page">
@@ -39,6 +60,7 @@
         </div>
     </div>
     <ul id="list">
+
         <!-- <li>
             <div class="page">
                 <img src="" alt="">
