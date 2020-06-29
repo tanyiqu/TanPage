@@ -38,16 +38,58 @@ function loadClearHistory() {
     });
     // 清除历史点击事件
     $('#clear1Hour').click(() => {
-        console.log('clear1Hour');
+        let endTime = Date.now();
+        let startTime = endTime - 3600000;
+        let range = {
+            startTime: startTime,
+            endTime: endTime,
+        };
+        chrome.history.deleteRange(range, () => {
+            console.log('clear1Hour');
+            Toast.success('删除成功');
+            chrome.history.search(query, function (res) {
+                showHistory(res);
+            });
+        });
     });
     $('#clear24Hours').click(() => {
-        console.log('clear24Hours');
+        let endTime = Date.now();
+        let startTime = endTime - (3600000 * 24);
+        let range = {
+            startTime: startTime,
+            endTime: endTime,
+        };
+        chrome.history.deleteRange(range, () => {
+            console.log('clear24Hours');
+            Toast.success('删除成功');
+            chrome.history.search(query, function (res) {
+                showHistory(res);
+            });
+        });
     });
     $('#clear7Days').click(() => {
-        console.log('clear7Days');
+        let endTime = Date.now();
+        let startTime = endTime - (3600000 * 24 * 7);
+        let range = {
+            startTime: startTime,
+            endTime: endTime,
+        };
+        chrome.history.deleteRange(range, () => {
+            console.log('clear7Days');
+            Toast.success('删除成功');
+            chrome.history.search(query, function (res) {
+                showHistory(res);
+            });
+        });
     });
     $('#clearAll').click(() => {
-        console.log('clearAll');
+        chrome.history.deleteAll(() => {
+            console.log('clearAll');
+            Toast.success('删除成功');
+            chrome.history.search(query, function (res) {
+                showHistory(res);
+            });
+        });
     });
 }
 
