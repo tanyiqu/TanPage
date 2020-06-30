@@ -134,6 +134,14 @@ function loadFunctionBtns() {
         $('#updateLogDetail').slideToggle(400);
         return false;
     });
+
+    // 捐助
+    $('#donate').click(() => {
+        // 打开或折叠
+        $('#donateDiv').slideToggle(400);
+        return false;
+    });
+
 }
 
 /**
