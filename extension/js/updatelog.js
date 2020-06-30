@@ -4,11 +4,17 @@
 
 let update_logs = [
     {
+        time: '2020-06-30',
+        version: '1.3.0-release',
+        details: [
+            '1.添加历史记录功能'
+        ]
+    },
+    {
         time: '2020-06-25',
         version: '1.2.1-release',
         details: [
-            '1.替换默认壁纸',
-            '1.替换默认壁纸',
+            '1.替换默认壁纸'
         ]
     },
     {
