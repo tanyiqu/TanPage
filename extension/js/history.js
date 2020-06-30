@@ -8,20 +8,65 @@ let query = {
     endTime: 100000000000000,
     maxResults: 100
 };
-
-// 获取默认的100条最近历史
+query.endTime = Date.now();
+query.startTime = query.endTime - (3600 * 1000 * 24);
+// 获取最近24小时的100条历史
 chrome.history.search(query, function (res) {
     showHistory(res);
 });
 
 
+// 加载功能
 loadFunctions();
 
 function loadFunctions() {
     loadClearHistory();
+    selectHistory();
 }
 
 
+// 根据时间搜索历史
+function selectHistory() {
+    $('.select-history').change(() => {
+        let val = $('.select-history').val();
+        query.endTime = Date.now();
+        switch (val) {
+            case '1hour':
+                query.startTime = query.endTime - (3600 * 1000);
+
+                chrome.history.search(query, function (res) {
+                    showHistory(res);
+                });
+                break;
+            case '24hours':
+                query.startTime = query.endTime - (3600 * 1000 * 24);
+                chrome.history.search(query, function (res) {
+                    showHistory(res);
+                });
+                break;
+            case '7days':
+                query.startTime = query.endTime - (3600 * 1000 * 24 * 7);
+                chrome.history.search(query, function (res) {
+                    showHistory(res);
+                });
+                break;
+            case '30days':
+                query.startTime = query.endTime - (3600 * 1000 * 24 * 30);
+                chrome.history.search(query, function (res) {
+                    showHistory(res);
+                });
+                break;
+            case 'all':
+            default:
+                query.startTime = 0;
+                chrome.history.search(query, function (res) {
+                    showHistory(res);
+                });
+                console.log(3);
+                break;
+        }
+    });
+}
 
 // 清除历史功能
 function loadClearHistory() {

@@ -16,7 +16,15 @@
 <body>
     <div class="header">
         <span class="title">History</span>
-        <!-- 清空历史记录按钮 -->
+
+        <select class="select-history">
+            <option value="1hour">Last 1 Hour</option>
+            <option value="24hours" selected>Last 24 Hours</option>
+            <option value="7days">Last 7 Days</option>
+            <option value="30days">Last 30 Days</option>
+            <option value="all">All time</option>
+        </select>
+
     </div>
     <!-- <div class="clear-history">
         <div class="item">
@@ -39,6 +47,7 @@
         </div>
     </div> -->
 
+    <!-- 清除历史 -->
     <ul class="clear-history-nav">
         <li id="clear-history">Clear History
             <ul id="sub">
