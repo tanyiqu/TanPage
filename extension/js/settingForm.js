@@ -142,6 +142,18 @@ function loadFunctionBtns() {
         return false;
     });
 
+
+    // 导入设置
+    $('#importSetting').click(() => {
+        console.log('导入设置');
+        return false;
+    });
+
+    // 导出设置
+    $('#exportSetting').click(() => {
+        console.log('导出设置');
+        return false;
+    });
 }
 
 /**
