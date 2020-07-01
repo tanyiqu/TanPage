@@ -152,6 +152,19 @@ function loadFunctionBtns() {
     // 导出设置
     $('#exportSetting').click(() => {
         console.log('导出设置');
+        let conf = {};
+        conf.engine = engine;
+        conf.engines = engines;
+        conf.bookmarks = bookmarks;
+        conf.bg_setting = bg_setting;
+        conf.page_setting = page_setting;
+        // 去掉自定义的壁纸
+        // console.log(conf);
+        // console.log(conf.toJSONString());
+        let s = JSON.stringify(conf);
+        console.log(s);
+
+        saveJSON(conf);
         return false;
     });
 }
