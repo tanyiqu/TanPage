@@ -190,12 +190,30 @@ function loadFunctionBtns() {
 function importSetting(json) {
     // 将json解析成对象
     let setting = JSON.parse(json);
-    console.log(setting);
-
+    // console.log(setting);
     // 依次给设置项赋值
-
+    if (setting.engine) {
+        engine = setting.engine;
+    }
+    if (setting.engines) {
+        engines = setting.engines;
+    }
+    if (setting.bookmarks) {
+        bookmarks = setting.bookmarks;
+    }
+    if (setting.bg_setting) {
+        bg_setting = setting.bg_setting;
+        bg_setting.bg_mode = 0;
+    }
+    if (setting.page_setting) {
+        page_setting = setting.page_setting;
+    }
     // 保存到本地
-    
+    ChromeLocalSet({ engine: engine });
+    ChromeLocalSet({ engines: engines });
+    ChromeLocalSet({ bookmarks: bookmarks });
+    ChromeLocalSet({ bg_setting: bg_setting });
+    ChromeLocalSet({ page_setting: page_setting });
     // 弹出成功提示
     Toast.success('导入成功！<br>刷新后生效');
 }
