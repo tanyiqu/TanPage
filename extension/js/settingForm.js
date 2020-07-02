@@ -146,6 +146,24 @@ function loadFunctionBtns() {
     // 导入设置
     $('#importSetting').click(() => {
         console.log('导入设置');
+        // 弹出读取文件框
+        let input = document.createElement('input');
+        input = $(input);
+        input.attr({
+            'type': 'file',
+            'accept': 'application/json'
+        });
+
+        input.change(() => {
+            let selectedFile = input[0].files[0];
+            let reader = new FileReader();
+            reader.readAsText(selectedFile);
+            reader.onload = function () {
+                importSetting(this.result);
+            }
+        });
+
+        input.trigger('click');
         return false;
     });
 
@@ -158,15 +176,28 @@ function loadFunctionBtns() {
         conf.bookmarks = bookmarks;
         conf.bg_setting = bg_setting;
         conf.page_setting = page_setting;
-        // 去掉自定义的壁纸
-        // console.log(conf);
-        // console.log(conf.toJSONString());
         let s = JSON.stringify(conf);
         console.log(s);
-
         saveJSON(conf);
         return false;
     });
+}
+
+/**
+ * 导入设置
+ * @param {*} json json字符串
+ */
+function importSetting(json) {
+    // 将json解析成对象
+    let setting = JSON.parse(json);
+    console.log(setting);
+
+    // 依次给设置项赋值
+
+    // 保存到本地
+    
+    // 弹出成功提示
+    Toast.success('导入成功！<br>刷新后生效');
 }
 
 /**
