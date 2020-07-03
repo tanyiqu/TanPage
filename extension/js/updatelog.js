@@ -4,6 +4,13 @@
 
 let update_logs = [
     {
+        time: '2020-07-02',
+        version: '1.4.0-release',
+        details: [
+            '1.添加导入导出设置功能'
+        ]
+    },
+    {
         time: '2020-06-30',
         version: '1.3.0-release',
         details: [
