@@ -347,7 +347,10 @@ function loadBookmarks() {
 function onSearch() {
     // 拼接url
     let oldurl = engines[engine].url;
-    let newurl = oldurl.replace('%s', input.val());
+
+    // “#” 先编码成 “%23”
+    let wd = input.val().replace('#', '%23');
+    let newurl = oldurl.replace('%s', wd);
 
     // 判断在哪个页面打开
     if (page_setting.search_target_self) {
