@@ -348,8 +348,10 @@ function onSearch() {
     // 拼接url
     let oldurl = engines[engine].url;
 
-    // “#” 先编码成 “%23”
+    // “#” 编码成 “%23”
+    // “+” 编码成 “%2B”
     let wd = input.val().replace('#', '%23');
+    wd = wd.replace('+', '%2B');
     let newurl = oldurl.replace('%s', wd);
 
     // 判断在哪个页面打开
