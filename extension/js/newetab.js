@@ -136,7 +136,10 @@ function loadShroud() {
  */
 function loadEngine() {
     // 默认搜索引擎图标
-    cgEngineImg.attr('src', engines[engine].imgurl);
+    cgEngineImg.css({
+        'background': 'url(' + engines[engine].imgurl + ') no-repeat',
+        'background-size': '100% 100%'
+    });
 
     // 加载搜索引擎列表
     let html = "";
@@ -160,7 +163,11 @@ function loadEngine() {
             ChromeLocalSet({ engine: n });
             ChromeLocalSet({ default_engine_url: engines[n].url });
             engine = n;
-            cgEngineImg.attr('src', engines[engine].imgurl);
+
+            cgEngineImg.css({
+                'background': 'url(' + engines[engine].imgurl + ') no-repeat',
+                'background-size': '100% 100%'
+            });
 
             // 弹出提示
             Toast.success('已切换为：' + engines[engine].name, 'toast-top-center');
@@ -171,7 +178,6 @@ function loadEngine() {
             if (e.target === $("#tmp" + (n + 1))[0]) {
                 return;
             }
-            // e.target.style.cursor = 'pointer';
             // console.log('12');
             // 进入拖拽模式
             draggingEg = true;
@@ -188,7 +194,11 @@ function loadEngine() {
             console.log('临时切换', n);
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
-            cgEngineImg.attr('src', engines[engine].imgurl);
+
+            cgEngineImg.css({
+                'background': 'url(' + engines[engine].imgurl + ') no-repeat',
+                'background-size': '100% 100%'
+            });
             engineList.css('display', 'none');
 
             // 弹出提示
