@@ -45,6 +45,11 @@ function init() {
                     imgurl: "../imgs/egs/ggss.png"
                 },
                 {
+                    name: "微信公众号",
+                    url: "https://weixin.sogou.com/weixin?type=2&query=%s",
+                    imgurl: "../imgs/egs/wxgzh.png"
+                },
+                {
                     name: "搜狗搜索",
                     url: "https://www.sogou.com/sogou?query=%s",
                     imgurl: "../imgs/egs/sgss.png"
@@ -157,6 +162,41 @@ function init() {
 }
 
 
+
+
+
+/**
+ * 封装ajax
+ */
+ const MyHttp = {
+    get: (url, success) => {
+        // XMLHttpRequest对象用于在后台与服务器交换数据   
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            // readyState == 4说明请求已完成
+            if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304) {
+                // 从服务器获得数据 
+                success(xhr.responseText);
+            }
+        };
+        xhr.send();
+    },
+}
+
+
+
+/**
+ * 封装对话框
+ */
+const MyDialog = {
+    show: (str) => {
+        alert(str)
+    }
+}
+
+
+
 // 添加使用默认搜索引擎搜索
 chrome.contextMenus.create({
     title: '默认引擎搜索：%s', // %s表示选中的文字
@@ -174,3 +214,27 @@ chrome.contextMenus.create({
     }
 });
 
+chrome.contextMenus.create({
+    title: 'goto链接：%s', // %s表示选中的文字
+    contexts: ['selection'], // 只有当选中文字时才会出现此右键菜单
+    onclick: function (params) {
+        // 跳转至选中的链接
+        window.open(params.selectionText, '_blank')
+    }
+});
+
+
+// 添加使用默认搜索引擎搜索
+chrome.contextMenus.create({
+    title: '翻译: 【%s】', // %s表示选中的文字
+    contexts: ['selection'], // 只有当选中文字时才会出现此右键菜单
+    onclick: async function (params) {
+
+        await MyHttp.get(`http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=${params.selectionText}`, (res) => {
+            let obj = JSON.parse(res)
+            let result = obj.translateResult[0][0]['tgt'];
+            console.log(result);
+            MyDialog.show('翻译：' + params.selectionText + '\n' + '结果：' + result);
+        });
+    }
+});

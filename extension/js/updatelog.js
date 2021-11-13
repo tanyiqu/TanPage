@@ -4,6 +4,16 @@
 
 let update_logs = [
     {
+        time: '2021-11-13',
+        version: '1.5.0-release',
+        details: [
+            '1.修复URL编码的bug',
+            '2.修复Edge浏览器无法显示图标的bug',
+            '3.新增微信公众号搜索',
+            '4.添加简单的选中翻译功能',
+        ]
+    },
+    {
         time: '2020-07-02',
         version: '1.4.0-release',
         details: [
