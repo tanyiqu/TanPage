@@ -6,7 +6,7 @@ let query = {
     text: '',
     startTime: 0,
     endTime: 100000000000000,
-    maxResults: 100
+    maxResults: 2147483647
 };
 query.endTime = Date.now();
 query.startTime = query.endTime - (3600 * 1000 * 24);

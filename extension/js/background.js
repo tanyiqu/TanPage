@@ -215,7 +215,7 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.create({
-    title: 'goto链接：%s', // %s表示选中的文字
+    title: '跳转到此链接：%s', // %s表示选中的文字
     contexts: ['selection'], // 只有当选中文字时才会出现此右键菜单
     onclick: function (params) {
         // 跳转至选中的链接
