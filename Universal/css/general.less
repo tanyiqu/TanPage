@@ -1,0 +1,130 @@
+/**
+ * 此文件为通用样式
+ */
+
+@colorPrimary: #4791eb;
+
+// 指针
+.pointer {
+  cursor: pointer;
+}
+
+// 拖动条
+input[type=range] {
+  -webkit-appearance: none;
+  width             : 90%;
+  height            : 5px;
+  background        : -webkit-linear-gradient(@colorPrimary, @colorPrimary) no-repeat, #ddd;
+  // 设置比例，实现左右颜色不一样
+  background-size   : 0% 100%;
+  margin            : 15px 5% 0 5%;
+
+  &::-webkit-slider-runnable-track {
+    height       : 15px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height            : 15px;
+    width             : 15px;
+    /*使滑块超出轨道部分的偏移量相等*/
+    background        : #ffffff;
+    border-radius     : 50%;
+    /*外观设置为圆形*/
+    /*设置边框*/
+    box-shadow        : 1px 1px 5px #3b4547;
+  }
+
+  &:hover {
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+}
+
+
+// 滚动条
+.scroll {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width : 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background   : #ededed;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background   : #aaa;
+    border-radius: 3px;
+
+    &:hover {
+      background: #747474;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: #ededed;
+  }
+}
+
+// 单选按钮
+.radio-box {
+  label {
+    padding-left: 10px;
+    position    : relative;
+    display     : inline-block;
+    height      : 40px;
+    line-height : 40px;
+    margin-left : 10px;
+    cursor      : pointer;
+
+    input[type="radio"] {
+      width : 0;
+      height: 0;
+
+      &::before {
+        content         : '';
+        display         : inline-block;
+        width           : 14px;
+        height          : 14px;
+        border-radius   : 50%;
+        // border       : 1px solid rgb(0, 171, 134);
+        border          : 1px solid @colorPrimary;
+        margin-right    : 15px;
+        position        : absolute;
+        top             : 12px;
+        left            : 0;
+      }
+
+      &:checked::before {
+        background-clip    : content-box;
+        // background-color: #0069AB;
+        background-color   : @colorPrimary;
+        width              : 8px;
+        height             : 8px;
+        padding            : 3px;
+      }
+    }
+
+    span {
+      margin-left: 10px;
+      font-size  : 15px;
+    }
+  }
+
+  p {
+    margin        : 0 0 5px 34px;
+    font-size     : 13px;
+    color         : #7f7f7f;
+    padding-bottom: 3px;
+  }
+
+}

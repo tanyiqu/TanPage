@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "TanPage",
+  "version": "1.6.0",
+  "description": "Hello TanPage",
+  "permissions": ["tabs","storage","activeTab","menus"],
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+  "chrome_url_overrides": {
+    "newtab": "pages/newtab.html"
+  },
+  "icons": {
+    "48": "icon.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "48": "icon.png"
+    }
+  }
+}

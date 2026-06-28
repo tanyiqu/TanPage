@@ -1,0 +1,33 @@
+{
+  "name": "TanPage",
+  "description": "Hello TanPage",
+  "version": "1.5.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "pages/popup.html",
+    "default_icon": "extensions.png"
+  },
+  "icons": {
+    "16": "extensions.png",
+    "48": "extensions.png",
+    "128": "extensions.png"
+  },
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "contextMenus",
+    "history",
+    "chrome://favicon/",
+    "http://suggestion.baidu.com/",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "chrome_url_overrides": {
+    "newtab": "pages/newtab.html"
+  }
+}
