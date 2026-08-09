@@ -78,9 +78,16 @@ function loadFunctionBtns() {
 
         setting.slideLeftHide(400);
     });
-    // 恢复默认
+    // 恢复默认：向后台发送重置消息，后台写入默认配置
     $('.defaultSetting').click(() => {
-        setting.slideLeftHide(400);
+        chrome.runtime.sendMessage({ action: 'resetSettings' }, (res) => {
+            setting.slideLeftHide(400);
+            if (res && res.success) {
+                Toast.success('已恢复默认设置！<br>刷新后生效');
+            } else {
+                Toast.error('恢复默认失败，请重试');
+            }
+        });
     });
 
     // 切换tab标签页
@@ -145,7 +152,6 @@ function loadFunctionBtns() {
 
     // 导入设置
     $('#importSetting').click(() => {
-        console.log('导入设置');
         // 弹出读取文件框
         let input = document.createElement('input');
         input = $(input);
@@ -169,15 +175,12 @@ function loadFunctionBtns() {
 
     // 导出设置
     $('#exportSetting').click(() => {
-        console.log('导出设置');
         let conf = {};
         conf.engine = engine;
         conf.engines = engines;
         conf.bookmarks = bookmarks;
         conf.bg_setting = bg_setting;
         conf.page_setting = page_setting;
-        let s = JSON.stringify(conf);
-        console.log(s);
         saveJSON(conf);
         return false;
     });
@@ -343,9 +346,7 @@ function chooseBG() {
 
     // 本地
     $('#chooselocalWP').change(() => {
-        // 选择了图片
-        console.log('0011');
-        //获取读取我文件的File对象
+        // 获取读取的File对象
         let selectedFile = $('#chooselocalWP')[0].files[0];
         $('#chooselocalWP').val('');
 

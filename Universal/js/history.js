@@ -2,15 +2,17 @@
  * 获取浏览器历史
  */
 
+// 历史查询参数
 let query = {
     text: '',
     startTime: 0,
     endTime: 100000000000000,
-    maxResults: 2147483647
+    // 最多展示 1000 条，避免全量拉取导致页面卡顿
+    maxResults: 1000
 };
 query.endTime = Date.now();
 query.startTime = query.endTime - (3600 * 1000 * 24);
-// 获取最近24小时的100条历史
+// 获取最近24小时的历史
 chrome.history.search(query, function (res) {
     showHistory(res);
 });
@@ -33,38 +35,24 @@ function selectHistory() {
         switch (val) {
             case '1hour':
                 query.startTime = query.endTime - (3600 * 1000);
-
-                chrome.history.search(query, function (res) {
-                    showHistory(res);
-                });
                 break;
             case '24hours':
                 query.startTime = query.endTime - (3600 * 1000 * 24);
-                chrome.history.search(query, function (res) {
-                    showHistory(res);
-                });
                 break;
             case '7days':
                 query.startTime = query.endTime - (3600 * 1000 * 24 * 7);
-                chrome.history.search(query, function (res) {
-                    showHistory(res);
-                });
                 break;
             case '30days':
                 query.startTime = query.endTime - (3600 * 1000 * 24 * 30);
-                chrome.history.search(query, function (res) {
-                    showHistory(res);
-                });
                 break;
             case 'all':
             default:
                 query.startTime = 0;
-                chrome.history.search(query, function (res) {
-                    showHistory(res);
-                });
-                console.log(3);
                 break;
         }
+        chrome.history.search(query, function (res) {
+            showHistory(res);
+        });
     });
 }
 
@@ -85,55 +73,39 @@ function loadClearHistory() {
     $('#clear1Hour').click(() => {
         let endTime = Date.now();
         let startTime = endTime - 3600000;
-        let range = {
-            startTime: startTime,
-            endTime: endTime,
-        };
-        chrome.history.deleteRange(range, () => {
-            console.log('clear1Hour');
-            Toast.success('删除成功');
-            chrome.history.search(query, function (res) {
-                showHistory(res);
-            });
-        });
+        clearHistoryRange(startTime, endTime);
     });
     $('#clear24Hours').click(() => {
         let endTime = Date.now();
         let startTime = endTime - (3600000 * 24);
-        let range = {
-            startTime: startTime,
-            endTime: endTime,
-        };
-        chrome.history.deleteRange(range, () => {
-            console.log('clear24Hours');
-            Toast.success('删除成功');
-            chrome.history.search(query, function (res) {
-                showHistory(res);
-            });
-        });
+        clearHistoryRange(startTime, endTime);
     });
     $('#clear7Days').click(() => {
         let endTime = Date.now();
         let startTime = endTime - (3600000 * 24 * 7);
-        let range = {
-            startTime: startTime,
-            endTime: endTime,
-        };
-        chrome.history.deleteRange(range, () => {
-            console.log('clear7Days');
+        clearHistoryRange(startTime, endTime);
+    });
+    $('#clearAll').click(() => {
+        chrome.history.deleteAll(() => {
             Toast.success('删除成功');
             chrome.history.search(query, function (res) {
                 showHistory(res);
             });
         });
     });
-    $('#clearAll').click(() => {
-        chrome.history.deleteAll(() => {
-            console.log('clearAll');
-            Toast.success('删除成功');
-            chrome.history.search(query, function (res) {
-                showHistory(res);
-            });
+}
+
+/**
+ * 清除指定时间范围的历史记录
+ * @param {number} startTime 起始时间戳
+ * @param {number} endTime 结束时间戳
+ */
+function clearHistoryRange(startTime, endTime) {
+    const range = { startTime: startTime, endTime: endTime };
+    chrome.history.deleteRange(range, () => {
+        Toast.success('删除成功');
+        chrome.history.search(query, function (res) {
+            showHistory(res);
         });
     });
 }
@@ -144,15 +116,14 @@ function loadClearHistory() {
  * @param {*} array 历史数组
  */
 function showHistory(array) {
-    console.log('显示数组');
-    console.log(array);
-
     let list = $('#list');
     list.html('');
-    let html = '';
+    // 当前页面地址，用于过滤掉自身记录
+    const selfUrl = location.href;
     // 遍历array
     $.each(array, function (index, value) {
-        if (index === 0) {
+        // 过滤掉当前页面自身，避免历史列表里出现本页
+        if (value.url === selfUrl) {
             return true;
         }
 
@@ -197,12 +168,9 @@ function showHistory(array) {
         // 获取被点击的那一项的id
         let id = '#li_' + e.target.id;
         let target = $(id);
-        console.log(target);
         // 隐藏自己
         target.hide();
         // 删除此条历史
-        console.log('删除', target.attr('url'));
         chrome.history.deleteUrl({ url: target.attr('url') });
-
     });
 }

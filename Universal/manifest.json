@@ -7,7 +7,6 @@
     "default_popup": "pages/popup.html",
     "default_icon": "extensions.png"
   },
-
   "icons": {
     "16": "extensions.png",
     "48": "extensions.png",
@@ -16,18 +15,16 @@
   "background": {
     "service_worker": "js/background.js"
   },
-  "host_permissions": [
-    "<all_urls>",
-    "http://suggestion.baidu.com/",
-    "http://*/*",
-    "https://*/*"
-  ],
   "permissions": [
     "storage",
     "unlimitedStorage",
     "contextMenus",
-    "history"
-
+    "history",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://suggestion.baidu.com/*",
+    "https://fanyi.youdao.com/*"
   ],
   "chrome_url_overrides": {
     "newtab": "pages/newtab.html"

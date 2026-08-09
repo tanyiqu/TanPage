@@ -1,12 +1,12 @@
 {
     "_author": "Tanyiqu",
     "_name": "setting",
-    "_desc": "设置的配置文件",
+    "_desc": "设置的配置文件（与 background.js 中 DEFAULT_SETTINGS 保持一致，仅供工程参考）",
     "_engines": "搜索引擎列表，数组",
     "engines": [
         {
             "name": "百度",
-            "url": "http://www.baidu.com/s?wd=%s",
+            "url": "https://www.baidu.com/s?wd=%s",
             "imgurl": "../imgs/egs/bd.png"
         },
         {
@@ -17,7 +17,7 @@
     ],
     "engine": 0,
     "_default_engine": "默认引擎，用来实现进行使用默认引擎搜索",
-    "default_engine_url": "http://www.baidu.com/s?wd=%s",
+    "default_engine_url": "https://www.baidu.com/s?wd=%s",
     "_bookmarks": "书签列表，数组",
     "bookmarks": [
         {
@@ -35,14 +35,14 @@
         "bg_mode": 0,
         "bg_size_limit": 3145728,
         "bg_localdata": "dataurl",
-        "bg_white_shade": 10,
-        "bg_black_shade": 0,
+        "bg_white_shade": 5,
+        "bg_black_shade": 15,
         "bg_blurry": 5,
-        "bg_custom_url": "http://www.dmoe.cc/random.php",
-        "bg_save_type": "image/jpeg"
+        "bg_custom_url": "https://www.dmoe.cc/random.php",
+        "bg_save_type": "image/png"
     },
     "page_setting": {
         "search_target_self": true,
-        "bookmark_target_self": true
+        "bookmark_target_self": false
     }
 }

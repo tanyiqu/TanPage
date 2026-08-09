@@ -193,7 +193,6 @@ function loadEngine() {
         // 清除原来的事件
         $("#tmp" + (n + 1)).off('click');
         $("#tmp" + (n + 1)).click((event) => {
-            console.log('临时切换', n);
             // 暂时改变图标和搜索引擎，页面刷新回复正常
             engine = n;
 
@@ -260,15 +259,12 @@ function addCustomEngine() {
     // 点击选择logo
     $('#selectEngineLogo').off('click');
     $('#selectEngineLogo').click(() => {
-        console.log('点击选择文件');
         $('#chooseEngineLogo').click();
     });
 
     // 触发选择文件
     $('#chooseEngineLogo').off('change');
     $('#chooseEngineLogo').change((e) => {
-        console.log('已选择文件');
-
         //获取读取我文件的File对象
         let selectedFile = $('#chooseEngineLogo')[0].files[0];
         let reader = new FileReader();
@@ -299,8 +295,6 @@ function addCustomEngine() {
             url: url
         };
 
-        console.log('eg', eg);
-        console.log('engines', engines);
         engines.push(eg);
 
         // 刷新本地存储
@@ -357,13 +351,9 @@ function loadBookmarks() {
 
 // 提交表单,动态切换搜索引擎等
 function onSearch() {
-    // 拼接url
+    // 拼接url：对搜索词做整体 URL 编码，避免 #、+、中文 等被截断或转义错误
     let oldurl = engines[engine].url;
-
-    // “#” 编码成 “%23”
-    // “+” 编码成 “%2B”
-    let wd = input.val().replace('#', '%23');
-    wd = wd.replace('+', '%2B');
+    let wd = encodeURIComponent(input.val());
     let newurl = oldurl.replace('%s', wd);
 
     // 判断在哪个页面打开
@@ -382,8 +372,8 @@ function onInput(event) {
     engineList.css('display', 'none');
     refreshState();
     let httpRequest = new XMLHttpRequest();
-    // 使用百度的搜索建议
-    httpRequest.open('GET', 'http://suggestion.baidu.com/su?wd=' + txt, true);
+    // 使用百度的搜索建议（https，与 manifest host_permissions 一致）
+    httpRequest.open('GET', 'https://suggestion.baidu.com/su?wd=' + encodeURIComponent(txt), true);
     httpRequest.send();
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
@@ -431,7 +421,7 @@ function refreshTips() {
     for (let i = 0; i < len; i++) {
         let id = '#sug' + (i + 1);
         $(id).click(() => {
-            let url = engines[engine].url.replace('%s', arr[i]);
+            let url = engines[engine].url.replace('%s', encodeURIComponent(arr[i]));
             // 判断在哪个页面打开
             if (page_setting.search_target_self) {
                 window.open(url, '_self');
@@ -446,7 +436,6 @@ function refreshTips() {
 
 // 刷新书签的显示
 function refreshBookmarks() {
-    console.log('刷新书签');
     let html = '';
     let len = bookmarks.length;
 
@@ -808,7 +797,6 @@ document.addEventListener('mousemove', (e) => {
     let offy = cY - (H / 2);
     // 正在拖拽搜索引擎
     if (draggingEg) {
-        console.log('移动中');
         $('.engineItemShadow > img').attr('src', engines[currentDraggingEg].imgurl);
         $('.engineItemShadow').css({
             "display": "block",
@@ -839,7 +827,6 @@ document.addEventListener('mousemove', (e) => {
 
 // 窗口鼠标释放监听
 document.addEventListener('mouseup', (e) => {
-    console.log('释放');
     // 松开时的坐标
     let reX = e.clientX;
     let reY = e.clientY;
@@ -856,7 +843,6 @@ document.addEventListener('mouseup', (e) => {
             draggingEg = false;
             return false;
         }
-        console.log(pos + ' 与 ' + currentDraggingEg + ' 交换');
         $('#engineList').css('opacity', '1');
         if (pos != -1) {
             // 交换操作
@@ -882,8 +868,6 @@ document.addEventListener('mouseup', (e) => {
 
         // 交换书签并刷新
         if (pos !== -1) {
-            console.log(reX, reY, '下标', pos);
-            console.log(pos + '与' + currentDraggingBm + '交换');
             // 交换操作
             let temp = bookmarks[pos];
             bookmarks[pos] = bookmarks[currentDraggingBm];
@@ -938,7 +922,6 @@ function aboveEngine(currX, currY) {
     // 获取搜索引擎的宽高
     let W = parseInt($('#engineItemAdd').width());
     let H = parseInt($('#engineItemAdd').height());
-    console.log(W, H);
     // 依次获取当前显示的书签的坐标
     let axis = [];
     let egs = $('.engineItem');

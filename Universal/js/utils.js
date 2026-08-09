@@ -10,24 +10,32 @@ function ChromeLocalSet(kv, cb) {
 
 /**
  * 字符串格式化辅助
+ *
+ * 支持两种用法：
+ *  - 数字占位：  "{0}-{1}".format("a", "b")          -> "a-b"
+ *  - 命名占位：  "{name}-{age}".format({name:'a', age:1}) -> "a-1"
  */
 String.prototype.format = function (args) {
     let result = this;
-    if (arguments.length > 0) {
-        if (arguments.length === 1 && typeof (args) == "object") {
-            for (let key in args) {
-                if (args.key !== undefined) {
-                    let reg = new RegExp("({" + key + "})", "g");
-                    result = result.replace(reg, args.key);
-                }
+    if (arguments.length === 0) {
+        return result;
+    }
+    // 对象模式：format({ key: value })
+    if (arguments.length === 1 && typeof (args) === "object") {
+        for (let key in args) {
+            if (args[key] !== undefined) {
+                // 转义花括号，避免被当作正则元字符
+                let reg = new RegExp("\\{" + key + "\\}", "g");
+                result = result.replace(reg, args[key]);
             }
-        } else {
-            for (let i = 0; i < arguments.length; i++) {
-                if (arguments[i] !== undefined) {
-                    let reg = new RegExp("({[" + i + "]})", "g");
-                    result = result.replace(reg, arguments[i]);
-                }
-            }
+        }
+        return result;
+    }
+    // 数字模式：format(arg0, arg1, ...)
+    for (let i = 0; i < arguments.length; i++) {
+        if (arguments[i] !== undefined) {
+            let reg = new RegExp("\\{" + i + "\\}", "g");
+            result = result.replace(reg, arguments[i]);
         }
     }
     return result;
@@ -113,13 +121,13 @@ jQuery.fn.slideLeftShow = function (speed, callback) {
  * @param {*} el 
  */
 function getPosition(el) {
-    _x = 0, _y = 0;
+    let x = 0, y = 0;
     while (el.offsetParent !== null) {
-        _x += el.offsetLeft;
-        _y += el.offsetTop;
+        x += el.offsetLeft;
+        y += el.offsetTop;
         el = el.offsetParent;
     }
-    return { x: _x, y: _y };
+    return { x: x, y: y };
 }
 
 

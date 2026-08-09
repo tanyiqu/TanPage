@@ -28,8 +28,6 @@ var draggingResiseSE = false;
 var frameCoor;
 // frame距离canvas左上角的距离
 var frameToCanvasCoor;
-// 鼠标的坐标
-var mouseCoor;
 // 鼠标距离frame左上角的位置
 var coor;
 // frame的宽高，默认200*200
@@ -40,7 +38,7 @@ var frameSize = {
 
 // 加载窗口
 function loadCutEngineLogo(imgUrl) {
-    console.log('加载cut');
+
     // 重置状态
     frameSize.w = 418;
     frameSize.h = 418;
@@ -58,7 +56,7 @@ function loadCutEngineLogo(imgUrl) {
         var w = img.width;
         var h = img.height;
 
-        console.log('原始宽高', w, h);
+
         // 获取宽高比
         var d = w / h;
         var cW, cH, x, y;
@@ -104,7 +102,7 @@ function refreshPreview(x, y, w, h) {
         pCtx.drawImage(pImg, 0, 0, w, h, 0, 0, 100, 100);
     };
     cC.putImageData(data, 0, 0);
-    dataUrl = c.toDataURL('image/png', 1);
+    var dataUrl = c.toDataURL('image/png', 1);
     pImg.src = dataUrl;
 }
 
@@ -114,14 +112,14 @@ frame.onmousedown = function (e) {
 
     // frame距离浏览器左上角位置
     frameCoor = getPosition(frame);
-    console.log('frame距离浏览器左上角位置', frameCoor);
+
 
     // 鼠标距离frame左上角的位置
     coor = {
         x: e.x - frameCoor.x,
         y: e.y - frameCoor.y,
     };
-    console.log('鼠标距离frame左上角的位置', coor);
+
 };
 
 // 拖拽缩放-右下角
@@ -130,7 +128,7 @@ $('.drag-right-bottom').mousedown((e) => {
     // 获取frame的坐标
     frameCoor = getPosition(frame);
     var canvasToBrowser = getPosition(document.getElementById('cut-logo-canvas'));
-    console.log('frameCoor', frameCoor);
+
 
     // 获取frame距离canvas左上角的距离
     frameToCanvasCoor = {
@@ -157,14 +155,9 @@ document.onmousemove = function (e) {
 
     // 拖拽缩放-右下角
     if (draggingResiseSE) {
-        // 获取鼠标的坐标
-        mouseCoor = {
-            x: e.x,
-            y: e.y
-        };
-        // 计算差值
-        w = mouseCoor.x - frameCoor.x;
-        h = mouseCoor.y - frameCoor.y;
+        // 计算差值，取较大的边保持正方形
+        var w = e.x - frameCoor.x;
+        var h = e.y - frameCoor.y;
         if (h > w) {
             w = h;
         }
@@ -194,7 +187,7 @@ $('#ensureCutEngineLogo').click(() => {
     // 获取预览canvas显示图片的dataurl
     var data = pCanvas.toDataURL('image/png', 1);
 
-    console.log('确定');
+
 
     $('#selectEngineLogo').attr('src', data);
 
