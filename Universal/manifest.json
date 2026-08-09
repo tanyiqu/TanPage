@@ -23,8 +23,8 @@
     "notifications"
   ],
   "host_permissions": [
-    "https://suggestion.baidu.com/*",
-    "https://fanyi.youdao.com/*"
+    "<all_urls>",
+    "*://*/*"
   ],
   "chrome_url_overrides": {
     "newtab": "pages/newtab.html"

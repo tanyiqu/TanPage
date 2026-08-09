@@ -20,6 +20,10 @@
   - 原代码 `args.key` 恒为 `undefined`，命名占位符模式永不生效；已改为 `args[key]`，并重写正则转义花括号
 - [x] **修复搜索词 URL 编码 Bug**（`js/newetab.js`）
   - 原实现用 `replace('#','%23')`、`replace('+','%2B')` 只替换第一个匹配且不完整；已改用 `encodeURIComponent()` 整体编码（搜索框提交、搜索建议点击两处）
+- [x] **修复远程壁纸 CORS 无法加载 Bug**（`manifest.json`）
+  - 根因：`js/newetab.js` 中 `bgImg.crossOrigin = 'anonymous'` 使浏览器以 CORS 模式加载远程壁纸，而必应每日一图等壁纸源不返回 CORS 头，请求被浏览器拦截，背景无法展示
+  - 解决：`host_permissions` 添加 `<all_urls>`、`*://*/*`，扩展获得跨域访问权限后，CORS 校验被放行，远程壁纸正常加载
+  - 附带收益：跨域壁纸绘制到 canvas 不再被"污染"，「保存壁纸」导出功能对任意壁纸源均可用
 - [x] **修复历史记录列表跳项 Bug**（`js/history.js`）
   - 原代码无条件 `if (index === 0) return true` 跳过第一条记录；改为过滤当前页面自身 URL
 - [x] **限制历史查询条数**（`js/history.js`）
@@ -44,6 +48,7 @@
 - [x] `host_permissions` 精简为实际用到的：`https://suggestion.baidu.com/*`、`https://fanyi.youdao.com/*`
 - [x] 新增 `notifications` 权限（翻译结果通知需要）
 - [x] 默认引擎、搜索建议、自定义壁纸源等 URL 统一由 `http://` 升级为 `https://`
+- [x] 为修复远程壁纸跨域加载，`host_permissions` 调整回全局权限：`<all_urls>`、`*://*/*`（覆盖上述两个具体域名，见"一、Bug 修复"）
 
 ### 四、新增功能
 
@@ -75,6 +80,8 @@
 3. **右键菜单功能以 Chrome 版实现为基准合并**：Chrome 版曾有三个完整菜单项，Universal 版因迁移 MV3 时被注释丢失，本次以 Chrome 版为准恢复并做 MV3 适配。
 4. **权限最小化**：只保留扩展实际调用的域名权限，符合商店审核要求，同时减小攻击面。
 5. **`js/engines.js`、`js/API.js` 等纯注释/空文件直接删除**，不保留无意义文件。
+6. **远程壁纸跨域问题通过申请 host 权限解决**（替代早期设想的 CORS 降级方案）：`<img crossOrigin='anonymous'>` 的跨域请求在扩展拥有目标域名 host 权限后会被浏览器放行。`manifest.json` 的 `host_permissions` 添加 `<all_urls>`、`*://*/*`，即可在不改动 `newetab.js` 加载逻辑的前提下，同时解决远程壁纸**展示**与「保存壁纸」**导出**两个问题。
+7. **权限策略的权衡**：为兼容任意自定义壁纸源，放弃了「权限最小化」（决策 4），接受全局 host 权限带来的审核提示与攻击面增大。此为功能完整性优先的取舍。
 
 ---
 
@@ -99,7 +106,6 @@
 
 ### 已知遗留问题
 
-- [ ] **跨域壁纸 CORS**：下载壁纸依赖 `bgImg.crossOrigin='anonymous'`，若壁纸源不返回 CORS 头会导致 canvas 导出失败（既有行为，未改动）
 - [ ] **`saveJSON` 使用废弃 API**：`document.createEvent('MouseEvents')` / `initMouseEvent` 已废弃，可改用 `a.click()`
 - [ ] **右键菜单"跳转到链接"**：MV3 中 `chrome.tabs.create` 打开非 http(s) 协议会被忽略（已做协议白名单校验）
 - [ ] **历史记录分页**：目前一次性展示 1000 条，可增加分页/懒加载
