@@ -1,0 +1,43 @@
+{
+  "name": "TanPage",
+  "description": "Hello TanPage Chrome",
+  "version": "1.6.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "pages/popup.html",
+    "default_icon": "imgs/icon.png"
+  },
+  "icons": {
+    "16": "imgs/icon.png",
+    "48": "imgs/icon.png",
+    "128": "imgs/icon.png"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "contextMenus",
+    "history",
+    "notifications",
+    "favicon"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "*://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "imgs/icon.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "chrome_url_overrides": {
+    "newtab": "pages/newtab.html"
+  }
+}

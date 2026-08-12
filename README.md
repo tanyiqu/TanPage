@@ -9,27 +9,25 @@
 - **书签管理**：自定义书签的增删改查、拖拽排序、导入导出
 - **多源壁纸**：支持默认 / 本地 / Bing每日一图 / 自定义壁纸源四种模式，可调整白色/黑色笼罩与模糊度，支持一键下载当前壁纸（已申请跨域权限，远程壁纸源无需支持 CORS 即可展示与保存）
 - **右键菜单**：选中文字后可直接使用默认引擎搜索、跳转到选中链接、调用有道翻译
-- **历史记录**：查看与清除浏览历史（支持 1小时 / 24小时 / 7天 / 30天 / 全部）
+- **历史记录**：默认展示最近 7 天浏览历史，支持按 1小时 / 24小时 / 7天 / 30天 / 全部 筛选，每条记录展示网站 logo 与访问时间/次数，支持单条删除与复选框多选批量删除
 - **设置同步**：支持设置导入导出，便于跨设备迁移
 
 ## 目录结构
 
 ```
 TanPage/
-├── Universal/          # 主版本（Manifest V3，同时适配 Chrome 与 Firefox）
+├── src/                # 扩展源码（Manifest V3，同时适配 Chrome 与 Firefox）
 │   ├── manifest.json   # 扩展清单（MV3）
 │   ├── pages/          # 新标签页 / 历史页 / 弹出页
 │   ├── css/            # 样式表（含 .less 源文件）
 │   ├── js/             # 业务逻辑脚本
 │   └── imgs/           # 图标与图片资源
-├── Chrome/             # 旧版 Chrome 专用（MV2，仅归档参考）
-├── FireFox/            # 旧版 Firefox 专用（MV2，仅归档参考）
 ├── PrivacyPolicy/      # 隐私政策
 ├── setting.json        # 配置默认值参考（与 DEFAULT_SETTINGS 保持一致）
 └── progress.md         # 项目开发进展记录
 ```
 
-> 说明：`Universal/` 是当前唯一维护的版本。`Chrome/` 与 `FireFox/` 为历史 MV2 版本，仅作归档，功能上已被 `Universal/` 取代。
+> 说明：`src/` 是当前唯一维护的版本（Manifest V3）。早期 `Chrome/` 与 `FireFox/` 两个 MV2 历史版本已删除，功能由 `src/` 完全取代。
 
 ## 安装方式
 
@@ -37,13 +35,13 @@ TanPage/
 
 1. 打开浏览器扩展管理页（`chrome://extensions`）
 2. 开启右上角「开发者模式」
-3. 点击「加载已解压的扩展程序」，选择 `Universal/` 目录
+3. 点击「加载已解压的扩展程序」，选择 `src/` 目录
 4. 新开一个标签页即可看到 TanPage
 
 ### 开发模式加载（Firefox）
 
 1. 访问 `about:debugging#/runtime/this-firefox`
-2. 点击「临时载入附加组件」，选择 `Universal/manifest.json`
+2. 点击「临时载入附加组件」，选择 `src/manifest.json`
 
 ## 代码说明
 
@@ -51,6 +49,9 @@ TanPage/
 - 默认配置集中在 `DEFAULT_SETTINGS` 常量中（见 `background.js`），首次安装与恢复默认共用，保证行为一致
 - 新增引擎/书签配置存储在 `chrome.storage.local`，本地壁纸以 base64（dataurl）存储
 - 远程壁纸（Bing每日一图 / 自定义壁纸源）通过 `manifest.json` 中 `<all_urls>`、`*://*/*` 的跨域 host 权限加载：`<img crossOrigin='anonymous'>` 的 CORS 请求被浏览器放行，壁纸展示与「保存壁纸」canvas 导出均可正常工作，无需壁纸源支持 CORS
+- 历史页 `pages/history.html` + `js/history.js`：默认按最近 7 天查询；网站 logo 使用 MV3 官方 `_favicon/` 接口（`chrome://favicon` 在 MV3 已不可用，`manifest.json` 的 `permissions` 需含 `favicon`）；列表事件通过事件委托绑定在常驻的 `#list` 容器上，列表重建后无需重复绑定
+- 扩展图标统一使用 `imgs/icon.png`：`manifest.json` 的 `icons` / `action.default_icon`（商店与工具栏图标）、`background.js` 通知图标均指向该文件；`src/extensions.png` 为同图兼容副本，仅保留以防外部引用
+- 新标签页 favicon（标签页图标）采用「静态声明 + 头部提前改写」双保险：`pages/newtab.html` 静态声明 `<link rel="icon" type="image/png">`（`type` 必须是 `image/png`，与 `imgs/icon.png` 的 PNG 内容一致）；由于 newtab 覆盖页在标签页上的地址是 `edge://newtab` / `chrome://newtab`，相对路径无法解析，紧随其后的 `js/favicon.js` 会在浏览器 favicon 服务首次抓取前，用 `chrome.runtime.getURL()` 把图标地址改写为扩展绝对路径，并追加 `?v=扩展版本` 缓存失效参数（版本升级后强制浏览器重新抓取，规避 favicon 缓存导致"无图标"残留）；同时 `manifest.json` 的 `web_accessible_resources` 声明了 `imgs/icon.png`，保证非扩展上下文（标签页 favicon 请求）可访问。若修改代码后标签页仍无图标，请在扩展管理页点击「重新加载」，必要时清除浏览器缓存（Edge 存在已知的 favicon 缓存问题）
 
 ## 许可协议
 

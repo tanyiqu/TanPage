@@ -5,8 +5,8 @@
 ## 项目概况
 
 - **定位**：浏览器主页扩展（新标签页），Manifest V3，兼容 Chrome/Edge/Firefox
-- **主版本**：`Universal/`（唯一维护版本）
-- **归档版本**：`Chrome/`、`FireFox/`（MV2 历史版本，不再维护）
+- **主版本**：`src/`（唯一维护版本，Manifest V3）
+- **归档版本**：已删除（原 `Chrome/`、`FireFox/` 为 MV2 历史版本，已于本次清理中移除）
 - **GitHub**：https://github.com/Tanyiqu/TanPage
 - **许可证**：GPL-3.0
 
@@ -71,17 +71,57 @@
 - [x] 重写 `README.md`（功能特性 / 目录结构 / 安装方式 / 代码说明）
 - [x] 更新 `js/updatelog.js` 补 1.6.0 版本日志
 
+### 七、历史记录页面完善
+
+- [x] **默认展示改为最近 7 天**（`pages/history.html` + `js/history.js`）
+  - 下拉框默认选中项从 `24hours` 改为 `7days`，初始查询时间范围同步改为 7 天，两者保持一致
+- [x] **每条记录左侧展示网站 logo**（`js/history.js` + `manifest.json`）
+  - 根因：MV3 中 `chrome://favicon` 已弃用，原实现无法加载图标
+  - 解决：改用官方 `_favicon/` 接口（`chrome.runtime.getURL('/_favicon/')` + `pageUrl`/`size` 参数），`permissions` 新增 `favicon` 权限；图标加载失败时隐藏破图
+- [x] **复选框多选与批量删除**（`pages/history.html` + `js/history.js` + `css/history.css`）
+  - 每条记录新增复选框；表头新增全选复选框（全部选中才勾选、部分选中显示半选状态）
+  - header 新增「删除选中」按钮，实时显示选中数量，无选中时置灰；批量删除完成后刷新列表并 Toast 提示
+- [x] **逻辑收敛重构**：首次加载 / 筛选切换 / 清除历史 / 批量删除统一走 `refreshHistory()`，保证查询行为一致
+- [x] **事件委托**：列表事件（单条删除、复选框勾选）绑定在常驻的 `#list` 容器上，列表整体重建后无需重复绑定
+- [x] **空列表提示**：查询结果为空时显示「暂无历史记录」
+
+### 八、图标资源修复（newtab 标签页图标不生效）
+
+- [x] **修复新标签页 favicon 不生效 Bug（第一轮：MIME 类型）**（`pages/newtab.html`）
+  - 根因：favicon 链接声明 `type="image/x-ico"`，而 `imgs/icon.png` 实际为 PNG 图片，MIME 类型与资源内容不符，Chrome/Edge 拒绝加载，导致新建标签页无图标
+  - 解决：`type` 修正为 `image/png`，路径保持 `../imgs/icon.png`（相对 `pages/` 指向 `imgs/icon.png`）
+- [x] **图标资源统一为 `imgs/icon.png`**（`manifest.json` + `js/background.js`）
+  - `manifest.json` 的 `icons`（16/48/128）与 `action.default_icon` 从 `extensions.png` 改为 `imgs/icon.png`（两文件为同一张 264×264 图片，改动仅统一引用、无视觉变化）
+  - `js/background.js` 通知 `iconUrl` 同步改为 `imgs/icon.png`，保证扩展所有图标入口引用一致
+  - `src/extensions.png` 保留为兼容副本，不删除
+- [x] **修复新标签页 favicon 不生效 Bug（第二轮：相对路径在 newtab 地址下无法解析）**（`js/newetab.js` + `manifest.json`）
+  - 复测根因：第一轮修复后 Edge 下仍未生效。原因是 newtab 覆盖页在标签页上显示的地址为 `edge://newtab` / `chrome://newtab`，页面内 `<link rel="icon" href="../imgs/icon.png">` 的相对路径在该地址下无法解析为扩展资源，浏览器请求失败，标签页图标依然不显示
+  - 解决：
+    1. `js/newetab.js` 顶部新增 `initFavicon()`：页面加载时用 `chrome.runtime.getURL('imgs/icon.png')` 将 favicon `href` 动态改写为扩展绝对路径（扩展页面可调用 `chrome.runtime` API，无需额外权限）
+    2. `manifest.json` 新增 `web_accessible_resources` 声明 `imgs/icon.png`（matches `<all_urls>`），确保非扩展上下文（标签页 favicon 请求）能访问该资源
+  - 保留 `newtab.html` 静态 `<link rel="icon">` 声明作为直接访问扩展页面 URL 时的兜底，形成「静态声明 + 动态改写」双保险
+- [x] **修复新标签页 favicon 不生效 Bug（第三轮：头部提前改写 + 缓存失效）**（`js/favicon.js` + `pages/newtab.html` + `js/newetab.js`）
+  - 复测结论：第二轮「body 末尾动态改写 + WAR」的机制本身有效（Edge headless 实测浏览器能正确抓取 `chrome-extension://<id>/imgs/icon.png`）；用户侧仍不生效，多为扩展未重新加载、或浏览器 favicon 缓存残留旧失败状态所致
+  - 本轮加固：
+    1. favicon 改写逻辑从 `js/newetab.js`（body 末尾加载）独立为 `js/favicon.js`，并在 `newtab.html` 的 `<head>` 中紧跟 `<link rel="icon">` 声明提前执行，确保浏览器 favicon 服务**首次抓取前**就拿到扩展绝对地址，消除时序隐患
+    2. 图标地址追加 `?v=扩展版本` 缓存失效参数：扩展升级后 favicon URL 自动变化，强制浏览器重新抓取图标，规避 Edge/Chrome 的 favicon 缓存导致「旧图标 / 无图标」长期残留
+    3. 保留静态声明（直接访问扩展页面 URL 时的兜底）与 `web_accessible_resources`（非扩展上下文可访问），形成完整保障链
+  - 用户侧排查：若标签页仍无图标，先在扩展管理页对 TanPage 点击「重新加载」再新建标签页；仍未生效则清除浏览器缓存 / favicon 数据库后重试（Edge 存在已知 favicon 缓存问题）
+
 ---
 
 ## 关键决策
 
-1. **以 `Universal/` 为唯一主版本**：Manifest V3 同时兼容 Chrome 与 Firefox，MV2 已不被 Chrome 支持。`Chrome/`、`FireFox/` 目录保留但仅作归档，不再同步修改。
+1. **以 `src/` 为唯一主版本**：Manifest V3 同时兼容 Chrome 与 Firefox，MV2 已不被 Chrome 支持。原 `Chrome/`、`FireFox/` 目录已删除，不再保留归档版本。
 2. **默认配置单一来源**：所有默认数据集中在 `background.js` 的 `DEFAULT_SETTINGS`，避免"初始化逻辑"与"恢复默认逻辑"写两份导致不一致。
 3. **右键菜单功能以 Chrome 版实现为基准合并**：Chrome 版曾有三个完整菜单项，Universal 版因迁移 MV3 时被注释丢失，本次以 Chrome 版为准恢复并做 MV3 适配。
 4. **权限最小化**：只保留扩展实际调用的域名权限，符合商店审核要求，同时减小攻击面。
 5. **`js/engines.js`、`js/API.js` 等纯注释/空文件直接删除**，不保留无意义文件。
 6. **远程壁纸跨域问题通过申请 host 权限解决**（替代早期设想的 CORS 降级方案）：`<img crossOrigin='anonymous'>` 的跨域请求在扩展拥有目标域名 host 权限后会被浏览器放行。`manifest.json` 的 `host_permissions` 添加 `<all_urls>`、`*://*/*`，即可在不改动 `newetab.js` 加载逻辑的前提下，同时解决远程壁纸**展示**与「保存壁纸」**导出**两个问题。
 7. **权限策略的权衡**：为兼容任意自定义壁纸源，放弃了「权限最小化」（决策 4），接受全局 host 权限带来的审核提示与攻击面增大。此为功能完整性优先的取舍。
+8. **网站 logo 采用 MV3 官方 `_favicon/` 接口**：`chrome://favicon` 在 MV3 已弃用不可用，改用 `favicon` 权限 + `_favicon/` 接口；由于扩展已声明 `<all_urls>` host 权限，新增 `favicon` 权限不会带来额外警告提示。
+9. **历史列表事件采用事件委托**：列表每次查询全量重建，事件统一绑定在常驻的 `#list` 容器上（`bindListEvents`），避免每次渲染重复绑定 1000+ 个监听器。
+10. **newtab 页面 favicon 使用扩展绝对路径并提前改写**：newtab 覆盖页的标签页地址是 `edge://newtab` / `chrome://newtab`，相对路径资源无法解析，必须通过 `chrome.runtime.getURL()` 生成扩展绝对路径，并在 `<head>` 中提前改写（`js/favicon.js`），配合 `web_accessible_resources` 声明与 `?v=版本号` 缓存失效参数，保证 favicon 服务首次抓取即命中、且不被浏览器 favicon 缓存残留影响。
 
 ---
 
@@ -89,17 +129,17 @@
 
 ### 功能与性能
 
-- [ ] **代码去重**：`Chrome/`、`FireFox/` 与 `Universal/` 的 js/css/html 大量重复。建议后续彻底删除归档目录，或建立构建脚本从单一源码生成各版本
+- [x] **代码去重**：已删除 `Chrome/`、`FireFox/` 两个 MV2 历史版本目录，项目仅保留 `src/` 单一源码版本
 - [ ] **`String.prototype.format` / `isEmpty` 原型扩展**：目前仍挂在原型上，存在与第三方库冲突风险，后续可改为独立工具函数并全量替换调用点
 - [ ] **背景图存储**：本地壁纸 base64 存 `chrome.storage.local`（3MB 限制、读写慢），可迁移至 IndexedDB，storage 只存引用
-- [ ] **事件委托**：书签/引擎列表每次操作全量重建 DOM 并重新绑定事件，数据量大时卡顿，可改用事件委托
+- [ ] **事件委托**：书签/引擎列表每次操作全量重建 DOM 并重新绑定事件，数据量大时卡顿，可改用事件委托（历史列表已完成事件委托改造）
 - [ ] **建议列表图标**：搜索建议使用 `imgs/1.png~7.png` 编号图标，可替换为 favicon 或去掉
 - [ ] **"其他壁纸源"选项**：设置页中存在但功能未实现（点击提示"敬请期待"），可完善或隐藏
 
 ### 工程与发布
 
 - [ ] **构建/CI 流程**：仓库无构建脚本与 CI，`.less` 源文件与编译 `.css` 并存，建议接入自动化构建与打包
-- [ ] **`.gitignore`**：建议忽略 `Universal.zip`、`*.sketch`、`node_modules` 等产物
+- [ ] **`.gitignore`**：建议忽略 `*.zip`、`*.sketch`、`node_modules` 等产物
 - [ ] **浏览器商店发布**：确认 Edge/Chrome/Firefox 商店审核对 MV3 + 最小权限的通过情况，补全商店素材
 - [ ] **依赖升级**：jQuery 3.5.1 可升级至 3.7.x（含安全修复）；可评估是否引入现代构建（ESM）
 - [ ] **README 补充**：可补截图、详细配置说明、常见问题
@@ -117,4 +157,36 @@
 
 - **manifest 版本**：1.6.0
 - **Manifest V3**：✅
-- **最后更新**：2026-08-09
+- **最后更新**：2026-08-12
+
+---
+
+## 变更记录
+
+### 2026-08-12：图标修复（第三轮：提前改写 + 缓存失效）
+
+- [x] **favicon 改写提前到 `<head>` 执行**：新增 `js/favicon.js`，在 `newtab.html` 的 `<head>` 中紧随静态 `<link rel="icon">` 声明加载并立即改写为扩展绝对路径，避免浏览器 favicon 服务先请求到错误地址的时序问题；`js/newetab.js` 中不再重复改写
+- [x] **新增 `?v=扩展版本` 缓存失效参数**：图标 URL 随扩展版本自动「换新」，强制浏览器重新抓取，规避 favicon 缓存导致的「无图标」残留
+- [x] **Edge headless 实测验证**：扩展覆盖页加载后，浏览器成功抓取 `chrome-extension://<id>/imgs/icon.png?v=<version>`，favicon 请求链路正常
+- [x] **同步文档**：`README.md` 代码说明与 `progress.md` 已完成事项/关键决策/变更记录同步更新；补充「重新加载扩展 / 清除 favicon 缓存」排查说明
+
+### 2026-08-12：图标修复（新标签页 favicon 不生效）
+
+- [x] **修复新标签页无图标（第一轮）**：`pages/newtab.html` 中 favicon 的 `type` 由 `image/x-ico` 修正为 `image/png`（原 MIME 声明与实际 PNG 内容不符，Chrome 拒绝加载）
+- [x] **图标资源统一**：`manifest.json` 的 `icons` / `action.default_icon`、`background.js` 通知 `iconUrl` 全部改为 `imgs/icon.png`，与 favicon 引用保持一致
+- [x] **修复新标签页无图标（第二轮，Edge 复测后补充）**：根因是 newtab 覆盖页标签页地址为 `edge://newtab`，相对路径 favicon 无法解析。新增 `js/newetab.js` 的 `initFavicon()`（`chrome.runtime.getURL` 动态改写绝对路径）+ `manifest.json` 的 `web_accessible_resources` 声明，形成「静态声明 + 动态改写」双保险
+- [x] **同步文档**：`README.md` 代码说明新增图标统一与 favicon 双保险说明，`progress.md` 已完成事项/关键决策/变更记录均已更新
+
+### 2026-08-12：历史记录页面完善
+
+- [x] **默认展示最近 7 天历史**：下拉框默认选中项与初始查询同步改为 7 天
+- [x] **网站 logo 改用 MV3 官方 `_favicon/` 接口**：`chrome://favicon` 在 MV3 已弃用，`manifest.json` 新增 `favicon` 权限，图标加载失败自动隐藏
+- [x] **复选框多选 + 批量删除**：每条记录左侧新增复选框，表头支持全选/半选，「删除选中」按钮实时显示数量，无选中时置灰
+- [x] **逻辑收敛与事件委托**：查询统一走 `refreshHistory()`；列表事件委托到常驻 `#list` 容器；新增空列表提示
+- [x] **同步文档**：`README.md` 功能特性与代码说明、`progress.md` 已完成事项与关键决策均已更新
+
+### 2026-08-12：项目结构精简
+
+- [x] **删除 MV2 历史版本目录**：移除 `Chrome/` 与 `FireFox/` 两个旧版文件夹，消除大量重复代码
+- [x] **重命名主版本目录**：`Universal/` → `src/`，命名更简洁规范，符合主流项目目录惯例
+- [x] **同步更新文档**：`README.md` 目录结构与安装说明、`progress.md` 项目概况与待办事项均已同步更新
