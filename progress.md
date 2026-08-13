@@ -33,6 +33,10 @@
 - [x] **修复 `getPosition` 隐式全局变量**（`js/utils.js`）：`_x`/`_y` → `let x`/`y`
 - [x] **修复 `cutEngineLogo.js` 隐式全局变量**：`dataUrl`、拖拽缩放中的 `w`/`h` 补上 `var` 声明，移除废弃的 `mouseCoor`
 - [x] **清理全部业务代码 `console.log` 调试输出**（background/newetab/history/settingForm/cutEngineLogo）
+- [x] **修复清除历史下拉菜单被列表表头遮挡 Bug**（`css/history.css` + `css/history.less`）
+  - 症状：悬浮「Clear History」展开的下拉菜单（`#sub`）与列表表头 `.ul-header` 重叠的部分被盖住，无法点击
+  - 根因：`.header` 与 `.ul-header` 同为 `position: fixed; z-index: 10`，按 DOM 顺序后渲染的 `.ul-header` 绘制在上；`.clear-history-nav` 的 `z-index: 20` 只在父级 `.header` 的层叠上下文内有效，无法与根层的 `.ul-header` 比较
+  - 解决：`.header` 的 `z-index` 提升为 `20`（高于 `.ul-header` 的 `10`），整个头部层叠上下文（含清除历史下拉）恒位于列表表头之上；`history.less` 源文件同步修改
 
 ### 二、右键菜单功能合并（重要）
 
@@ -84,6 +88,11 @@
 - [x] **逻辑收敛重构**：首次加载 / 筛选切换 / 清除历史 / 批量删除统一走 `refreshHistory()`，保证查询行为一致
 - [x] **事件委托**：列表事件（单条删除、复选框勾选）绑定在常驻的 `#list` 容器上，列表整体重建后无需重复绑定
 - [x] **空列表提示**：查询结果为空时显示「暂无历史记录」
+- [x] **修复历史记录左侧图标缺失 Bug**（`js/history.js`）
+  - 症状：每一行历史记录左侧的网站 logo 不显示，浏览器审查元素可见该 `<img>` 被加上 `style="display: none;"`
+  - 根因：logo 由 `js/history.js` 的 `buildFavicon()` 动态渲染（并非 `history.html` 静态标签）；原实现仅用 MV3 `_favicon/` 接口取图，加载失败时 `error` 回调直接 `$(this).hide()`，于是整行图标被隐藏。`_favicon/` 在部分浏览器（如 Firefox 对 MV3 favicon API 支持不全）或特定环境下取不到图，导致全部行图标缺失
+  - 解决：在 `buildFavicon()` 中增加回退策略——`_favicon/` 加载失败时，改用目标站点自带的 `/favicon.ico`（同源请求，不向第三方泄露浏览记录）；仅当两级都失败才隐藏。同时先绑定 `error` 再设置 `src`，避免异步加载触发前事件未绑定而丢失回调
+  - 兼容性：保持 MV3 `_favicon/` 为主路径，未改动 `history.html` 结构与既有事件委托逻辑，不影响单条/批量删除等功能
 
 ### 八、图标资源修复（newtab 标签页图标不生效）
 
@@ -157,11 +166,21 @@
 
 - **manifest 版本**：1.6.0
 - **Manifest V3**：✅
-- **最后更新**：2026-08-12
+- **最后更新**：2026-08-13
 
 ---
 
 ## 变更记录
+
+### 2026-08-13：修复清除历史下拉菜单被表头遮挡
+
+- [x] **修复悬浮「Clear History」展开的下拉菜单被 `.ul-header` 盖住**（`css/history.css` + `css/history.less`）：根因为层叠上下文——`.header` 与 `.ul-header` 同 `z-index: 10` 时按 DOM 顺序 `.ul-header` 绘制在上，且 `.clear-history-nav` 的 `z-index: 20` 受限于父级 `.header` 的层叠上下文、无法与根层比较；将 `.header` 的 `z-index` 提升为 `20` 后，下拉菜单恒显示在列表表头之上
+- [x] **同步文档**：`README.md` 代码说明与 `progress.md` 已完成事项/变更记录均已更新
+
+### 2026-08-13：修复历史记录左侧图标缺失
+
+- [x] **修复历史记录每行左侧 logo 不显示**（`js/history.js`）：审查元素可见 `<img>` 被加 `style="display: none;"`，根因为 `buildFavicon()` 仅用 MV3 `_favicon/` 接口、失败时直接 `hide()`；新增回退到站点自带 `/favicon.ico`（同源、不泄露给第三方），两级都失败才隐藏，并先绑 `error` 再设 `src` 规避事件丢失
+- [x] **同步文档**：`README.md` 历史页说明、`progress.md` 已完成事项与变更记录均已更新；最后更新日期调整为 2026-08-13
 
 ### 2026-08-12：图标修复（第三轮：提前改写 + 缓存失效）
 

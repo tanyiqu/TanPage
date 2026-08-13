@@ -4,7 +4,10 @@
   box-sizing: border-box;
 }
 .header {
-  z-index: 10;
+  /* z-index 必须高于 .ul-header 的 z-index(10)：
+     .clear-history-nav 是 .header 的子元素，其 z-index(20) 只在 .header 的层叠上下文内有效，
+     若两者同为 10，按 DOM 顺序后渲染的 .ul-header 会盖住展开的清除历史下拉菜单(#sub) */
+  z-index: 20;
   position: fixed;
   top: 0;
   left: 0;

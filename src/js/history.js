@@ -287,20 +287,43 @@ function showHistory(array) {
 
 /**
  * 构建网站 logo 图片
- * MV3 中 chrome://favicon 已不可用，改用官方 _favicon/ 接口
+ * MV3 中 chrome://favicon 已不可用，首选官方 _favicon/ 接口
  * （需在 manifest.json 的 permissions 中声明 "favicon" 权限）
+ * 当 _favicon/ 接口不可用（如部分浏览器对 MV3 favicon API 支持不全）时，
+ * 回退到目标站点自带的 /favicon.ico，保证每一行左侧图标都能正常显示，
+ * 且不向第三方泄露浏览记录（仅请求站点自身资源）。两级都失败才隐藏。
  * @param {string} url 网页地址
  */
 function buildFavicon(url) {
+    // 首选：MV3 官方 _favicon/ 接口（隐私友好，不向第三方发起请求）
     let faviconUrl = new URL(chrome.runtime.getURL('/_favicon/'));
     faviconUrl.searchParams.set('pageUrl', url);
     faviconUrl.searchParams.set('size', '32');
-    return $('<img>', {
-        src: faviconUrl.toString(),
-        alt: '',
-        // 个别站点没有图标时隐藏，避免显示破图
-        error: function () {
+
+    // 先创建 img 并绑定 error 回退，再设置 src，避免异步加载完成前
+    // 事件未绑定导致 error 回调丢失（jQuery 设置 src 后即可异步触发加载）
+    let $img = $('<img>', {
+        alt: ''
+    });
+
+    $img.on('error', function () {
+        let fallback = '';
+        try {
+            // 回退：目标站点根路径自带的 favicon（同源请求，不泄露给第三方）
+            fallback = new URL('/favicon.ico', url).href;
+        } catch (e) {
+            // URL 非法（如 about: / chrome: 等内部页）无法生成回退地址，直接隐藏
+            $(this).hide();
+            return;
+        }
+        // 防止回退地址再次触发 error 造成死循环：仅在尚未回退时才切换
+        if (this.src !== fallback) {
+            this.src = fallback;
+        } else {
             $(this).hide();
         }
     });
+
+    $img.attr('src', faviconUrl.toString());
+    return $img;
 }
