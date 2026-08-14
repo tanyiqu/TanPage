@@ -108,7 +108,15 @@
   padding-left: 10px;
 }
 .ul-header .ul-page {
-  flex: 7;
+  flex: 4;
+  min-width: 0;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.ul-header .ul-url {
+  flex: 3;
+  min-width: 0;
   height: 50px;
   line-height: 50px;
   padding-left: 10px;
@@ -162,11 +170,17 @@
 }
 #list li .page {
   display: flex;
-  flex: 7;
+  flex: 4;
+  min-width: 0;
   position: relative;
   height: 50px;
   line-height: 50px;
   padding-left: 10px;
+}
+#list li .page p {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 #list li .select {
   width: 44px;
@@ -190,9 +204,32 @@
   margin-top: -8px;
 }
 #list li .page a {
+  display: block;
   margin-left: 24px;
   text-decoration: none;
   color: #4791eb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#list li .url {
+  flex: 3;
+  min-width: 0;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+#list li .url a {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #555;
+  text-decoration: none;
+}
+#list li .url a:hover {
+  color: #4791eb;
+  text-decoration: underline;
 }
 #list li .visit-time {
   flex: 1.5;

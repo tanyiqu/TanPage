@@ -147,8 +147,15 @@
     }
 
     .ul-page {
-        flex         : 7;
+        flex         : 4;
+        min-width    : 0;
         // background: saddlebrown;
+        .ul-();
+    }
+
+    .ul-url {
+        flex     : 3;
+        min-width: 0;
         .ul-();
     }
 
@@ -210,7 +217,8 @@
 
         .page {
             display : flex;
-            flex    : 7;
+            flex    : 4;
+            min-width: 0;
             position: relative;
 
 
@@ -225,10 +233,40 @@
 
             .li-();
 
+            p {
+                min-width: 0;
+                width    : 100%;
+                overflow : hidden;
+            }
+
             a {
+                display        : block;
                 margin-left    : 24px;
                 text-decoration: none;
                 color          : #4791eb;
+                overflow       : hidden;
+                text-overflow  : ellipsis;
+                white-space    : nowrap;
+            }
+        }
+
+        .url {
+            flex     : 3;
+            min-width: 0;
+            .li-();
+
+            a {
+                display        : block;
+                overflow       : hidden;
+                text-overflow  : ellipsis;
+                white-space    : nowrap;
+                color          : #555;
+                text-decoration: none;
+
+                &:hover {
+                    color          : #4791eb;
+                    text-decoration: underline;
+                }
             }
         }
 

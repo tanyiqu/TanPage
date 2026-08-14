@@ -77,6 +77,10 @@
 
 ### 七、历史记录页面完善
 
+- [x] **新增链接列并完善长文本展示**（`pages/history.html` + `js/history.js` + `css/history.css` + `css/history.less`）
+  - 表头新增“链接”列，每条记录显示可点击的完整 URL 数据，与标题链接一致在新标签页打开
+  - 标题列与链接列采用可收缩的 Flex 布局；空间不足时使用省略号，避免长文本挤压访问时间和访问次数列
+  - URL 链接设置原生 `title` 提示，鼠标悬浮时可查看完整地址；标题同步设置提示文本，便于查看被省略的完整标题
 - [x] **默认展示改为最近 7 天**（`pages/history.html` + `js/history.js`）
   - 下拉框默认选中项从 `24hours` 改为 `7days`，初始查询时间范围同步改为 7 天，两者保持一致
 - [x] **每条记录左侧展示网站 logo**（`js/history.js` + `manifest.json`）

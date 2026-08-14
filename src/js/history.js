@@ -1,7 +1,7 @@
 /**
  * 历史记录页面逻辑
  * - 按时间范围查询浏览历史（默认最近 7 天，与页面下拉框默认选中项一致）
- * - 每条记录展示网站 logo（MV3 官方 _favicon/ 接口，需 manifest 声明 "favicon" 权限）
+ * - 每条记录展示网站 logo、标题与 URL（过长文本自动省略）
  * - 支持单条删除、复选框多选批量删除
  */
 
@@ -234,7 +234,7 @@ function showHistory(array) {
             title: '选择该记录'
         }));
 
-        // 网站 logo + 页面名称
+        // 网站 logo + 页面标题
         let page = $(document.createElement('div'));
         page.addClass('page');
         page.append(buildFavicon(value.url));
@@ -251,9 +251,20 @@ function showHistory(array) {
         } else {
             title = value.title;
         }
+        a.attr('title', title);
         a.text(title);
         p.append(a);
         page.append(p);
+
+        // URL 链接；title 属性用于在文本被省略时悬浮查看完整地址
+        let url = $(document.createElement('div'));
+        url.addClass('url');
+        url.append($('<a>', {
+            target: '_blank',
+            href: value.url,
+            title: value.url,
+            text: value.url
+        }));
 
         // 访问时间 / 累计访问次数
         let visit_time = $(document.createElement('div'));
@@ -269,7 +280,7 @@ function showHistory(array) {
         deleteBtn.addClass('img-delete-history');
         deleteBtn.attr('id', 'his_ID_' + value.id);
 
-        li.append(select, page, visit_time, visit_count, deleteBtn);
+        li.append(select, page, url, visit_time, visit_count, deleteBtn);
         list.append(li);
     });
 
